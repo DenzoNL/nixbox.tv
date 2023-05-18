@@ -18,6 +18,7 @@
         modules = [
           ./configuration.nix
           ./services/plex.nix
+          ./services/radarr.nix
           ./services/sonarr.nix
           vscode-server.nixosModule
           ({ config, pkgs, ... }: {

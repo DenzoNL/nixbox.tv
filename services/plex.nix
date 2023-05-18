@@ -9,7 +9,7 @@
 # Nginx Reverse SSL Proxy
   services.nginx.virtualHosts."plex.nixbox.tv" = {
     # Enable Let's Encrypt
-    addSSL = true;
+    forceSSL = true;
     enableACME = true;
 
     # http2 can more performant for streaming: https://blog.cloudflare.com/introducing-http2/
