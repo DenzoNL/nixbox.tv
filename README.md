@@ -7,10 +7,12 @@ A Nix Flake for my personal media server. Currently, it is a work-in-progress an
 Fork & clone this git repository to your home directory:
 
 ```shell
-$ nix-shell -p git && git clone git@github.com:<SERNAME>/nixbox.tv.git 
+$ nix-shell -p git && git clone git@github.com:<USERNAME>/nixbox.tv.git 
 ```
 
-Make any changes to the configuration as necessary and rebuild the system:
+> :warning: **Don't use my hardware-configuration.nix, generate your own!**: Be very careful here!
+
+Make any changes to the configuration as necessary and rebuild the system
 
 ```shell
 $ cd ~/nixbox.tv && nixos-rebuild --flake .#nixbox switch
