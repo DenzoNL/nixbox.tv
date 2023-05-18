@@ -44,8 +44,8 @@
   ];
 
   environment.shellAliases = {
-    "update" = "cd /etc/nixos && nix flake update";
-    "rebuild" = "cd /etc/nixos && nixos-rebuild --flake .#nixbox switch";
+    "update" = "cd ~/nixbox.tv && nix flake update";
+    "rebuild" = "cd ~/nixbox.tv && sudo nixos-rebuild --flake .#nixbox switch";
   };
 
   # List services that you want to enable:
