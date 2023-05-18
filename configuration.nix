@@ -53,6 +53,17 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  # Enable the NGINX daemon.
+  services.nginx.enable = true;
+
+  # Configure Let's Encrypt settings.
+  security.acme = {
+    acceptTerms = true;
+    defaults = {
+      email = "dutybounddead@protonmail.com";
+    };
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
