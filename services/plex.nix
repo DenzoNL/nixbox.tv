@@ -7,10 +7,7 @@
   };
 
 # Nginx Reverse SSL Proxy
-services.nginx = {
-  enable = true;
-  # give a name to the virtual host. It also becomes the server name.
-  virtualHosts."plex.nixbox.tv" = {
+  services.nginx.virtualHosts."plex.nixbox.tv" = {
     # Enable Let's Encrypt
     addSSL = true;
     enableACME = true;
@@ -80,5 +77,4 @@ services.nginx = {
       proxyPass = "http://localhost:32400/";
     };
   };
-};
 }
