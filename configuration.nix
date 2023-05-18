@@ -18,6 +18,9 @@
     '';
   };
 
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
   users.extraUsers.denzo = {
     isNormalUser = true;
     home = "/home/denzo";
@@ -35,6 +38,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
+    htop
     nil
     wget
   ];

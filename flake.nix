@@ -17,6 +17,7 @@
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
+          ./services/plex.nix
           vscode-server.nixosModule
           ({ config, pkgs, ... }: {
             services.vscode-server.enable = true;
