@@ -21,7 +21,7 @@
           ./services/plex.nix
           ./services/radarr.nix
           ./services/sonarr.nix
-          ./services/vscode-server.nix
+          vscode-server.nixosModule(./services/vscode-server.nix)
         ];
       };
     };
