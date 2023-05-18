@@ -21,10 +21,7 @@
           ./services/plex.nix
           ./services/radarr.nix
           ./services/sonarr.nix
-          vscode-server.nixosModule
-          ({ config, pkgs, ... }: {
-            services.vscode-server.enable = true;
-          })
+          ./services/vscode-server.nix
         ];
       };
     };
