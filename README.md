@@ -36,7 +36,8 @@ $ rebuild
 - [x] Sonarr
 - [x] Radarr
 - [x] Lidarr
-- [ ] Rutorrent
+- [X] Rtorrent
+- [X] Flood
 - [ ] Tailscale
 - [ ] Overseerr
 

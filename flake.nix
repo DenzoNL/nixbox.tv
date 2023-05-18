@@ -17,9 +17,11 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/nixbox/configuration.nix
+          ./services/flood.nix
           ./services/lidarr.nix
           ./services/plex.nix
           ./services/radarr.nix
+          ./services/rtorrent.nix
           ./services/sonarr.nix
           vscode-server.nixosModule(./services/vscode-server.nix)
         ];
