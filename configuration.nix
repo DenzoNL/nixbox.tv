@@ -18,6 +18,12 @@
     '';
   };
 
+  users.extraUsers.denzo = {
+    isNormalUser = true;
+    home = "/home/denzo";
+    extraGroups = [ "wheel" ];
+  };
+
   networking.hostName = "nixbox";
 
   boot.loader.systemd-boot.enable = true;
@@ -29,6 +35,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
+    nil
     wget
   ];
 
