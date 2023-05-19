@@ -18,8 +18,12 @@
         modules = [
           ./hosts/nixbox/configuration.nix
           ./services/flood.nix
+          ./services/grafana.nix
           ./services/lidarr.nix
+          ./services/loki.nix
           ./services/plex.nix
+          ./services/prometheus.nix
+          ./services/promtail.nix
           ./services/radarr.nix
           ./services/rtorrent.nix
           ./services/sonarr.nix

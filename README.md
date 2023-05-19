@@ -38,6 +38,7 @@ $ rebuild
 - [x] Lidarr
 - [X] Rtorrent
 - [X] Flood
+- [x] Grafana/Prometheus/Loki/Promtail
 - [ ] Tailscale
 - [ ] Overseerr
 
@@ -50,4 +51,3 @@ $ rebuild
 ### Maybe
 - [ ] Add flake template
 - [ ] Instructions on how to re-use this
-- [ ] Monitoring/observability stack (Grafana?)
