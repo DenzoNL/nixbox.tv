@@ -1,8 +1,8 @@
-# nixbox.tv (WIP)
+# nixbox.tv 
 
 A Nix Flake for my personal media server. Currently, it is a work-in-progress and not suited for re-use on other systems unless you know what you are doing.
 
-## Initial setup (untested, use at your own risk)
+## Setup
 
 Fork & clone this git repository to your home directory:
 
@@ -12,10 +12,10 @@ $ nix-shell -p git && git clone git@github.com:<USERNAME>/nixbox.tv.git
 
 > :warning: **Don't use my hardware-configuration.nix, generate your own!**: Be very careful here!
 
-Make any changes to the configuration as necessary and rebuild the system
+Make any changes to the configuration as necessary and deploy it to the host configured in [flake.nix](./flake.nix):
 
 ```shell
-$ cd ~/nixbox.tv && nixos-rebuild --flake .#nixbox switch
+$ deploy
 ```
 
 ## Shell aliases
@@ -46,8 +46,4 @@ $ rebuild
 - [ ] Secrets
 - [ ] Extract stuff to variables
 - [ ] ZSH shell (maybe using home manager)
-- [ ] Refactor
-
-### Maybe
-- [ ] Add flake template
-- [ ] Instructions on how to re-use this
+- [ ] Refactor/restructure Nix files to something that makes sense
