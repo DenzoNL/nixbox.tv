@@ -48,14 +48,8 @@
   environment.systemPackages = with pkgs; [
     git
     htop
-    nil
     wget
   ];
-
-  environment.shellAliases = {
-    "update" = "cd ~/nixbox.tv && nix flake update";
-    "rebuild" = "cd ~/nixbox.tv && sudo nixos-rebuild --flake .#nixbox switch";
-  };
 
   # Enable the NGINX daemon.
   services.nginx.enable = true;

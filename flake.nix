@@ -10,13 +10,9 @@
     deploy-rs = {
       url = "github:serokell/deploy-rs";
     };
-
-    vscode-server = { 
-      url = "github:nix-community/nixos-vscode-server";
-    };
   };
 
-  outputs = { self, nixpkgs, deploy-rs, vscode-server }: 
+  outputs = { self, nixpkgs, deploy-rs }: 
     let 
       pkgs = nixpkgs.legacyPackages.x86_64-linux; 
     in 
@@ -37,7 +33,6 @@
             ./services/rtorrent.nix
             ./services/sonarr.nix
             ./services/ssh.nix
-            vscode-server.nixosModule(./services/vscode-server.nix)
           ];
         };
       };
