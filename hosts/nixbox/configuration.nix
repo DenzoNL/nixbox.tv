@@ -29,6 +29,9 @@
     isNormalUser = true;
     home = "/home/denzo";
     extraGroups = [ "wheel" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFcJJbDNPRxWWj/9W6NtLGfwQ9fYs+JUQJZA8e2ug9Hd"
+    ];
   };
 
   security.sudo.wheelNeedsPassword = false;
@@ -53,11 +56,6 @@
     "update" = "cd ~/nixbox.tv && nix flake update";
     "rebuild" = "cd ~/nixbox.tv && sudo nixos-rebuild --flake .#nixbox switch";
   };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
 
   # Enable the NGINX daemon.
   services.nginx.enable = true;

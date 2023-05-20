@@ -36,6 +36,7 @@
             ./services/radarr.nix
             ./services/rtorrent.nix
             ./services/sonarr.nix
+            ./services/ssh.nix
             vscode-server.nixosModule(./services/vscode-server.nix)
           ];
         };
