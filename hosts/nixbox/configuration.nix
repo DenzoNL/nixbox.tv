@@ -16,6 +16,7 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+    settings.trusted-users = [ "@wheel" ];
   };
 
   # Enable VMWare Guest Tools
@@ -29,6 +30,8 @@
     home = "/home/denzo";
     extraGroups = [ "wheel" ];
   };
+
+  security.sudo.wheelNeedsPassword = false;
 
   networking.hostName = "nixbox";
 
