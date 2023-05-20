@@ -18,6 +18,9 @@
     '';
   };
 
+  # Enable VMWare Guest Tools
+  virtualisation.vmware.guest.enable = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
