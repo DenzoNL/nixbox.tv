@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./networking.nix
     ];
 
   # Enable Nix Flakes
@@ -18,9 +19,6 @@
     '';
     settings.trusted-users = [ "@wheel" ];
   };
-
-  # Enable VMWare Guest Tools
-  virtualisation.vmware.guest.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -38,7 +36,8 @@
 
   networking.hostName = "nixbox";
 
-  boot.loader.systemd-boot.enable = true;
+  boot.tmp.cleanOnBoot = true;
+  zramSwap.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
