@@ -31,7 +31,15 @@ $ deploy
 - [x] Grafana/Prometheus/Loki/Promtail
 - [X] Tailscale
 - [ ] Overseerr
-
+- [ ] Open VSCode Server
+- [ ] Authelia Auth
+  - [ ] Sonarr
+  - [ ] Radarr
+  - [ ] Lidarr
+  - [ ] Flood
+  - [ ] Grafana
+  - [ ] Overseerr
+  - [ ] OpenVSCode Server
 ### Miscellanous
 - [ ] Secrets
 - [ ] Extract stuff to variables
