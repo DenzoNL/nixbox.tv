@@ -23,7 +23,6 @@
           system = "x86_64-linux";
           modules = [
             ./hosts/nixbox/configuration.nix
-            ./services/monitoring/monitoring.nix
             ./services/flood.nix
             ./services/lidarr.nix
             ./services/plex.nix
