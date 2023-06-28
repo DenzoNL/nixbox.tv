@@ -6,9 +6,17 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
       ./networking.nix
+      ./../../services/flood.nix
+      ./../../services/lidarr.nix
+      ./../../services/plex.nix
+      ./../../services/radarr.nix
+      ./../../services/rtorrent.nix
+      ./../../services/sonarr.nix
+      ./../../services/ssh.nix
+      ./../../services/tailscale.nix
     ];
 
   # Enable Nix Flakes
