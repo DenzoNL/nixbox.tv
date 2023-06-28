@@ -1,6 +1,18 @@
 # nixbox.tv 
 
-A Nix Flake for my personal media server. Currently, it is a work-in-progress and not suited for re-use on other systems unless you know what you are doing.
+A Nix Flake for my personal media server, inspired by [Saltbox](https://github.com/saltyorg/Saltbox).
+
+## Services
+
+Nixbox.tv is configured with the following services:
+
+- Plex
+- Sonarr
+- Radarr
+- Lidarr
+- rTorrent
+- Flood (UI for rTorrent)
+- Tailscale
 
 ## Setup
 
@@ -17,30 +29,3 @@ Make any changes to the configuration as necessary and deploy it to the host con
 ```shell
 $ deploy
 ```
-
-## TODO
-
-### Services
-- [x] NGINX Reverse Proxy with Let's Encrypt
-- [x] Plex
-- [x] Sonarr
-- [x] Radarr
-- [x] Lidarr
-- [X] Rtorrent
-- [X] Flood
-- [x] Grafana/Prometheus/Loki/Promtail
-- [X] Tailscale
-- [ ] Overseerr
-- [ ] Open VSCode Server
-- [ ] Authelia Auth
-  - [ ] Sonarr
-  - [ ] Radarr
-  - [ ] Lidarr
-  - [ ] Flood
-  - [ ] Grafana
-  - [ ] Overseerr
-  - [ ] OpenVSCode Server
-### Miscellanous
-- [ ] Secrets
-- [ ] Extract stuff to variables
-- [ ] Refactor/restructure Nix files to something that makes sense
