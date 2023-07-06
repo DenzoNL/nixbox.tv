@@ -8,7 +8,6 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./networking.nix
       ./../../services/flood.nix
       ./../../services/lidarr.nix
       ./../../services/plex.nix
@@ -34,18 +33,24 @@
   users.extraUsers.denzo = {
     isNormalUser = true;
     home = "/home/denzo";
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFcJJbDNPRxWWj/9W6NtLGfwQ9fYs+JUQJZA8e2ug9Hd"
     ];
   };
 
+  # Enable automatic login for the user.
+  services.getty.autologinUser = "denzo";
+
   security.sudo.wheelNeedsPassword = false;
 
   networking.hostName = "nixbox";
+  # Enable networking
+  networking.networkmanager.enable = true;
 
-  boot.tmp.cleanOnBoot = true;
-  zramSwap.enable = true;
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
