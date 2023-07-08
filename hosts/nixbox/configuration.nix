@@ -63,6 +63,12 @@
     wget
   ];
 
+  # Enable iperf3 daemon.
+  services.iperf3 = {
+    enable = true;
+    openFirewall = true;
+  };
+
   # Enable the NGINX daemon.
   services.nginx.enable = true;
 
