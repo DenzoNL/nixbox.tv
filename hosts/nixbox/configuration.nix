@@ -9,6 +9,7 @@
     [
       ./hardware-configuration.nix
       ./../../services/flood.nix
+      ./../../services/home-assistant.nix
       ./../../services/lidarr.nix
       ./../../services/plex.nix
       ./../../services/radarr.nix
@@ -79,7 +80,10 @@
   };
 
   # Enable the NGINX daemon.
-  services.nginx.enable = true;
+  services.nginx = {
+    enable = true;
+    recommendedProxySettings = true;
+  };
 
   # Configure Let's Encrypt settings.
   security.acme = {
@@ -94,6 +98,16 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  virtualisation = {
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings = {
+        dns_enabled = true;
+      };
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
