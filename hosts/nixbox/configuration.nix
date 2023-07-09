@@ -16,6 +16,7 @@
       ./../../services/sonarr.nix
       ./../../services/ssh.nix
       ./../../services/tailscale.nix
+      ./../../misc/zsh.nix
     ];
 
   # Enable Nix Flakes
@@ -38,6 +39,8 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFcJJbDNPRxWWj/9W6NtLGfwQ9fYs+JUQJZA8e2ug9Hd"
     ];
   };
+
+  users.defaultUserShell = pkgs.zsh;
 
   # Enable automatic login for the user.
   services.getty.autologinUser = "denzo";
@@ -66,6 +69,7 @@
     ncdu
     pciutils
     wget
+    zsh
   ];
 
   # Enable iperf3 daemon.
