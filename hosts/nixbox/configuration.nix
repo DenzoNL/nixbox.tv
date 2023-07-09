@@ -60,6 +60,8 @@
   environment.systemPackages = with pkgs; [
     git
     htop
+    ncdu
+    pciutils
     wget
   ];
 
