@@ -16,5 +16,11 @@
     locations."/" = {
       proxyPass = "http://localhost:8686/";
     };
+
+    extraConfig = ''
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection $http_connection;
+    '';
   };
 }
