@@ -47,6 +47,9 @@
   networking.hostName = "nixbox";
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi = {
+    powersave = false;
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
