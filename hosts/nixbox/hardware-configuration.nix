@@ -23,6 +23,11 @@
       fsType = "vfat";
     };
 
+  fileSystems."/mnt/storage" =
+    { device = "zwembad";
+      fsType = "zfs";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/153ed9e2-20ed-44b2-8376-7d5ae4bc93ae"; }
     ];
@@ -33,6 +38,7 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp4s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.tailscale0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

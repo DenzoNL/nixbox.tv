@@ -55,9 +55,16 @@
     powersave = false;
   };
 
+  networking.hostId = "84f87fcf";
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.forceImportRoot = false;
+
+  # ZFS
+  services.zfs.autoScrub.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
