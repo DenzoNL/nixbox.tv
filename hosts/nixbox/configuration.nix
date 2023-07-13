@@ -43,7 +43,7 @@
 
   users.groups."mediausers" = {
     # Add necessary users to the group
-    members = [ "sonarr" "radarr" "lidarr" "plex" "denzo" "rtorrent" ];
+    members = [ "sonarr" "radarr" "lidarr" "plex" "denzo" "rtorrent" "flood" ];
   };
 
   users.defaultUserShell = pkgs.zsh;
