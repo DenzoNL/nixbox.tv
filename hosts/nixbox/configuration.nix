@@ -41,6 +41,11 @@
     ];
   };
 
+  users.groups."mediausers" = {
+    # Add necessary users to the group
+    members = [ "sonarr" "radarr" "lidarr" "plex" "denzo" "rtorrent" ];
+  };
+
   users.defaultUserShell = pkgs.zsh;
 
   # Enable automatic login for the user.
@@ -76,6 +81,8 @@
     htop
     ncdu
     pciutils
+    rclone
+    screen
     wget
     zsh
   ];
