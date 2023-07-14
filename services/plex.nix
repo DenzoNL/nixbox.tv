@@ -1,9 +1,20 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   services.plex = {
     enable = true;
     openFirewall = true;
+    extraPlugins = [
+      (builtins.path {
+        name = "WebTools.bundle";
+        path = pkgs.fetchFromGitHub {
+          owner = "ukdtom";
+          repo = "WebTools.bundle";
+          rev = "3.0.0";
+          sha256 = "sha256-CiIQA0DbnmV4TH7g6JgQwsmANBoDhAA0Xpi/CWj6Mmo=";
+        };
+      })
+    ];
   };
 
 # Nginx Reverse SSL Proxy
@@ -75,6 +86,20 @@
     '';
     locations."/" = {
       proxyPass = "http://localhost:32400/";
+    };
+  };
+
+  services.nginx.virtualHosts."plex-webtools.nixbox.tv" = {
+
+    # Enable Let's Encrypt
+    forceSSL = true;
+    enableACME = true;
+
+    # http2 can more performant for streaming: https://blog.cloudflare.com/introducing-http2/
+    http2 = true;
+
+    locations."/" = {
+      proxyPass = "http://localhost:33400/";
     };
   };
 }
