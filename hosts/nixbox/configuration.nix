@@ -79,6 +79,7 @@
   environment.systemPackages = with pkgs; [
     git
     htop
+    iftop
     ncdu
     pciutils
     rclone
