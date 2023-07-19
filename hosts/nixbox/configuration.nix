@@ -61,6 +61,9 @@
 
   networking.hostId = "84f87fcf";
 
+  # Disable NetworkManager-wait-online as it's flaky.
+  systemd.services.NetworkManager-wait-online.enable = false;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
