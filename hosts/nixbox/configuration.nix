@@ -9,7 +9,6 @@
     [
       ./hardware-configuration.nix
       ./../../services/flood.nix
-      ./../../services/home-assistant.nix
       ./../../services/lidarr.nix
       ./../../services/plex.nix
       ./../../services/radarr.nix
