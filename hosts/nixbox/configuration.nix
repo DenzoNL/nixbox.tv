@@ -16,7 +16,6 @@
       ./../../services/sonarr.nix
       ./../../services/ssh.nix
       ./../../services/tailscale.nix
-      ./../../misc/zsh.nix
     ];
 
   # Enable Nix Flakes
@@ -45,6 +44,8 @@
     members = [ "sonarr" "radarr" "lidarr" "plex" "denzo" "rtorrent" "flood" ];
   };
 
+  # Enable ZSH as the default shell
+  programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
   # Enable automatic login for the user.
@@ -87,7 +88,6 @@
     rclone
     screen
     wget
-    zsh
   ];
 
   # Enable iperf3 daemon.
