@@ -13,7 +13,7 @@
       method.insert = cfg.download, private|const|string, (cat,"${cfg.downloadDir}")
       method.insert = cfg.logs,     private|const|string, (cat,(cfg.basedir),"log/")
       method.insert = cfg.logfile,  private|const|string, (cat,(cfg.logs),"rtorrent-",(system.time),".log")
-      method.insert = cfg.session,  private|const|string, (cat,(cfg.basedir),".session/")
+      method.insert = cfg.session,  private|const|string, (cat,(cfg.basedir),"session/")
       method.insert = cfg.watch,    private|const|string, (cat,(cfg.basedir),"watch/")
 
       # RPC Socket
