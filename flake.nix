@@ -16,9 +16,14 @@
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, deploy-rs }: 
+  outputs = { self, nixpkgs, home-manager, deploy-rs, sops-nix }: 
     let 
       pkgs = nixpkgs.legacyPackages.x86_64-linux; 
     in 
@@ -28,6 +33,7 @@
           system = "x86_64-linux";
           modules = [
             ./hosts/nixbox/configuration.nix
+            sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -56,7 +62,9 @@
 
       devShells.x86_64-linux.default = pkgs.mkShell {
         packages = [
+          pkgs.age
           pkgs.deploy-rs
+          pkgs.sops
         ];
       };
   };
