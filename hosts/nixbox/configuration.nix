@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ./../../services/flood.nix
       ./../../services/lidarr.nix
+      ./../../services/monitoring/monitoring.nix
       ./../../services/plex.nix
       ./../../services/radarr.nix
       ./../../services/rtorrent.nix
