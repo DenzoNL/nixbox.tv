@@ -16,6 +16,7 @@
       ./../../services/rtorrent.nix
       ./../../services/sonarr.nix
       ./../../services/ssh.nix
+      ./../../services/samba.nix
     ];
 
   sops = {
@@ -180,6 +181,7 @@
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowPing = true;
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
