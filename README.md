@@ -12,7 +12,6 @@ Nixbox.tv is configured with the following services:
 - Lidarr
 - rTorrent
 - Flood (UI for rTorrent)
-- Tailscale
 
 ## Setup
 

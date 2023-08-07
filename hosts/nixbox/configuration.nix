@@ -16,7 +16,6 @@
       ./../../services/rtorrent.nix
       ./../../services/sonarr.nix
       ./../../services/ssh.nix
-      ./../../services/tailscale.nix
     ];
 
   sops = {
