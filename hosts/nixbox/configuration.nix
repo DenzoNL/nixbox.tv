@@ -14,9 +14,10 @@
       ./../../services/plex.nix
       ./../../services/radarr.nix
       ./../../services/rtorrent.nix
+      ./../../services/samba.nix
+      ./../../services/smartd.nix
       ./../../services/sonarr.nix
       ./../../services/ssh.nix
-      ./../../services/samba.nix
     ];
 
   sops = {
