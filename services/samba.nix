@@ -14,7 +14,7 @@
       server string = nixbox
       netbios name = nixbox
       security = user
-      hosts allow = 192.168.1. 127.0.0.1 localhost
+      hosts allow = 192.168.0. 127.0.0.1 localhost
       hosts deny = all
       guest account = nobody
       map to guest = bad user
