@@ -13,6 +13,7 @@
       ./../../services/monitoring/monitoring.nix
       ./../../services/plex.nix
       ./../../services/radarr.nix
+      ./../../services/minio.nix
       ./../../services/rtorrent.nix
       ./../../services/samba.nix
       ./../../services/smartd.nix
