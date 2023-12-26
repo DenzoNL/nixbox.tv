@@ -20,6 +20,7 @@
       ./../../services/sonarr.nix
       ./../../services/ssh.nix
       ./../../services/unifi.nix
+      ./../../services/zomboid.nix
     ];
 
   sops = {
@@ -182,6 +183,9 @@
     startAt = "daily";
   };
 
+  virtualisation.docker.enable = true;
+  virtualisation.oci-containers.backend = "docker";
+  
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 80 443 ];
   networking.firewall.allowPing = true;
