@@ -20,7 +20,6 @@
       ./../../services/sonarr.nix
       ./../../services/ssh.nix
       ./../../services/unifi.nix
-      ./../../services/zomboid.nix
     ];
 
   sops = {
