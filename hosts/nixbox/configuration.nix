@@ -18,6 +18,7 @@
       ./../../services/smartd.nix
       ./../../services/sonarr.nix
       ./../../services/ssh.nix
+      ./../../services/tailscale.nix
       ./../../services/unifi.nix
     ];
 
