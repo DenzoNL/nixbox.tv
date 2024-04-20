@@ -25,6 +25,7 @@
     defaultSopsFile = ./secrets.yaml;
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
     secrets = {
+      "acme/cloudflare" = {};
       "smtp/password" = {};
       "borg/ssh_private_key" = {};
       "borg/passphrase" = {};
@@ -120,6 +121,8 @@
     acceptTerms = true;
     defaults = {
       email = "dutybounddead@protonmail.com";
+      dnsProvider = "cloudflare";
+      environmentFile = config.sops.secrets."acme/cloudflare".path;
     };
   };
 
