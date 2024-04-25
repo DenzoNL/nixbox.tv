@@ -32,8 +32,7 @@
   services.nginx.virtualHosts."flood.nixbox.tv" = {
     # Enable Let's Encrypt
     forceSSL = true;
-    enableACME = true;
-    acmeRoot = null; # Force DNS-01 validation
+    useACMEHost = "nixbox.tv";
     
     http2 = true;
 

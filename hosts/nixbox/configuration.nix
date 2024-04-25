@@ -8,6 +8,7 @@
   imports =
     [
       ./hardware-configuration.nix
+      ./certificate.nix
       ./../../services/flood.nix
       ./../../services/lidarr.nix
       ./../../services/monitoring/monitoring.nix
@@ -26,7 +27,6 @@
     defaultSopsFile = ./secrets.yaml;
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
     secrets = {
-      "acme/cloudflare" = {};
       "smtp/password" = {};
       "borg/ssh_private_key" = {};
       "borg/passphrase" = {};

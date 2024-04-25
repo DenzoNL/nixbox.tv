@@ -64,8 +64,7 @@
   # nginx reverse proxy
   services.nginx.virtualHosts."grafana.nixbox.tv" = {
     forceSSL = true;
-    enableACME = true;
-    acmeRoot = null; # Force DNS-01 validation
+    useACMEHost = "nixbox.tv";
     
     locations."/" = {
       proxyPass = "http://${toString config.services.grafana.settings.server.http_addr}:${toString config.services.grafana.settings.server.http_port}/";
