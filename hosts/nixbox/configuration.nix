@@ -190,7 +190,6 @@
   virtualisation.oci-containers.backend = "docker";
   
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
   networking.firewall.allowPing = true;
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.

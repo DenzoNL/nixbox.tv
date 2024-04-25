@@ -3,7 +3,6 @@
 {
   services.sonarr = {
     enable = true;
-    openFirewall = true;
   };
 
   services.nginx.virtualHosts."sonarr.nixbox.tv" = {
@@ -11,7 +10,7 @@
     forceSSL = true;
     enableACME = true;
     acmeRoot = null; # Force DNS-01 validation
-    
+
     http2 = true;
 
     locations."/" = {
