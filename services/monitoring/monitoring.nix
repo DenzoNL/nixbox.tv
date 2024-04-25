@@ -2,8 +2,8 @@
   imports =
     [
       ./grafana.nix
-      # ./loki.nix
+      ./loki.nix
       ./prometheus.nix
-      # ./promtail.nix
+      ./promtail.nix
     ];
 }
