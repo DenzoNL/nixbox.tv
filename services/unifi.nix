@@ -11,6 +11,7 @@
     # Enable Let's Encrypt
     forceSSL = true;
     enableACME = true;
+    acmeRoot = null; # Force DNS-01 validation
 
     http2 = true;
 

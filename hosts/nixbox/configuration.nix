@@ -124,6 +124,7 @@
       email = "dutybounddead@protonmail.com";
       dnsProvider = "cloudflare";
       environmentFile = config.sops.secrets."acme/cloudflare".path;
+      dnsPropagationCheck = true;
     };
   };
 
