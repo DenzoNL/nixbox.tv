@@ -5,6 +5,7 @@
     enable = true;
     settings = {
       base-url = "https://ntfy.nixbox.tv";
+      upstream-base-url = "https://ntfy.sh"; # Necessary for iOS notifications
       listen-http = ":8085";
       behind-proxy = true;
       # Can't really load these nicely from secret files, but it's fine.
