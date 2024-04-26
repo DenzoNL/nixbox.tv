@@ -12,6 +12,7 @@
       ./../../services/flood.nix
       ./../../services/lidarr.nix
       ./../../services/monitoring/monitoring.nix
+      ./../../services/ntfy-sh.nix
       ./../../services/plex.nix
       ./../../services/radarr.nix
       ./../../services/rtorrent.nix
