@@ -171,7 +171,6 @@
     exclude = [
       # very large paths
       "/var/lib/containers"
-      "/var/lib/docker"
       "/var/lib/systemd"
       "/var/lib/libvirt"
       "/var/lib/plex/Plex Media Server/Cache"
@@ -185,9 +184,6 @@
     compression = "auto,lzma";
     startAt = "daily";
   };
-
-  virtualisation.docker.enable = true;
-  virtualisation.oci-containers.backend = "docker";
   
   # Open ports in the firewall.
   networking.firewall.allowPing = true;
