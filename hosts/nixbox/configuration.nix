@@ -14,6 +14,7 @@
       ./../../services/monitoring/monitoring.nix
       ./../../services/ntfy-sh.nix
       ./../../services/plex.nix
+      ./../../services/readarr.nix
       ./../../services/radarr.nix
       ./../../services/rtorrent.nix
       ./../../services/samba.nix
@@ -56,7 +57,7 @@
 
   users.groups."mediausers" = {
     # Add necessary users to the group
-    members = [ "sonarr" "radarr" "lidarr" "plex" "denzo" "rtorrent" "flood" ];
+    members = [ "sonarr" "readarr" "radarr" "lidarr" "plex" "denzo" "rtorrent" "flood" ];
   };
 
   # Enable ZSH as the default shell
