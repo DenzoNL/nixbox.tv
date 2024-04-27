@@ -22,6 +22,7 @@
       ./../../services/sonarr.nix
       ./../../services/ssh.nix
       ./../../services/tailscale.nix
+      ./../../services/the-lounge.nix
       ./../../services/unifi.nix
     ];
 
