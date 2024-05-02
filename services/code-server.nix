@@ -8,6 +8,9 @@
     disableUpdateCheck = true;
     proxyDomain = "code.nixbox.tv";
     user = "denzo";
+    extraPackages = with pkgs; [
+      nil
+    ];
   };
 
   services.nginx.virtualHosts."code.nixbox.tv" = {
