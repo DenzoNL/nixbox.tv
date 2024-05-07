@@ -15,6 +15,7 @@
       ./../../services/monitoring/monitoring.nix
       ./../../services/ntfy-sh.nix
       ./../../services/plex.nix
+      ./../../services/prowlarr.nix
       ./../../services/readarr.nix
       ./../../services/radarr.nix
       ./../../services/rtorrent.nix
