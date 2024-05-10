@@ -24,6 +24,7 @@
       ./../../services/sonarr.nix
       ./../../services/ssh.nix
       ./../../services/tailscale.nix
+      ./../../services/transmission.nix
       ./../../services/the-lounge.nix
       ./../../services/unifi.nix
     ];
@@ -60,7 +61,7 @@
 
   users.groups."mediausers" = {
     # Add necessary users to the group
-    members = [ "sonarr" "readarr" "radarr" "lidarr" "plex" "denzo" "rtorrent" "flood" ];
+    members = [ "sonarr" "readarr" "radarr" "lidarr" "plex" "denzo" "rtorrent" "flood" "transmission" ];
   };
 
   # Enable ZSH as the default shell
