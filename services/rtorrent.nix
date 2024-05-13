@@ -73,7 +73,7 @@
 
       ## Other operational settings (check & adapt)
       encoding.add = UTF-8
-      system.umask.set = 0022
+      system.umask.set = 0002
       system.cwd.set = (directory.default)
       network.http.dns_cache_timeout.set = 25
       schedule2 = monitor_diskspace, 15, 60, ((close_low_diskspace, 1000M))
