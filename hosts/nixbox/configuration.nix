@@ -60,7 +60,7 @@
 
   users.groups."mediausers" = {
     # Add necessary users to the group
-    members = [ "sonarr" "readarr" "radarr" "lidarr" "plex" "denzo" "rtorrent" "flood" "transmission" ];
+    members = [ "sonarr" "readarr" "radarr" "lidarr" "plex" "denzo" "rtorrent" "flood" ];
   };
 
   # Enable ZSH as the default shell
