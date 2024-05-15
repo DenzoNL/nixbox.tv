@@ -9,6 +9,7 @@
     [
       ./hardware-configuration.nix
       ./certificate.nix
+      ./../../services/bazarr.nix
       ./../../services/code-server.nix
       ./../../services/flood.nix
       ./../../services/lidarr.nix
