@@ -17,8 +17,9 @@
       ./../../services/ntfy-sh.nix
       ./../../services/plex.nix
       ./../../services/prowlarr.nix
-      ./../../services/readarr.nix
       ./../../services/radarr.nix
+      ./../../services/readarr.nix
+      ./../../services/redlib.nix
       ./../../services/rtorrent.nix
       ./../../services/samba.nix
       ./../../services/smartd.nix
