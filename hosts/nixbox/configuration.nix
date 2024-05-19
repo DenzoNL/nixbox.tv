@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ./certificate.nix
       ./../../services/bazarr.nix
+      ./../../services/borgbackup.nix
       ./../../services/code-server.nix
       ./../../services/flood.nix
       ./../../services/lidarr.nix
@@ -33,10 +34,6 @@
   sops = {
     defaultSopsFile = ./secrets.yaml;
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-    secrets = {
-      "borg/ssh_private_key" = {};
-      "borg/passphrase" = {};
-    };
   };
 
   # Enable Nix Flakes
@@ -154,29 +151,6 @@
 
     ZED_NTFY_TOPIC = "nixbox";
     ZED_NTFY_URL = "https://ntfy.nixbox.tv";
-  };
-
-  # Back up to borgbase
-  services.borgbackup.jobs."nixbox" = {
-    paths = [
-      "/var/lib"
-      "/home"
-    ];
-    exclude = [
-      # very large paths
-      "/var/lib/containers"
-      "/var/lib/systemd"
-      "/var/lib/libvirt"
-      "/var/lib/plex/Plex Media Server/Cache"
-    ];
-    repo = "s4474nk7@s4474nk7.repo.borgbase.com:repo";
-    encryption = {
-      mode = "repokey-blake2";
-      passCommand = "cat ${config.sops.secrets."borg/passphrase".path}";
-    };
-    environment.BORG_RSH = "ssh -i ${config.sops.secrets."borg/ssh_private_key".path}";
-    compression = "auto,lzma";
-    startAt = "daily";
   };
   
   # Open ports in the firewall.
