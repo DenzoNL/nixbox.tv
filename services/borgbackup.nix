@@ -10,6 +10,7 @@
     paths = [
       "/var/lib"
       "/home"
+      "/mnt/storage/docs"
       "/mnt/storage/music"
     ];
     exclude = [
