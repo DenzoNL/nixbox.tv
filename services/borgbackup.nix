@@ -1,4 +1,4 @@
- { config, ... }:
+ { config, pkgs, ... }:
 
  {
   sops.secrets = {
@@ -28,5 +28,12 @@
     environment.BORG_RSH = "ssh -i ${config.sops.secrets."borg/ssh_private_key".path}";
     compression = "auto,lzma";
     startAt = "daily";
+    postHook = ''
+      if [ $exitStatus -eq 0 ]; then
+        ${pkgs.ntfy-sh}/bin/ntfy send https://ntfy.nixbox.tv/nixbox "BorgBackup: nixbox backup completed successfully"
+      else
+        ${pkgs.ntfy-sh}/bin/ntfy send https://ntfy.nixbox.tv/nixbox "BorgBackup: nixbox backup failed with exit status $exitStatus"
+      fi
+    '';
   };
 }
