@@ -30,10 +30,10 @@
     compression = "auto,lzma";
     startAt = "daily";
     postHook = ''
-      if [ $exitStatus -eq 0 ]; then
-        ${pkgs.ntfy-sh}/bin/ntfy send https://ntfy.nixbox.tv/nixbox "BorgBackup: nixbox backup completed successfully"
+      if [ $exitStatus -eq 2 ]; then
+        ${pkgs.ntfy-sh}/bin/ntfy send https://ntfy.nixbox.tv/nixbox "BorgBackup: nixbox backup failed with errors"
       else
-        ${pkgs.ntfy-sh}/bin/ntfy send https://ntfy.nixbox.tv/nixbox "BorgBackup: nixbox backup failed with exit status $exitStatus"
+        ${pkgs.ntfy-sh}/bin/ntfy send https://ntfy.nixbox.tv/nixbox "BorgBackup: nixbox backup completed succesfully with exit status $exitStatus"
       fi
     '';
   };
