@@ -12,14 +12,11 @@
 
   users.groups.flood = {};
 
-  environment.systemPackages = with pkgs; [
-    mediainfo
-  ];
-
   systemd.services.flood = {
     enable = true;
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
+    path = [ pkgs.mediainfo ];
     serviceConfig = {
       ExecStart = "${pkgs.flood}/bin/flood --rundir=/var/lib/flood --allowedpath /mnt/storage/downloads --allowedpath /var/lib --rtsocket=/run/rtorrent/rpc.sock";
       User = "flood";
