@@ -23,7 +23,7 @@
       ./../../services/redlib.nix
       ./../../services/rtorrent.nix
       ./../../services/samba.nix
-      ./../../services/smartd.nix
+      ./../../services/scrutiny.nix
       ./../../services/sonarr.nix
       ./../../services/ssh.nix
       ./../../services/tailscale.nix
