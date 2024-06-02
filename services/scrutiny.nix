@@ -4,6 +4,7 @@
   services.scrutiny = {
     enable = true;
     settings.web.listen.port = 8181;
+    collector.enable = true;
   };
 
   services.nginx.virtualHosts."scrutiny.nixbox.tv" = {
