@@ -62,7 +62,6 @@
     members = [ 
       "bazarr"
       "denzo"
-      "flood"
       "lidarr"
       "plex"
       "radarr"

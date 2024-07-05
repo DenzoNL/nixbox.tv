@@ -1,33 +1,19 @@
-{ pkgs, ... }:
+{ config, ... }:
 
 {
-  users.users.flood = {
-    group = "flood";
-    extraGroups = [ "rtorrent" ];
-    shell = pkgs.bashInteractive;
-    home = "/var/lib/flood";
-    description = "flood Daemon user";
-    isSystemUser = true;
+  services.flood = {
+    enable = true;
+    extraArgs = [ "--allowedpath /mnt/storage/downloads --rtsocket=${config.services.rtorrent.rpcSocket}" ];
   };
 
-  users.groups.flood = {};
-
-  systemd.services.flood = {
-    enable = true;
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
-    path = [ pkgs.mediainfo ];
+  systemd.services.flood = { 
     serviceConfig = {
-      ExecStart = "${pkgs.flood}/bin/flood --rundir=/var/lib/flood --allowedpath /mnt/storage/downloads --allowedpath /var/lib --rtsocket=/run/rtorrent/rpc.sock";
-      User = "flood";
-      Group = "flood";
-      Type = "simple";
-      Restart = "on-failure";
-      WorkingDirectory = "/var/lib/flood";
+      # Grant Flood access to the rtorrent RPC socket
+      SupplementaryGroups = [ "rtorrent" ];
+      # Grant Flood RW access to the download directory
+      ReadWritePaths = [ "/mnt/storage/downloads" ];
     };
   };
-
-  systemd.tmpfiles.rules = [ "d '/var/lib/flood' 0755 flood flood -" ];
 
   services.nginx.virtualHosts."flood.nixbox.tv" = {
     # Enable Let's Encrypt
