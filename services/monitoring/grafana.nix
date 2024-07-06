@@ -63,22 +63,9 @@
   
   # nginx reverse proxy
   services.nginx.virtualHosts."grafana.nixbox.tv" = {
-    forceSSL = true;
-    useACMEHost = "nixbox.tv";
-    
     locations."/" = {
       proxyPass = "http://${toString config.services.grafana.settings.server.http_addr}:${toString config.services.grafana.settings.server.http_port}/";
       proxyWebsockets = true;
     };
-
-    # locations."/api/live/" = {
-    #   proxyPass = "http://127.0.0.1:2342";
-    #   extraConfig = ''
-    #     proxy_http_version 1.1;
-    #     proxy_set_header Upgrade $http_upgrade;
-    #     proxy_set_header Connection $connection_upgrade;
-    #     proxy_set_header Host grafana.nixbox.tv;
-    #   '';
-    # };
   };
 }

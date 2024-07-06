@@ -9,6 +9,7 @@
     [
       ./hardware-configuration.nix
       ./certificate.nix
+      ./nginx.nix
       ./../../services/bazarr.nix
       ./../../services/borgbackup.nix
       ./../../services/code-server.nix
@@ -123,23 +124,6 @@
     openFirewall = true;
   };
 
-  # Enable the NGINX daemon.
-  services.nginx = {
-    enable = true;
-    recommendedProxySettings = true;
-  };
-
-  # Configure Let's Encrypt settings.
-  security.acme = {
-    acceptTerms = true;
-    defaults = {
-      email = "dutybounddead@protonmail.com";
-      dnsProvider = "cloudflare";
-      environmentFile = config.sops.secrets."acme/cloudflare".path;
-      dnsPropagationCheck = true;
-    };
-  };
-
   services.zfs.zed.settings = {
     ZED_DEBUG_LOG = "/tmp/zed.debug.log";
     ZED_NOTIFY_INTERVAL_SECS = 3600;
@@ -154,9 +138,6 @@
   
   # Open ports in the firewall.
   networking.firewall.allowPing = true;
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

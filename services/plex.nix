@@ -17,15 +17,7 @@
     ];
   };
 
-# Nginx Reverse SSL Proxy
   services.nginx.virtualHosts."plex.nixbox.tv" = {
-    # Enable Let's Encrypt
-    forceSSL = true;
-    useACMEHost = "nixbox.tv";
-
-    # http2 can more performant for streaming: https://blog.cloudflare.com/introducing-http2/
-    http2 = true;
-
     # Provide the ssl cert and key for the vhost
     extraConfig = ''
 
@@ -49,14 +41,6 @@
       proxy_set_header Referer $server_addr;
       proxy_set_header Origin $server_addr; 
 
-      # Plex has A LOT of javascript, xml and html. This helps a lot, but if it causes playback issues with devices turn it off.
-      gzip on;
-      gzip_vary on;
-      gzip_min_length 1000;
-      gzip_proxied any;
-      gzip_types text/plain text/css text/xml application/xml text/javascript application/x-javascript image/svg+xml;
-      gzip_disable "MSIE [1-6]\.";
-
       # Nginx default client_max_body_size is 1MB, which breaks Camera Upload feature from the phones.
       # Increasing the limit fixes the issue. Anyhow, if 4K videos are expected to be uploaded, the size might need to be increased even more
       client_max_body_size 100M;
@@ -75,29 +59,17 @@
       proxy_set_header X-Plex-Device-Vendor $http_x_plex_device_vendor;
       proxy_set_header X-Plex-Model $http_x_plex_model;
 
-      # Websockets
-      proxy_http_version 1.1;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection "upgrade";
-
       # Buffering off send to the client as soon as the data is received from Plex.
       proxy_redirect off;
       proxy_buffering off;
     '';
     locations."/" = {
       proxyPass = "http://localhost:32400/";
+      proxyWebsockets = true;
     };
   };
 
   services.nginx.virtualHosts."plex-webtools.nixbox.tv" = {
-
-    # Enable Let's Encrypt
-    forceSSL = true;
-    useACMEHost = "nixbox.tv";
-
-    # http2 can more performant for streaming: https://blog.cloudflare.com/introducing-http2/
-    http2 = true;
-
     locations."/" = {
       proxyPass = "http://localhost:33400/";
     };

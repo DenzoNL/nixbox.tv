@@ -17,18 +17,12 @@
   };
 
   services.nginx.virtualHosts."ntfy.nixbox.tv" = {
-    # Enable Let's Encrypt
-    forceSSL = true;
-    useACMEHost = "nixbox.tv";
-
     locations."/" = {
       proxyPass = "http://localhost:8085/";
       proxyWebsockets = true;
     };
 
     extraConfig = ''
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
       proxy_connect_timeout 3m;
       proxy_send_timeout 3m;
       proxy_read_timeout 3m;
