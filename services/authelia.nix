@@ -49,12 +49,25 @@
           # Allow authenticated users access to anything
           {
             domain = ["*.nixbox.tv"];
-            policy = "one_factor";
+            policy = "two_factor";
           }
         ];
       };
       notifier.filesystem.filename = "/var/lib/authelia-main/notification.txt";
       storage.local.path = "/var/lib/authelia-main/db.sqlite3";
+      totp = {
+        issuer = "authelia.com";
+        period = "30";
+        skew = "1";
+      };
+      ntp = {
+        address = "time.cloudflare.com:123";
+        version = "3";
+        max_desync = "3s";
+        disable_startup_check = false;
+        disable_failure = false;
+      };
+      log.level = "info";
     };
   };
 
