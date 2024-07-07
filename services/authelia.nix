@@ -41,6 +41,11 @@
             domain = ["auth.nixbox.tv"];
             policy = "bypass";
           }
+          # Allow apps to send notifications
+          {
+            domain = ["ntfy.nixbox.tv"];
+            policy = "bypass";
+          }
           # Allow authenticated users access to anything
           {
             domain = ["*.nixbox.tv"];
