@@ -9,6 +9,7 @@
     [
       ./hardware-configuration.nix
       ./certificate.nix
+      ./networking.nix
       ./nginx.nix
       ./../../services/bazarr.nix
       ./../../services/borgbackup.nix
@@ -52,7 +53,7 @@
   users.extraUsers.denzo = {
     isNormalUser = true;
     home = "/home/denzo";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "wheel" ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFcJJbDNPRxWWj/9W6NtLGfwQ9fYs+JUQJZA8e2ug9Hd"
     ];
@@ -80,18 +81,6 @@
   services.getty.autologinUser = "denzo";
 
   security.sudo.wheelNeedsPassword = false;
-
-  networking.hostName = "nixbox";
-  # Enable networking
-  networking.networkmanager.enable = true;
-  networking.networkmanager.wifi = {
-    powersave = false;
-  };
-
-  networking.hostId = "84f87fcf";
-
-  # Disable NetworkManager-wait-online as it's flaky.
-  systemd.services.NetworkManager-wait-online.enable = false;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -136,9 +125,6 @@
     ZED_NTFY_URL = "https://ntfy.nixbox.tv";
   };
   
-  # Open ports in the firewall.
-  networking.firewall.allowPing = true;
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
