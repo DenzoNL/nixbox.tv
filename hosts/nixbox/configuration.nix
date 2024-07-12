@@ -16,6 +16,7 @@
       ./../../services/borgbackup.nix
       ./../../services/code-server.nix
       ./../../services/flood.nix
+      ./../../services/homepage.nix
       ./../../services/lidarr.nix
       ./../../services/monitoring/monitoring.nix
       ./../../services/ntfy-sh.nix
@@ -30,6 +31,7 @@
       ./../../services/sonarr.nix
       ./../../services/ssh.nix
       ./../../services/tailscale.nix
+      ./../../services/tautulli.nix
       ./../../services/the-lounge.nix
       ./../../services/unifi.nix
     ];

@@ -51,6 +51,10 @@
             domain = ["*.nixbox.tv"];
             policy = "two_factor";
           }
+          {
+            domain = ["nixbox.tv"];
+            policy = "two_factor";
+          }
         ];
       };
       notifier.filesystem.filename = "/var/lib/authelia-main/notification.txt";

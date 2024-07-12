@@ -14,7 +14,10 @@
     };
     # Create and auto-renew wildcard certificate for Nixbox.tv
     certs."nixbox.tv" = { 
-      domain = "*.nixbox.tv";
+      domain = "nixbox.tv";
+      extraDomainNames = [
+        "*.nixbox.tv"
+      ];
     };
   };
 
