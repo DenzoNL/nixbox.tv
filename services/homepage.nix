@@ -23,25 +23,20 @@
     };
     widgets = [
       {
-        resources = {
-          label = "System";
-          cpu = true;
-          cputemp = true;
-          uptime = true;
-          units = "metric";
-          disk = [
-            "/"
-            "/mnt/storage"
-          ];
-          memory = true;
-        };
-      }
-      {
         search = {
           focus = true;
           provider = "google";
           showSearchSuggestions = true;
           target = "_blank";
+        };
+      }
+      {
+        resources = {
+          label = "System";
+          cpu = true;
+          cputemp = true;
+          units = "metric";
+          memory = true;
         };
       }
       {
