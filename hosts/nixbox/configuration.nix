@@ -16,6 +16,7 @@
       ./../../services/borgbackup.nix
       ./../../services/code-server.nix
       ./../../services/flood.nix
+      ./../../services/home-assistant.nix
       ./../../services/homepage.nix
       ./../../services/lidarr.nix
       ./../../services/monitoring/monitoring.nix
@@ -90,6 +91,10 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
+
+  # Disable bluetooth
+  hardware.bluetooth.enable = false;
+  boot.blacklistedKernelModules = ["bluetooth"];
 
   # ZFS
   services.zfs.autoScrub.enable = true;

@@ -46,6 +46,11 @@
             domain = ["ntfy.nixbox.tv"];
             policy = "bypass";
           }
+          # Allow access to home assistant because the app does not play nice with Authelia
+          {
+            domain = ["home.nixbox.tv"];
+            policy = "bypass";
+          }
           # Allow authenticated users access to anything
           {
             domain = ["*.nixbox.tv"];
