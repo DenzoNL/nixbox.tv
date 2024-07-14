@@ -1,20 +1,26 @@
-{ ... }:
+{ config, ... }:
 
 {
   services.home-assistant = {
     enable = true;
     extraComponents = [
+      "apple_tv"
+      "cast"
       "google_translate"
+      "http"
       "hue"
       "met"
+      "mqtt"
+      "otbr"
+      "plex"
+      "sonarr"
+      "spotify"
+      "upnp"
     ];
     extraPackages = python3Packages: with python3Packages; [
-      getmac
+      isal
       psycopg2 # provide package for postgresql support
-      pyatv # Apple TV
-      pychromecast
-      python-otbr-api
-      spotipy
+      zlib-ng
     ];
     config = {
       # Includes dependencies for a basic setup
@@ -38,6 +44,22 @@
       name = "hass";
       ensureDBOwnership = true;
     }];
+  };
+
+  sops.secrets."mosquitto/hass_password" = {};
+
+  services.mosquitto = {
+    enable = true;
+    listeners = [
+      {
+        users.hass = {
+          acl = [
+            "readwrite #"
+          ];
+          hashedPasswordFile = config.sops.secrets."mosquitto/hass_password".path;
+        };
+      }
+    ];
   };
 
   services.nginx.virtualHosts."home.nixbox.tv" = {
