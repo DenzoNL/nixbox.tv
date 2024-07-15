@@ -7,6 +7,7 @@
       "apple_tv"
       "cast"
       "google_translate"
+      "homekit"
       "http"
       "hue"
       "met"
