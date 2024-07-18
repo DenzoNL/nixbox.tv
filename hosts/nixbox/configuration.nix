@@ -15,6 +15,7 @@
       ./../../services/bazarr.nix
       ./../../services/borgbackup.nix
       ./../../services/code-server.nix
+      ./../../services/cs2.nix
       ./../../services/flood.nix
       ./../../services/home-assistant.nix
       ./../../services/homepage.nix
@@ -57,7 +58,7 @@
   users.extraUsers.denzo = {
     isNormalUser = true;
     home = "/home/denzo";
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "docker" "wheel" ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFcJJbDNPRxWWj/9W6NtLGfwQ9fYs+JUQJZA8e2ug9Hd"
     ];
