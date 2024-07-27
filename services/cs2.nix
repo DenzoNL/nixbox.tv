@@ -15,19 +15,28 @@ let
   '';
 
   patchElf = ''
-    ${pkgs.patchelf}/bin/patchelf \
+    patchelf \
       --set-interpreter "$(cat ${pkgs.stdenv.cc}/nix-support/dynamic-linker)" \
       --set-rpath "${cfg.stateDir}/game/bin/linuxsteamrt64" \
       ${cfg.stateDir}/game/bin/linuxsteamrt64/cs2
   '';
 
   steamCmdUpdate = ''
-    ${pkgs.steamcmd}/bin/steamcmd \
+    steamcmd \
       +force_install_dir ${cfg.stateDir} \
       +login anonymous \
       +app_update 730 \
       +quit
   '';
+
+  installMetamod = ''
+    curl -L -o ${cfg.stateDir}/metamod.tar.gz https://mms.alliedmods.net/mmsdrop/2.0/mmsource-2.0.0-git1297-linux.tar.gz
+    tar -xzf ${cfg.stateDir}/metamod.tar.gz -C ${cfg.stateDir}/game/csgo
+    if ! grep -q 'Game csgo/addons/metamod' ${cfg.stateDir}/game/csgo/gameinfo.gi; then
+      sed -i '/Game_LowViolence/a\                        Game csgo/addons/metamod' ${cfg.stateDir}/game/csgo/gameinfo.gi
+    fi
+  '';
+
 in
 {
   users.users.cs2 = {
@@ -56,10 +65,20 @@ in
         "${pkgs.stdenv.cc.cc.lib}"
       ];
     };
+    path = with pkgs; [ 
+      curl
+      gnugrep
+      gnused
+      gnutar
+      gzip
+      patchelf
+      steamcmd
+    ];
     preStart = ''
       ${steamCmdUpdate}
       ${createSteamLink}
       ${patchElf}
+      ${installMetamod}
     '';
     script = ''
       ${cfg.stateDir}/game/bin/linuxsteamrt64/cs2 \
