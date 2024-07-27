@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   cfg = {
@@ -42,6 +42,10 @@ in
   networking.firewall.allowedTCPPorts = [ cfg.port ];
   networking.firewall.allowedUDPPorts = [ cfg.port ];
 
+  sops.secrets."cs2/gslt" = {
+    owner = cfg.user;
+  };
+
   systemd.services.cs2 = {
     description = "Counter-Strike 2 Dedicated Server";
     wantedBy = [ "multi-user.target" ];
@@ -50,26 +54,27 @@ in
         "${cfg.stateDir}/game/bin/linuxsteamrt64"
         "${pkgs.util-linux.lib}"
         "${pkgs.stdenv.cc.cc.lib}"
-      ];    
+      ];
     };
     preStart = ''
       ${steamCmdUpdate}
       ${createSteamLink}
       ${patchElf}
     '';
+    script = ''
+      ${cfg.stateDir}/game/bin/linuxsteamrt64/cs2 \
+        -dedicated \
+        -port ${toString cfg.port} \
+        -tickrate ${toString cfg.tickrate} \
+        +map de_dust2 \
+        +hostname ${cfg.hostname} \
+        +sv_lan 0 \
+        +sv_logfile 1 \
+        +game_alias deathmatch \
+        +sv_setsteamaccount $(cat ${config.sops.secrets."cs2/gslt".path})
+    '';
     serviceConfig = {
       Type = "simple";
-      ExecStart = ''
-        ${cfg.stateDir}/game/bin/linuxsteamrt64/cs2 \
-          -dedicated \
-          -port ${toString cfg.port} \
-          -tickrate ${toString cfg.tickrate} \
-          +map de_dust2 \
-          +hostname ${cfg.hostname} \
-          +sv_lan 0 \
-          +sv_logfile 1 \
-          +game_alias deathmatch
-      '';
       TimeoutStartSec = 0;
       RestartSec = "120s";
       Restart = "always";
