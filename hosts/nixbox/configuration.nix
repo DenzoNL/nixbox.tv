@@ -15,7 +15,7 @@
       ./../../services/bazarr.nix
       ./../../services/borgbackup.nix
       ./../../services/code-server.nix
-      ./../../services/cs2.nix
+      # ./../../services/cs2.nix
       ./../../services/flood.nix
       ./../../services/home-assistant.nix
       ./../../services/homepage.nix
