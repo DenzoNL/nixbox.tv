@@ -25,7 +25,7 @@
 
   outputs = { self, nixpkgs, home-manager, deploy-rs, sops-nix }: 
     let 
-      pkgs = nixpkgs.legacyPackages.x86_64-linux; 
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
     in 
     {
       nixosConfigurations = {

@@ -37,6 +37,24 @@ let
     fi
   '';
 
+  installCounterStrikeSharp = ''
+    curl -L -o ${cfg.stateDir}/counterstrikesharp.zip https://github.com/roflmuffin/CounterStrikeSharp/releases/download/v253/counterstrikesharp-build-253-linux-5644921.zip
+    unzip -o ${cfg.stateDir}/counterstrikesharp.zip -d ${cfg.stateDir}/counterstrikesharp
+    cp -r ${cfg.stateDir}/counterstrikesharp/addons ${cfg.stateDir}/game/csgo/
+  '';
+
+  installRockTheVote = ''
+    curl -L -o ${cfg.stateDir}/rockthevote.zip https://github.com/abnerfs/cs2-rockthevote/releases/download/v1.8.5/RockTheVote_v1.8.5.zip
+    unzip -o ${cfg.stateDir}/rockthevote.zip -d ${cfg.stateDir}/rockthevote
+    cp -r ${cfg.stateDir}/rockthevote/RockTheVote ${cfg.stateDir}/game/csgo/addons/counterstrikesharp/plugins
+  '';
+
+  installMods = ''
+    ${installMetamod}
+    ${installCounterStrikeSharp}
+    ${installRockTheVote}
+  '';
+
 in
 {
   users.users.cs2 = {
@@ -73,12 +91,13 @@ in
       gzip
       patchelf
       steamcmd
+      unzip
     ];
     preStart = ''
       ${steamCmdUpdate}
       ${createSteamLink}
       ${patchElf}
-      ${installMetamod}
+      ${installMods}
     '';
     script = ''
       ${cfg.stateDir}/game/bin/linuxsteamrt64/cs2 \
