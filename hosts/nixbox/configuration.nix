@@ -11,7 +11,7 @@
       ./certificate.nix
       ./networking.nix
       ./nginx.nix
-      ./../../services/authelia.nix
+      # ./../../services/authelia.nix
       ./../../services/bazarr.nix
       ./../../services/borgbackup.nix
       ./../../services/code-server.nix
