@@ -20,6 +20,7 @@
       ./../../services/home-assistant.nix
       ./../../services/homepage.nix
       ./../../services/lidarr.nix
+      ./../../services/miniflux.nix
       ./../../services/monitoring/monitoring.nix
       ./../../services/ntfy-sh.nix
       ./../../services/plex.nix
