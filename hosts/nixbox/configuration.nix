@@ -19,6 +19,7 @@
       ./../../services/flood.nix
       ./../../services/home-assistant.nix
       ./../../services/homepage.nix
+      ./../../services/k3s.nix
       ./../../services/lidarr.nix
       ./../../services/monitoring/monitoring.nix
       ./../../services/ntfy-sh.nix
