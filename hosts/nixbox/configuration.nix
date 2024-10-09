@@ -21,6 +21,7 @@
       ./../../services/homepage.nix
       ./../../services/k3s.nix
       ./../../services/lidarr.nix
+      ./../../services/miniflux.nix
       ./../../services/monitoring/monitoring.nix
       ./../../services/ntfy-sh.nix
       ./../../services/plex.nix
