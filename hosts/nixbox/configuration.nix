@@ -11,14 +11,13 @@
       ./certificate.nix
       ./networking.nix
       ./nginx.nix
-      # ./../../services/authelia.nix
       ./../../services/bazarr.nix
       ./../../services/borgbackup.nix
       ./../../services/code-server.nix
-      # ./../../services/cs2.nix
       ./../../services/flood.nix
       ./../../services/home-assistant.nix
       ./../../services/homepage.nix
+      ./../../services/immich.nix
       ./../../services/k3s.nix
       ./../../services/lidarr.nix
       ./../../services/monitoring/monitoring.nix
