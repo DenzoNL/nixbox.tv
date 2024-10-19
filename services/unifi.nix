@@ -5,6 +5,7 @@
     enable = true;
     unifiPackage = pkgs.unifi8;
     openFirewall = true;
+    maximumJavaHeapSize = 2048;
   };
 
   services.nginx.virtualHosts."unifi.nixbox.tv" = {
