@@ -1,4 +1,4 @@
-{ ...}:
+{ config, ... }:
 
 {
   services.immich = {
@@ -7,7 +7,7 @@
 
   services.nginx.virtualHosts."immich.nixbox.tv" = {
     locations."/" = {
-      proxyPass = "http://localhost:3001/";
+      proxyPass = "http://localhost:${toString config.services.immich.port}/";
       proxyWebsockets = true;
     };
     extraConfig = ''

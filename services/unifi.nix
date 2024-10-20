@@ -6,6 +6,7 @@
     unifiPackage = pkgs.unifi8;
     openFirewall = true;
     maximumJavaHeapSize = 2048;
+    mongodbPackage = pkgs.mongodb-6_0;
   };
 
   services.nginx.virtualHosts."unifi.nixbox.tv" = {
