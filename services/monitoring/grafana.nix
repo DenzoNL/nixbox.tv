@@ -21,6 +21,10 @@
     enable = true;
 
     settings = {
+      analytics = {
+        reporting_enabled = false;
+      };
+
       server = {
         domain = "grafana.nixbox.tv";
         http_port = 2342;
