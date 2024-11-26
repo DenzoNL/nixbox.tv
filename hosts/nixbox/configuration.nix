@@ -11,6 +11,7 @@
       ./certificate.nix
       ./networking.nix
       ./nginx.nix
+      ./../../services/audiobookshelf.nix
       ./../../services/bazarr.nix
       ./../../services/borgbackup.nix
       ./../../services/code-server.nix
@@ -66,7 +67,8 @@
 
   users.groups."mediausers" = {
     # Add necessary users to the group
-    members = [ 
+    members = [
+      "audiobookshelf"
       "bazarr"
       "denzo"
       "lidarr"
