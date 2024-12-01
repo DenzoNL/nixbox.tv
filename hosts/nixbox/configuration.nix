@@ -14,7 +14,6 @@
       ./../../services/audiobookshelf.nix
       ./../../services/bazarr.nix
       ./../../services/borgbackup.nix
-      ./../../services/code-server.nix
       ./../../services/flood.nix
       ./../../services/home-assistant.nix
       ./../../services/homepage.nix
