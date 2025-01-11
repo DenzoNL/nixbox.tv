@@ -4,7 +4,7 @@
   services.rtorrent = {
     enable = true;
     downloadDir = "/mnt/storage/downloads";
-    package = pkgs.jesec-rtorrent;
+    package = pkgs.rtorrent;
     openFirewall = true;
     configText = let cfg = config.services.rtorrent;
     in pkgs.lib.mkForce ''
