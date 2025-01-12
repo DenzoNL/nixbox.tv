@@ -9,6 +9,7 @@
     [
       ./hardware-configuration.nix
       ./certificate.nix
+      ./docker.nix
       ./networking.nix
       ./nginx.nix
       ./../../services/audiobookshelf.nix
@@ -31,6 +32,7 @@
       ./../../services/scrutiny.nix
       ./../../services/sonarr.nix
       ./../../services/ssh.nix
+      ./../../services/streammaster.nix
       ./../../services/tailscale.nix
       ./../../services/tautulli.nix
       ./../../services/the-lounge.nix
@@ -65,7 +67,7 @@
   users.extraUsers.denzo = {
     isNormalUser = true;
     home = "/home/denzo";
-    extraGroups = [ "docker" "wheel" ];
+    extraGroups = [ "wheel" ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFcJJbDNPRxWWj/9W6NtLGfwQ9fYs+JUQJZA8e2ug9Hd"
     ];
