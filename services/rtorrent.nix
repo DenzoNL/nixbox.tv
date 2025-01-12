@@ -1,13 +1,13 @@
-{ config, pkgs, ... }:
+{ config, pkgsStable, ... }:
 
 {
   services.rtorrent = {
     enable = true;
     downloadDir = "/mnt/storage/downloads";
-    package = pkgs.rtorrent;
+    package = pkgsStable.rtorrent;
     openFirewall = true;
     configText = let cfg = config.services.rtorrent;
-    in pkgs.lib.mkForce ''
+    in pkgsStable.lib.mkForce ''
       ## Instance layout (base paths)
       method.insert = cfg.basedir,  private|const|string, (cat,"${cfg.dataDir}/")
       method.insert = cfg.download, private|const|string, (cat,"${cfg.downloadDir}")

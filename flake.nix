@@ -7,6 +7,10 @@
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
 
+    nixpkgs-stable = {
+      url = "github:NixOS/nixpkgs/nixos-24.11";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,9 +27,10 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, deploy-rs, sops-nix }: 
+  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, deploy-rs, sops-nix }: 
     let 
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      pkgsStable = nixpkgs-stable.legacyPackages.x86_64-linux;
     in 
     {
       nixosConfigurations = {
@@ -45,6 +50,7 @@
               # arguments to home.nix
             }
           ];
+          specialArgs = { inherit pkgsStable; };
         };
       };
 
