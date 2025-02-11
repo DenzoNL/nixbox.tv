@@ -32,7 +32,6 @@
       ./../../services/scrutiny.nix
       ./../../services/sonarr.nix
       ./../../services/ssh.nix
-      ./../../services/streammaster.nix
       ./../../services/tailscale.nix
       ./../../services/tautulli.nix
       ./../../services/the-lounge.nix
