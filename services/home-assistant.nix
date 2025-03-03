@@ -19,6 +19,7 @@
       "upnp"
     ];
     extraPackages = python3Packages: with python3Packages; [
+      aiohomekit
       isal
       psycopg2 # provide package for postgresql support
       zlib-ng
