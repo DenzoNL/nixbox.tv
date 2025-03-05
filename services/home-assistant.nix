@@ -16,6 +16,7 @@
       "plex"
       "sonarr"
       "spotify"
+      "steam_online"
       "upnp"
     ];
     extraPackages = python3Packages: with python3Packages; [
