@@ -18,6 +18,7 @@
       "spotify"
       "steam_online"
       "upnp"
+      "withings"
     ];
     extraPackages = python3Packages: with python3Packages; [
       aiohomekit
