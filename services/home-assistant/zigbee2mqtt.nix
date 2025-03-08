@@ -35,7 +35,7 @@
     };
   };
 
-  services.nginx.virtualHosts."zigbee2mqtt.nixbox.tv" = {
+  services.nginx.virtualHosts."z2m.nixbox.tv" = {
     locations."/" = {
       proxyPass = "http://localhost:8083";
       proxyWebsockets = true;
