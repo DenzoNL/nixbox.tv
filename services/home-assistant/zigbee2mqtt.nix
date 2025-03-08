@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   sops.secrets."zigbee2mqtt/secret.yaml" = {
@@ -7,7 +7,17 @@
 
   services.zigbee2mqtt = {
     enable = true;
+    package = pkgs.zigbee2mqtt_2;
     settings = {
+      advanced = {
+        homeassistant_legacy_entity_attributes = false;
+        homeassistant_legacy_triggers = false;
+        legacy_api = false;
+        legacy_availability_payload = false;
+      };
+      device_option = {
+        legacy = false;
+      };
       homeassistant = config.services.home-assistant.enable;
       permit_join = true;
       mqtt = {
