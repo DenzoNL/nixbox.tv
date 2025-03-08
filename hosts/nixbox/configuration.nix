@@ -21,7 +21,7 @@
       ./../../services/immich.nix
       ./../../services/k3s.nix
       ./../../services/lidarr.nix
-      ./../../services/monitoring/monitoring.nix
+      ./../../services/monitoring
       ./../../services/ntfy-sh.nix
       ./../../services/plex.nix
       ./../../services/prowlarr.nix
