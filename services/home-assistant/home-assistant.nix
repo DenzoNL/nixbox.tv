@@ -9,14 +9,21 @@
       "google_translate"
       "homekit"
       "http"
-      "hue"
+      "lidarr"
       "met"
       "mqtt"
+      "opnsense"
       "otbr"
       "plex"
+      "prometheus"
+      "radarr"
+      "rtorrent"
       "sonarr"
       "spotify"
       "steam_online"
+      "tailscale"
+      "tautulli"
+      "unifi"
       "upnp"
       "whisper"
       "withings"
@@ -41,28 +48,6 @@
       # Connect to PostgreSQL
       recorder.db_url = "postgresql://@/hass";
     };
-  };
-
-  services.postgresql = {
-    enable = true;
-    ensureDatabases = [ "hass" ];
-    ensureUsers = [{
-      name = "hass";
-      ensureDBOwnership = true;
-    }];
-  };
-
-  services.wyoming.faster-whisper.servers."home-assistant" = {
-    enable = true;
-    language = "nl";
-    model = "small-int8";
-    uri = "tcp://0.0.0.0:10300";
-  };
-
-  services.wyoming.piper.servers."home-assistant" = {
-    enable = true;
-    voice = "nl_BE-rdh-medium";
-    uri = "tcp://0.0.0.0:10200";
   };
 
   services.nginx.virtualHosts."home.nixbox.tv" = {
