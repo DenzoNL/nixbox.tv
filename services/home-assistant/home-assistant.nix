@@ -1,6 +1,11 @@
-{ ... }:
+{  config, ... }:
 
 {
+  sops.secrets.homeassistant = {
+    owner = config.users.users.hass.name;
+    path = "${config.services.home-assistant.configDir}/secrets.yaml";
+  };
+
   services.home-assistant = {
     enable = true;
     extraComponents = [
@@ -12,13 +17,13 @@
       "lidarr"
       "met"
       "mqtt"
-      "opnsense"
       "otbr"
       "plex"
       "prometheus"
       "radarr"
       "rtorrent"
       "sonarr"
+      "spotify"
       "steam_online"
       "tailscale"
       "tautulli"
