@@ -1,4 +1,4 @@
-{  config, ... }:
+{  config, pkgs, ... }:
 
 {
   sops.secrets.homeassistant = {
@@ -8,6 +8,9 @@
 
   services.home-assistant = {
     enable = true;
+    customComponents = with pkgs.home-assistant-custom-components; [
+      spook
+    ];
     extraComponents = [
       "apple_tv"
       "cast"
@@ -57,6 +60,8 @@
       };
       # Connect to PostgreSQL
       recorder.db_url = "postgresql://@/hass";
+      # Include UI defined automations
+      "automation ui" = "!include automations.yaml";
     };
   };
 
