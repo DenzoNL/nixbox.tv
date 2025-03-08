@@ -19,12 +19,12 @@
       "radarr"
       "rtorrent"
       "sonarr"
-      "spotify"
       "steam_online"
       "tailscale"
       "tautulli"
       "unifi"
       "upnp"
+      "webostv"
       "whisper"
       "withings"
       "wyoming"
@@ -39,6 +39,11 @@
       # Includes dependencies for a basic setup
       # https://www.home-assistant.io/integrations/default_config/
       default_config = {};
+      homeassistant = {
+        media_dirs = {
+          media = "/mnt/storage";
+        };
+      };
       # Allow access by reverse proxy
       http = {
         server_host = "::1";
