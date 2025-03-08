@@ -16,7 +16,7 @@
       ./../../services/bazarr.nix
       ./../../services/borgbackup.nix
       ./../../services/flood.nix
-      ./../../services/home-assistant.nix
+      ./../../services/home-assistant
       ./../../services/homepage.nix
       ./../../services/immich.nix
       ./../../services/k3s.nix
