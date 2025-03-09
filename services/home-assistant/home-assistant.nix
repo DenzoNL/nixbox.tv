@@ -6,6 +6,12 @@
     path = "${config.services.home-assistant.configDir}/secrets.yaml";
   };
 
+  /** Required open ports for HomeKit bridge */
+  networking.firewall = {
+    allowedUDPPorts = [ 5353 ];   # mDNS
+    allowedTCPPorts = [ 21064 ];  # bridge
+  };
+
   services.home-assistant = {
     enable = true;
     customComponents = with pkgs.home-assistant-custom-components; [
