@@ -22,6 +22,7 @@
       "cast"
       "google_translate"
       "homekit"
+      "homewizard"
       "http"
       "lidarr"
       "met"
