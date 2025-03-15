@@ -16,4 +16,8 @@
       }
     ];
   };
+
+  networking.firewall = {
+    allowedTCPPorts = [ 1883 ]; # open port for ffxiv
+  };
 }
