@@ -8,12 +8,13 @@ buildDotnetModule rec {
     owner = "lupusbytes";
     repo = "cs2mqtt";
     rev = "v${version}";
-    sha256 = "sha256-gaWponTnmcCfCpg59bZ0RxjwAW6NOqYRde4NbGbPwX4="; # Replace with correct hash
+    sha256 = "sha256-gaWponTnmcCfCpg59bZ0RxjwAW6NOqYRde4NbGbPwX4=";
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_9_0;
-  nugetDeps = ./deps.json;
+  dotnet-runtime = dotnetCorePackages.aspnetcore_9_0;
 
+  nugetDeps = ./deps.json;
   projectFile = "src/LupusBytes.CS2.GameStateIntegration.Api/LupusBytes.CS2.GameStateIntegration.Api.csproj";
 
   meta = with lib; {

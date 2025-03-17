@@ -30,9 +30,10 @@
   outputs = { self, nixpkgs, nixpkgs-stable, home-manager, deploy-rs, sops-nix }: 
     let 
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      customPkgs = import ./packages { inherit pkgs; };
       pkgsStable = nixpkgs-stable.legacyPackages.x86_64-linux;
     in 
-    {
+    {      
       nixosConfigurations = {
         nixbox = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -50,7 +51,7 @@
               # arguments to home.nix
             }
           ];
-          specialArgs = { inherit pkgsStable; };
+          specialArgs = { inherit pkgsStable customPkgs; };
         };
       };
 
