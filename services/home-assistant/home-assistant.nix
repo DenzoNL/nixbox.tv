@@ -20,6 +20,7 @@
     extraComponents = [
       "apple_tv"
       "cast"
+      "discord"
       "google_translate"
       "homekit"
       "homewizard"
