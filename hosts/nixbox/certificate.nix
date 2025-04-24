@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, domain, ... }:
 
 {
   sops.secrets."acme/cloudflare" = {};
@@ -12,11 +12,11 @@
       environmentFile = config.sops.secrets."acme/cloudflare".path;
       dnsPropagationCheck = true;
     };
-    # Create and auto-renew wildcard certificate for Nixbox.tv
-    certs."nixbox.tv" = { 
-      domain = "nixbox.tv";
+    # Create and auto-renew wildcard certificate
+    certs."${domain}" = { 
+      domain = domain;
       extraDomainNames = [
-        "*.nixbox.tv"
+        "*.${domain}"
       ];
     };
   };

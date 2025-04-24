@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, domain, ... }:
 
 {
   config.services.nginx = {
@@ -15,7 +15,7 @@
   options.services.nginx.virtualHosts = lib.mkOption {
     type = lib.types.attrsOf (lib.types.submodule {
       config.forceSSL = lib.mkDefault true;
-      config.useACMEHost = lib.mkDefault "nixbox.tv";
+      config.useACMEHost = lib.mkDefault "${domain}";
     });
   };
 }

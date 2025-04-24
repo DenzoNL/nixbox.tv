@@ -1,10 +1,10 @@
-{ ... }:
+{ domain, ... }:
 
 {
   services.ntfy-sh = {
     enable = true;
     settings = {
-      base-url = "https://ntfy.nixbox.tv";
+      base-url = "https://ntfy.${domain}";
       upstream-base-url = "https://ntfy.sh"; # Necessary for iOS notifications
       listen-http = ":8085";
       behind-proxy = true;
@@ -16,7 +16,7 @@
     };
   };
 
-  services.nginx.virtualHosts."ntfy.nixbox.tv" = {
+  services.nginx.virtualHosts."ntfy.${domain}" = {
     locations."/" = {
       proxyPass = "http://localhost:8085/";
       proxyWebsockets = true;

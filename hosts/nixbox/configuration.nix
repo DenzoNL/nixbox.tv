@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, domain, pkgs, ... }:
 
 {
   imports =
@@ -140,7 +140,7 @@
     ZED_SCRUB_AFTER_RESILVER = true;
 
     ZED_NTFY_TOPIC = "nixbox";
-    ZED_NTFY_URL = "https://ntfy.nixbox.tv";
+    ZED_NTFY_URL = "https://ntfy.${domain}";
   };
   
   # This value determines the NixOS release from which the default

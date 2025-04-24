@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, domain, ... }:
 
 {
   services.flood = {
@@ -15,7 +15,7 @@
     };
   };
 
-  services.nginx.virtualHosts."flood.nixbox.tv" = {
+  services.nginx.virtualHosts."flood.${domain}" = {
     locations."/" = {
       proxyPass = "http://localhost:3000/";
     };

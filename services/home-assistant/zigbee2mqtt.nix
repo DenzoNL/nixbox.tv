@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, domain, pkgs, ... }:
 
 {
   sops.secrets."zigbee2mqtt/secret.yaml" = {
@@ -35,7 +35,7 @@
     };
   };
 
-  services.nginx.virtualHosts."z2m.nixbox.tv" = {
+  services.nginx.virtualHosts."z2m.${domain}" = {
     locations."/" = {
       proxyPass = "http://localhost:8083";
       proxyWebsockets = true;

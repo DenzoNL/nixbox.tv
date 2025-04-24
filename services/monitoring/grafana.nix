@@ -1,4 +1,4 @@
-{ config, ... }: 
+{ config, domain, ... }: 
 
 {
   sops.secrets = {
@@ -26,7 +26,7 @@
       };
 
       server = {
-        domain = "grafana.nixbox.tv";
+        domain = "grafana.${domain}";
         http_port = 2342;
         http_addr = "127.0.0.1";
       };
@@ -66,7 +66,7 @@
   };
   
   # nginx reverse proxy
-  services.nginx.virtualHosts."grafana.nixbox.tv" = {
+  services.nginx.virtualHosts."grafana.${domain}" = {
     locations."/" = {
       proxyPass = "http://${toString config.services.grafana.settings.server.http_addr}:${toString config.services.grafana.settings.server.http_port}/";
       proxyWebsockets = true;

@@ -1,4 +1,4 @@
-{ ... }:
+{ domain, ... }:
 
 {
   services.thelounge = {
@@ -9,7 +9,7 @@
     };
   };
 
-  services.nginx.virtualHosts."irc.nixbox.tv" = {
+  services.nginx.virtualHosts."irc.${domain}" = {
     locations."/" = {
       proxyPass = "http://localhost:9000/";
       proxyWebsockets = true;

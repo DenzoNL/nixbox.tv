@@ -32,6 +32,7 @@
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       customPkgs = import ./packages { inherit pkgs; };
       pkgsStable = nixpkgs-stable.legacyPackages.x86_64-linux;
+      domain = "nixbox.tv";
     in 
     {      
       nixosConfigurations = {
@@ -51,7 +52,7 @@
               # arguments to home.nix
             }
           ];
-          specialArgs = { inherit pkgsStable customPkgs; };
+          specialArgs = { inherit pkgsStable customPkgs domain; };
         };
       };
 

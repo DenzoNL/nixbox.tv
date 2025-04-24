@@ -1,4 +1,4 @@
-{ config, customPkgs, ... }:
+{ config, customPkgs, domain, ... }:
 
 {
   users.users.cs2mqtt = {
@@ -28,7 +28,7 @@
     };
   };
 
-  services.nginx.virtualHosts."cs2mqtt.nixbox.tv" = {
+  services.nginx.virtualHosts."cs2mqtt.${domain}" = {
     locations."/" = {
       proxyPass = "http://localhost:5000";
       proxyWebsockets = true;

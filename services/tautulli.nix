@@ -1,4 +1,4 @@
-{ ... }:
+{ domain, ... }:
 
 {
   services.tautulli = {
@@ -6,7 +6,7 @@
     port = 8282;
   };
 
-  services.nginx.virtualHosts."tautulli.nixbox.tv" = {
+  services.nginx.virtualHosts."tautulli.${domain}" = {
     locations."/" = {
       proxyPass = "http://localhost:8282/";
       proxyWebsockets = true;

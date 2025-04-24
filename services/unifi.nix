@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, domain, ... }:
 
 {
   services.unifi = {
@@ -9,7 +9,7 @@
     mongodbPackage = pkgs.mongodb-ce;
   };
 
-  services.nginx.virtualHosts."unifi.nixbox.tv" = {
+  services.nginx.virtualHosts."unifi.${domain}" = {
     locations."/" = {
       proxyPass = "https://localhost:8443/";
     };

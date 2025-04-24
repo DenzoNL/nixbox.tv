@@ -1,4 +1,4 @@
-{ ... }:
+{ domain, ... }:
 
 {
   services.scrutiny = {
@@ -10,7 +10,7 @@
     ];
   };
 
-  services.nginx.virtualHosts."scrutiny.nixbox.tv" = {
+  services.nginx.virtualHosts."scrutiny.${domain}" = {
     locations."/" = {
       proxyPass = "http://localhost:8181/";
     };

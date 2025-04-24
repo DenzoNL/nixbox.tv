@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, domain, ... }:
 
 {
   sops.secrets."homepage" = {};
@@ -7,8 +7,8 @@
     enable = true;
     environmentFile = config.sops.secrets."homepage".path;
     settings = {
-      base = "https://nixbox.tv";
-      title = "nixbox.tv";
+      base = "https://${domain}";
+      title = "${domain}";
       useEqualHeights = true;
       layout = {
         Media = {
@@ -59,7 +59,7 @@
           {
             Plex = {
               icon = "plex.png";
-              href = "https://tautulli.nixbox.tv";
+              href = "https://tautulli.${domain}";
               siteMonitor = "http://localhost:8282/home";
               widget = {
                 type = "tautulli";
@@ -73,7 +73,7 @@
           {
             Sonarr = {
               icon = "sonarr.png";
-              href = "https://sonarr.nixbox.tv";
+              href = "https://sonarr.${domain}";
               siteMonitor = "http://localhost:8989/ping";
               widget = {
                 type = "sonarr";
@@ -85,7 +85,7 @@
           {
             Radarr = {
               icon = "radarr.png";
-              href = "https://radarr.nixbox.tv";
+              href = "https://radarr.${domain}";
               siteMonitor = "http://localhost:7878/ping";
               widget = {
                 type = "radarr";
@@ -97,7 +97,7 @@
           {
             Lidarr = {
               icon = "lidarr.png";
-              href = "https://lidarr.nixbox.tv";
+              href = "https://lidarr.${domain}";
               siteMonitor = "http://localhost:8686/ping";
               widget = {
                 type = "lidarr";
@@ -109,7 +109,7 @@
           {
             Readarr = {
               icon = "readarr.png";
-              href = "https://readarr.nixbox.tv";
+              href = "https://readarr.${domain}";
               siteMonitor = "http://localhost:8787/ping";
               widget = {
                 type = "readarr";
@@ -121,7 +121,7 @@
           {
             Prowlarr = {
               icon = "prowlarr.png";
-              href = "https://prowlarr.nixbox.tv";
+              href = "https://prowlarr.${domain}";
               siteMonitor = "http://localhost:9696/ping";
               widget = {
                 type = "prowlarr";
@@ -133,7 +133,7 @@
           {
             Flood = {
               icon = "flood.png";
-              href = "https://flood.nixbox.tv";
+              href = "https://flood.${domain}";
               siteMonitor = "http://localhost:3000";
               widget = {
                 type = "flood";
@@ -146,7 +146,7 @@
           {
             Bazarr = {
               icon = "bazarr.png";
-              href = "https://bazarr.nixbox.tv";
+              href = "https://bazarr.${domain}";
               siteMonitor = "http://localhost:6767/ping/api/system/status?apikey={{HOMEPAGE_VAR_BAZARR_API_KEY}}";
               widget = {
                 type = "bazarr";
@@ -162,7 +162,7 @@
           {
             Scrutiny = {
               icon = "scrutiny.png";
-              href = "https://scrutiny.nixbox.tv";
+              href = "https://scrutiny.${domain}";
               siteMonitor = "http://localhost:8181";
               widget = {
                 type = "scrutiny";
@@ -185,7 +185,7 @@
           {
             Grafana = {
               icon = "grafana.png";
-              href = "https://grafana.nixbox.tv";
+              href = "https://grafana.${domain}";
               siteMonitor = "http://localhost:2342";
               widget = {
                 type = "grafana";
@@ -198,7 +198,7 @@
           {
             Unifi = {
               icon = "unifi.png";
-              href = "https://unifi.nixbox.tv";
+              href = "https://unifi.${domain}";
               siteMonitor = "https://localhost:8443";
               widget = {
                 type = "unifi";
@@ -213,7 +213,7 @@
     ];
   };
 
-  services.nginx.virtualHosts."nixbox.tv" = {
+  services.nginx.virtualHosts."${domain}" = {
     locations."/" = {
       proxyPass = "http://localhost:8082/";
     };

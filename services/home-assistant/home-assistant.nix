@@ -1,4 +1,4 @@
-{  config, pkgs, ... }:
+{  config, domain, pkgs, ... }:
 
 {
   sops.secrets.homeassistant = {
@@ -73,7 +73,7 @@
     };
   };
 
-  services.nginx.virtualHosts."home.nixbox.tv" = {
+  services.nginx.virtualHosts."home.${domain}" = {
     extraConfig = ''
       proxy_buffering off;
     '';

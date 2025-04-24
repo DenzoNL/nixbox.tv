@@ -1,11 +1,11 @@
-{ config, ... }:
+{ config, domain, ... }:
 
 {
   services.immich = {
     enable = true;
   };
 
-  services.nginx.virtualHosts."immich.nixbox.tv" = {
+  services.nginx.virtualHosts."immich.${domain}" = {
     locations."/" = {
       proxyPass = "http://localhost:${toString config.services.immich.port}/";
       proxyWebsockets = true;
