@@ -22,6 +22,9 @@
 
     settings = {
       analytics = {
+        check_for_plugin_updates = false;
+        enabled = false;
+        feedback_links_enabled = false;
         reporting_enabled = false;
       };
 
