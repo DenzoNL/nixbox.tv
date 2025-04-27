@@ -8,7 +8,7 @@
 
   services.nginx.virtualHosts."tautulli.${domain}" = {
     locations."/" = {
-      proxyPass = "http://localhost:8282/";
+      proxyPass = "http://127.0.0.1:8282/";
       proxyWebsockets = true;
     };
   };

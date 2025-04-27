@@ -60,10 +60,10 @@
             Plex = {
               icon = "plex.png";
               href = "https://tautulli.${domain}";
-              siteMonitor = "http://localhost:8282/home";
+              siteMonitor = "http://127.0.0.1:8282/home";
               widget = {
                 type = "tautulli";
-                url = "http://localhost:8282";
+                url = "http://127.0.0.1:8282";
                 key = "{{HOMEPAGE_VAR_TAUTULLI_API_KEY}}";
                 enableUser = true;
                 showEpisodeNumber = true;
@@ -215,7 +215,7 @@
 
   services.nginx.virtualHosts."${domain}" = {
     locations."/" = {
-      proxyPass = "http://localhost:8082/";
+      proxyPass = "http://127.0.0.1:8082/";
     };
   };
 }
