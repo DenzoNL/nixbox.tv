@@ -23,6 +23,7 @@
       ./../../services/lidarr.nix
       ./../../services/monitoring
       ./../../services/ntfy-sh.nix
+      ./../../services/paperless.nix
       ./../../services/plex.nix
       ./../../services/prowlarr.nix
       ./../../services/radarr.nix
