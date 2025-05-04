@@ -19,6 +19,12 @@
           targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
         }];
       }
+      {
+        job_name = "router";
+        static_configs = [{
+          targets = [ "router.bogers.xyz:9100" ];
+        }];
+      }
     ];
   };
 }
