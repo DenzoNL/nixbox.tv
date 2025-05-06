@@ -5,6 +5,7 @@
     enable = true;
     port = 9001;
     globalConfig.scrape_interval = "15s";
+    retentionTime = "365d";
     exporters = {
       node = {
         enable = true;
@@ -14,15 +15,12 @@
     };
     scrapeConfigs = [
       {
-        job_name = "nixbox";
+        job_name = "node";
         static_configs = [{
-          targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
-        }];
-      }
-      {
-        job_name = "router";
-        static_configs = [{
-          targets = [ "router.bogers.xyz:9100" ];
+          targets = [ 
+            "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
+            "router.bogers.xyz:9100"
+          ];
         }];
       }
     ];
