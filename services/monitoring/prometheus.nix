@@ -16,12 +16,12 @@
     scrapeConfigs = [
       {
         job_name = "node";
-        static_configs = [{
-          targets = [ 
-            "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
-            "router.bogers.xyz:9100"
-          ];
-        }];
+        static_configs = [
+          {
+            targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
+            labels.instance = "nixbox";
+          }
+        ];
       }
     ];
   };
