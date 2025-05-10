@@ -1,12 +1,15 @@
 { domain, ... }:
 
+let 
+  ntfyPort = 8085;
+in
 {
   services.ntfy-sh = {
     enable = true;
     settings = {
       base-url = "https://ntfy.${domain}";
       upstream-base-url = "https://ntfy.sh"; # Necessary for iOS notifications
-      listen-http = ":8085";
+      listen-http = ":${toString ntfyPort}";
       behind-proxy = true;
       # Can't really load these nicely from secret files, but it's fine.
       web-push-public-key = "BPh34c4ui2eIqjwwINOHmxsoYl9jcdCBwrSzVr-FUFmlup8dKdTXqMX26odbedHw49ZqcfFvOCdILh5MQxGyniY";
@@ -18,7 +21,7 @@
 
   services.nginx.virtualHosts."ntfy.${domain}" = {
     locations."/" = {
-      proxyPass = "http://localhost:8085/";
+      proxyPass = "http://127.0.0.1:${toString ntfyPort}/";
       proxyWebsockets = true;
     };
 
