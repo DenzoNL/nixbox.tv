@@ -37,4 +37,10 @@
       fi
     '';
   };
+
+  # Treat exit status 1 as success for the backup job
+  # so that it doesn't trigger prometheus alerts
+  systemd.services."borgbackup-job-nixbox".serviceConfig = {
+    SuccessExitStatus = "0 1";
+  };
 }
