@@ -82,7 +82,7 @@ in
     };
   };
   
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedTCPPorts = [ 22 80 443];
   networking.hostName = hostName;
   
   system.stateVersion = "24.11";

@@ -38,6 +38,9 @@ in
   };
 
   services.nginx.virtualHosts."alertmanager.${domain}" = {
+    listenAddresses = [
+      "100.69.0.2"
+    ];
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString config.services.prometheus.alertmanager.port}/";
     };

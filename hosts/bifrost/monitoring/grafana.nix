@@ -70,6 +70,9 @@
   
   # nginx reverse proxy
   services.nginx.virtualHosts."grafana.${domain}" = {
+    listenAddresses = [
+      "100.69.0.2"
+    ];
     locations."/" = {
       proxyPass = "http://${toString config.services.grafana.settings.server.http_addr}:${toString config.services.grafana.settings.server.http_port}/";
       proxyWebsockets = true;
