@@ -1,9 +1,11 @@
 keys:
   - &denzo age1re0wm49f2apw22f0e2ewtwejvxmfy9wf78tdusxgwy5drd0qf35qy90k59
   - &nixbox age19wna8h6j5grzpqj5x8f7v0qpehwvj0dfgfyytc5m7rtz9gmztpzsvwncty
+  - &bifrost age1jfcr658xw3l8w4m86tgxhn4jqnv9nxzhyk40q55229nhlgm8xaeqc8ggzy
 creation_rules:
-  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+  - path_regex: ^hosts/.*/secrets\.yaml$
     key_groups:
     - age:
       - *denzo
       - *nixbox
+      - *bifrost

@@ -1,13 +1,33 @@
 { pkgs, ... }:
 
+let
+  hostName = "bifrost";
+in
 {
+  imports = [
+    ./../../services/tailscale.nix
+  ];
+
   nix.settings = {
     experimental-features = "nix-command flakes";
   };
-  
-  environment.systemPackages = [
-    pkgs.vim
-    pkgs.git
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  };
+
+  environment.systemPackages = with pkgs; [
+    comma
+    git
+    htop
+    vim
   ];
   
   fileSystems."/" = {
@@ -30,6 +50,7 @@
   
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.configurationLimit = 5;
   boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" "ext4" ];
   
   users.users = {
@@ -42,6 +63,10 @@
       ];
     };
   };
+
+  # Enable ZSH as the default shell
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
   
   security.sudo.wheelNeedsPassword = false;
   
@@ -55,6 +80,7 @@
   };
   
   networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.hostName = hostName;
   
   system.stateVersion = "24.11";
 }

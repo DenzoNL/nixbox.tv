@@ -58,6 +58,14 @@
          system = "x86_64-linux";
          modules = [
            ./hosts/bifrost/configuration.nix
+            sops-nix.nixosModules.sops
+            home-manager.nixosModules.home-manager
+           {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.denzo = import ./users/denzo/home.nix;
+              home-manager.users.root = import ./users/root/home.nix;
+            }
          ];
        };
       };
@@ -74,12 +82,22 @@
       
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
-      devShells.x86_64-linux.default = pkgs.mkShell {
-        packages = [
-          pkgs.age
-          pkgs.deploy-rs
-          pkgs.sops
-        ];
+      devShells = {
+        x86_64-linux.default = pkgs.mkShell {
+          packages = [
+            pkgs.age
+            pkgs.deploy-rs
+            pkgs.sops
+          ];
+        };
+
+        aarch64-darwin.default = nixpkgs.legacyPackages.aarch64-darwin.mkShell {
+          packages = with nixpkgs.legacyPackages.aarch64-darwin; [
+            age
+            nixos-rebuild
+            sops
+          ];
+        };
       };
   };
 }
