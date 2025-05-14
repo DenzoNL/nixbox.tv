@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ./certificate.nix
       ./docker.nix
+      ./monitoring.nix
       ./networking.nix
       ./../../services/audiobookshelf.nix
       ./../../services/bazarr.nix
@@ -21,7 +22,6 @@
       ./../../services/k3s.nix
       ./../../services/lidarr.nix
       ./../../services/nginx.nix
-      ./../../services/monitoring
       ./../../services/ntfy-sh.nix
       ./../../services/paperless.nix
       ./../../services/plex.nix

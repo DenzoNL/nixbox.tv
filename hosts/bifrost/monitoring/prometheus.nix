@@ -41,6 +41,10 @@ in
         static_configs = [
           {
             targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
+            labels.instance = "bifrost";
+          }
+          {
+            targets = [ "nixbox:${toString config.services.prometheus.exporters.node.port}" ];
             labels.instance = "nixbox";
           }
         ];

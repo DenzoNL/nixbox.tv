@@ -1,7 +1,6 @@
 { config, domain, ... }:
 
 let
-  ntfyPort = 8085;
   alertmanagerNtfyPort = 8087;
 in 
 {
@@ -32,7 +31,7 @@ in
     settings = {
       http.addr = "127.0.0.1:${toString alertmanagerNtfyPort}";
       ntfy = {
-        baseurl = "http://127.0.0.1:${toString ntfyPort}";
+        baseurl = "https://ntfy.${domain}";
         notification.topic = "alertmanager";
       };
     };

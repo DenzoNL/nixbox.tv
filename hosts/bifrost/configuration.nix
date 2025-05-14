@@ -6,6 +6,7 @@ in
 {
   imports = [
     ./certificate.nix
+    ./monitoring
     ./../../services/nginx.nix
     ./../../services/tailscale.nix
   ];
