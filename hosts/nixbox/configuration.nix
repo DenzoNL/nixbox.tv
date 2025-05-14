@@ -62,6 +62,11 @@
       "dotnet-sdk-6.0.428"
       "dotnet-sdk-wrapped-6.0.428"
     ];
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
   };
 
   users.extraUsers.denzo = {
@@ -99,6 +104,7 @@
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 5;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
