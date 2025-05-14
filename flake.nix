@@ -15,11 +15,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
-    deploy-rs = {
-      url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -27,7 +22,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, deploy-rs, sops-nix }: 
+  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, sops-nix }: 
     let 
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       customPkgs = import ./packages { inherit pkgs; };
@@ -70,24 +65,12 @@
        };
       };
 
-      deploy.nodes.nixbox = {
-        hostname = "nixbox";
-        fastConnection = true;
-        profiles.system = {
-          user = "root";
-          sshUser = "denzo";
-          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nixbox;
-        };
-      };
-      
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-
       devShells = {
         x86_64-linux.default = pkgs.mkShell {
-          packages = [
-            pkgs.age
-            pkgs.deploy-rs
-            pkgs.sops
+          packages = with pkgs; [
+            age
+            nixos-rebuild
+            sops
           ];
         };
 

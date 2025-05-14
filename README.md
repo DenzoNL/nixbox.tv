@@ -32,6 +32,6 @@ nix-shell -p ssh-to-age --run "ssh-to-age -private-key -i ~/.ssh/id_ed25519 > ~/
 Make any changes to the configuration as necessary and deploy it to the host configured in [flake.nix](./flake.nix):
 
 ```shell
-$ deploy
+$ nixos-rebuild switch --fast --flake .#nixbox --target-host nixbox --build-host nixbox --use-remote-sudo 
 ```
 
