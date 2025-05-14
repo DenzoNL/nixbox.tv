@@ -62,6 +62,7 @@
               home-manager.users.root = import ./users/root/home.nix;
             }
          ];
+         specialArgs = { inherit domain; };
        };
       };
 

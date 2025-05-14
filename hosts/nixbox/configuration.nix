@@ -11,7 +11,6 @@
       ./certificate.nix
       ./docker.nix
       ./networking.nix
-      ./nginx.nix
       ./../../services/audiobookshelf.nix
       ./../../services/bazarr.nix
       ./../../services/borgbackup.nix
@@ -21,6 +20,7 @@
       ./../../services/immich.nix
       ./../../services/k3s.nix
       ./../../services/lidarr.nix
+      ./../../services/nginx.nix
       ./../../services/monitoring
       ./../../services/ntfy-sh.nix
       ./../../services/paperless.nix

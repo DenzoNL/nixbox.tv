@@ -5,6 +5,8 @@ let
 in
 {
   imports = [
+    ./certificate.nix
+    ./../../services/nginx.nix
     ./../../services/tailscale.nix
   ];
 
