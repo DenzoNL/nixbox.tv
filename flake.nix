@@ -54,6 +54,12 @@
           ];
           specialArgs = { inherit pkgsStable customPkgs domain; };
         };
+        bifrost = nixpkgs.lib.nixosSystem {
+         system = "x86_64-linux";
+         modules = [
+           ./hosts/bifrost/configuration.nix
+         ];
+       };
       };
 
       deploy.nodes.nixbox = {
