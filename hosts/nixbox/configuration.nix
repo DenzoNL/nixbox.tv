@@ -19,7 +19,6 @@
       ./../../services/home-assistant
       ./../../services/homepage.nix
       ./../../services/immich.nix
-      ./../../services/k3s.nix
       ./../../services/lidarr.nix
       ./../../services/nginx.nix
       ./../../services/ntfy-sh.nix
