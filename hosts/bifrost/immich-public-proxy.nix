@@ -4,7 +4,7 @@
   services.immich-public-proxy = {
     enable = true;
     port = 3069;
-    immichUrl = "https://immich.nixbox.tv";
+    immichUrl = "http://100.69.0.42:2283";
   };
 
   services.nginx.virtualHosts."public.immich.${domain}" = {

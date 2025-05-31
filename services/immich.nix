@@ -3,6 +3,7 @@
 {
   services.immich = {
     enable = true;
+    host = "0.0.0.0";	
     settings.server.externalDomain = "https://public.immich.${domain}";
   };
 
