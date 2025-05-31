@@ -8,7 +8,7 @@
     };
 
     nixpkgs-stable = {
-      url = "github:NixOS/nixpkgs/nixos-24.11";
+      url = "github:NixOS/nixpkgs/nixos-25.05";
     };
 
     home-manager = {
