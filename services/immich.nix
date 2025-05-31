@@ -3,6 +3,7 @@
 {
   services.immich = {
     enable = true;
+    settings.server.externalDomain = "https://public.immich.${domain}";
   };
 
   services.nginx.virtualHosts."immich.${domain}" = {

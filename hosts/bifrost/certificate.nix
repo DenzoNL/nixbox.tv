@@ -17,6 +17,7 @@
       domain = domain;
       extraDomainNames = [
         "*.${domain}"
+        "public.immich.${domain}"
       ];
     };
   };

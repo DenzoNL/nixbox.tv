@@ -6,6 +6,7 @@ in
 {
   imports = [
     ./certificate.nix
+    ./immich-public-proxy.nix
     ./k3s.nix
     ./monitoring
     ./../../services/nginx.nix
