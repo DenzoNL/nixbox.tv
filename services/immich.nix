@@ -3,8 +3,13 @@
 {
   services.immich = {
     enable = true;
-    host = "0.0.0.0";	
     settings.server.externalDomain = "https://public.immich.${domain}";
+  };
+
+  services.immich-public-proxy = {
+    enable = true;
+    port = 3069;
+    immichUrl = "http://localhost:${toString config.services.immich.port}";
   };
 
   services.nginx.virtualHosts."immich.${domain}" = {
