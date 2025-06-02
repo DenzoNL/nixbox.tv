@@ -24,7 +24,6 @@ in
       proxyWebsockets = true;
       extraConfig = ''
         client_max_body_size 25M;
-        add_header Referrer-Policy "strict-origin-when-cross-origin";
       '';
     };
   };
