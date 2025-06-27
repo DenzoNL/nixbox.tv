@@ -7,19 +7,9 @@
     mediaDir = "/mnt/storage/youtube";
   };
 
-  users.users.pinchflat = {
-    isSystemUser = true;
-    group = "pinchflat";
-  };
-
-  users.groups.pinchflat = {};
-
   users.groups.mediausers = {
-    members = [ "pinchflat" ];
+    members = [ config.services.pinchflat.user ];
   };
-
-  systemd.services.pinchflat.serviceConfig.User = "pinchflat";
-  systemd.services.pinchflat.serviceConfig.DynamicUser = lib.mkForce false;
 
   services.nginx.virtualHosts."pinchflat.${domain}" = {
     locations."/" = {
