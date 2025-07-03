@@ -15,6 +15,12 @@
       method.insert = cfg.session,  private|const|string, (cat,(cfg.basedir),"session/")
       method.insert = cfg.watch,    private|const|string, (cat,(cfg.basedir),"watch/")
 
+      # Flood support
+      method.redirect=load.throw,load.normal
+      method.redirect=load.start_throw,load.start
+      method.insert=d.down.sequential,value|const,0
+      method.insert=d.down.sequential.set,value|const,0
+
       # RPC Socket
       method.insert = cfg.rpcsock, private|const|string, (cat,"${cfg.rpcSocket}")
 
