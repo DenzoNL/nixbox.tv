@@ -94,9 +94,9 @@
     ];
   };
 
-  # Enable ZSH as the default shell
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
+  # Enable Fish as the default shell
+  programs.fish.enable = true;
+  users.defaultUserShell = pkgs.fish;
 
   # Enable automatic login for the user.
   services.getty.autologinUser = "denzo";
@@ -123,6 +123,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    eza
     git
     htop
     iftop

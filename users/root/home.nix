@@ -7,7 +7,7 @@
   home.homeDirectory = "/root";
 
   imports = [
-    ./../denzo/zsh.nix
+    ./../denzo/fish.nix
   ];
 
   # This value determines the Home Manager release that your

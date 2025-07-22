@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -7,7 +7,7 @@
   home.homeDirectory = "/home/denzo";
 
   imports = [
-    ./zsh.nix
+    ./fish.nix
   ];
 
   # This value determines the Home Manager release that your
