@@ -35,6 +35,7 @@
           system = "x86_64-linux";
           modules = [
             ./hosts/nixbox/configuration.nix
+            ./overlays
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
             {
