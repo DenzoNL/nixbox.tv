@@ -30,6 +30,7 @@ in
 
   environment.systemPackages = with pkgs; [
     comma
+    eza
     git
     htop
     vim
@@ -70,8 +71,8 @@ in
   };
 
   # Enable ZSH as the default shell
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
+  programs.fish.enable = true;
+  users.defaultUserShell = pkgs.fish;
   
   security.sudo.wheelNeedsPassword = false;
   
