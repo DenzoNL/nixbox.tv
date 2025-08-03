@@ -32,15 +32,8 @@
   home.packages = with pkgs; [
     cachix
     eza
-    gcc
-    k9s
-    kubectl
-    kubernetes-helm
     nixd
     nixfmt
-    openssl
-    pkg-config
-    rustup
   ];
 
   programs.direnv = {
