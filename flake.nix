@@ -70,11 +70,11 @@
          ];
          specialArgs = { inherit domain; };
        };
-       nixos-wsl = nixpkgs.lib.nixosSystem {
+       boneweevil = nixpkgs.lib.nixosSystem {
          system = "x86_64-linux";
          modules = [
-           ./hosts/nixos-wsl/configuration.nix
-           ./hosts/nixos-wsl/docker.nix
+           ./hosts/boneweevil/configuration.nix
+           ./hosts/boneweevil/docker.nix
            NixOS-WSL.nixosModules.wsl
            home-manager.nixosModules.home-manager
            {

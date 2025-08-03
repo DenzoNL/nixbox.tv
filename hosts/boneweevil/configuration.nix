@@ -34,8 +34,19 @@
   nix.settings.cores = 10;
 
   environment.systemPackages = with pkgs; [
+    argocd
+    argocd-autopilot
+    awscli2
+    gcc
     git
+    gitkraken
     htop
+    k9s
+    kubectl
+    kubernetes-helm
+    openssl
+    pkg-config
+    rustup
     wget
   ];
 
@@ -50,7 +61,7 @@
   ];
 
   environment.shellAliases = {
-    rebuild = "sudo nixos-rebuild switch --flake ~/nixbox.tv#nixos-wsl";
+    rebuild = "sudo nixos-rebuild switch --flake ~/nixbox.tv#boneweevil";
   };
 
   # This value determines the NixOS release from which the default

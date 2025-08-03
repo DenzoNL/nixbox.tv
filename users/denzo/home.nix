@@ -30,13 +30,9 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    argocd
-    argocd-autopilot
-    awscli2
     cachix
     eza
     gcc
-    gitkraken
     k9s
     kubectl
     kubernetes-helm
