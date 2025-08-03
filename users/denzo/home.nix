@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -23,8 +23,40 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  home.sessionPath = [
+    "/home/denzo/.cargo/bin"
+  ];
+
+  # The home.packages option allows you to install Nix packages into your
+  # environment.
+  home.packages = with pkgs; [
+    argocd
+    argocd-autopilot
+    awscli2
+    cachix
+    eza
+    gcc
+    gitkraken
+    k9s
+    kubectl
+    kubernetes-helm
+    nixd
+    nixfmt
+    openssl
+    pkg-config
+    rustup
+  ];
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
+  };
+
+  programs.gpg = {
+    enable = true;
+  };
+
+  services.gpg-agent = {
+    enable = true;
   };
 }

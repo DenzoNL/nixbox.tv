@@ -20,9 +20,14 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    NixOS-WSL = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, sops-nix }: 
+  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, sops-nix, NixOS-WSL }: 
     let 
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       customPkgs = import ./packages { inherit pkgs; };
@@ -62,6 +67,22 @@
               home-manager.users.denzo = import ./users/denzo/home.nix;
               home-manager.users.root = import ./users/root/home.nix;
             }
+         ];
+         specialArgs = { inherit domain; };
+       };
+       nixos-wsl = nixpkgs.lib.nixosSystem {
+         system = "x86_64-linux";
+         modules = [
+           ./hosts/nixos-wsl/configuration.nix
+           ./hosts/nixos-wsl/docker.nix
+           NixOS-WSL.nixosModules.wsl
+           home-manager.nixosModules.home-manager
+           {
+             home-manager.useGlobalPkgs = true;
+             home-manager.useUserPackages = true;
+             home-manager.users.denzo = import ./users/denzo/home.nix;
+             home-manager.users.root = import ./users/root/home.nix;
+           }
          ];
          specialArgs = { inherit domain; };
        };
