@@ -1,15 +1,15 @@
 { config, domain, ... }:
 
 {
-  sops.secrets."acme/cloudflare" = {};
+  sops.secrets."acme/porkbun" = {};
 
   # Configure Let's Encrypt DNS-01 challenge
   security.acme = {
     acceptTerms = true;
     defaults = {
       email = "dutybounddead@protonmail.com";
-      dnsProvider = "cloudflare";
-      environmentFile = config.sops.secrets."acme/cloudflare".path;
+      dnsProvider = "porkbun";
+      environmentFile = config.sops.secrets."acme/porkbun".path;
       dnsPropagationCheck = true;
     };
     # Create and auto-renew wildcard certificate
