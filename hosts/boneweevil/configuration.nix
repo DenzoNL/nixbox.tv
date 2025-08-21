@@ -15,6 +15,7 @@
   wsl.wslConf.network.generateHosts = false;
   networking.extraHosts = ''
     100.69.0.2 bifrost
+    127.0.0.1 woodhouse.test
   '';
 
   users.users.denzo.shell = pkgs.fish;

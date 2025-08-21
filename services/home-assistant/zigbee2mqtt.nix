@@ -18,7 +18,7 @@
       device_option = {
         legacy = false;
       };
-      homeassistant = config.services.home-assistant.enable;
+      homeassistant.enabled = config.services.home-assistant.enable;
       permit_join = true;
       mqtt = {
         user = "hass";
