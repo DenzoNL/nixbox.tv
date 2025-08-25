@@ -38,6 +38,7 @@
     argocd
     argocd-autopilot
     awscli2
+    claude-code
     gcc
     git
     gitkraken
