@@ -93,9 +93,11 @@ The flake uses NixOS modules with special arguments:
 
 ### Networking
 
+- **Security Model**: All services except `public.immich.nixbox.tv` are only accessible via Tailscale VPN (not publicly exposed)
 - Internal services communicate via Tailscale mesh network
-- Public access through nginx reverse proxy with automatic SSL
+- Public access through nginx reverse proxy with automatic SSL (only for explicitly public services)
 - Firewall rules managed per-service
+- LAN network: 192.168.0.0/24
 
 ### Monitoring
 
