@@ -2,13 +2,13 @@
 
 buildDotnetModule rec {
   pname = "cs2mqtt";
-  version = "1.6.3";
+  version = "1.6.8";
 
   src = fetchFromGitHub {
     owner = "lupusbytes";
     repo = "cs2mqtt";
     rev = "v${version}";
-    sha256 = "sha256-gaWponTnmcCfCpg59bZ0RxjwAW6NOqYRde4NbGbPwX4=";
+    sha256 = "sha256-JniE7PduDty3RPmVqP0TdsdI8hAeom4V0SwmRXodg4Y=";
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_9_0;
