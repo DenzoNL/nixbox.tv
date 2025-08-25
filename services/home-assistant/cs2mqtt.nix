@@ -1,4 +1,4 @@
-{ config, customPkgs, domain, ... }:
+{ config, pkgs, domain, ... }:
 
 {
   users.users.cs2mqtt = {
@@ -19,7 +19,7 @@
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      ExecStart = "${customPkgs.cs2mqtt}/bin/LupusBytes.CS2.GameStateIntegration.Api";
+      ExecStart = "${pkgs.cs2mqtt}/bin/LupusBytes.CS2.GameStateIntegration.Api";
       Restart = "always";
       User = "cs2mqtt";
       Group = "cs2mqtt";

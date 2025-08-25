@@ -30,7 +30,6 @@
   outputs = { self, nixpkgs, nixpkgs-stable, home-manager, sops-nix, NixOS-WSL }: 
     let 
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      customPkgs = import ./packages { inherit pkgs; };
       pkgsStable = nixpkgs-stable.legacyPackages.x86_64-linux;
       domain = "nixbox.tv";
     in 
@@ -53,7 +52,7 @@
               # arguments to home.nix
             }
           ];
-          specialArgs = { inherit pkgsStable customPkgs domain; };
+          specialArgs = { inherit pkgsStable domain; };
         };
         bifrost = nixpkgs.lib.nixosSystem {
          system = "x86_64-linux";

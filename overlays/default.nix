@@ -2,6 +2,10 @@
 
 {
   nixpkgs.overlays = [
-    (import ./rtorrent.nix)
+    # Modifications to existing packages
+    (import ./modifications.nix)
+    
+    # Custom packages (additions)
+    (import ./additions.nix)
   ];
 }

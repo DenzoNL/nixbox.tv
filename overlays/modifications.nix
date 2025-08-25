@@ -1,11 +1,13 @@
-self: super: 
+# Modifications overlay - changes to existing packages
+final: prev: 
 let
   version = "0.15.1";
 in
 {
-  libtorrent = super.libtorrent.overrideAttrs (_: {
+  # libtorrent override - specific version needed for rtorrent
+  libtorrent = prev.libtorrent.overrideAttrs (_: {
     inherit version;
-    src = super.fetchFromGitHub {
+    src = prev.fetchFromGitHub {
       owner = "rakshasa";
       repo = "libtorrent";
       rev = "v${version}";
@@ -13,9 +15,10 @@ in
     };
   });
 
-  rtorrent = super.rtorrent.overrideAttrs (old: {
+  # rtorrent override - matching version with libtorrent
+  rtorrent = prev.rtorrent.overrideAttrs (old: {
     inherit version;
-    src = super.fetchFromGitHub {
+    src = prev.fetchFromGitHub {
       owner = "rakshasa";
       repo = "rtorrent";
       rev = "v${version}";
