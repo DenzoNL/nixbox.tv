@@ -20,6 +20,7 @@
       ./../../services/home-assistant
       ./../../services/homepage.nix
       ./../../services/immich.nix
+      ./../../services/karakeep.nix
       ./../../services/lidarr.nix
       ./../../services/nginx.nix
       ./../../services/ntfy-sh.nix
