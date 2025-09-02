@@ -40,6 +40,7 @@
       ./../../services/tautulli.nix
       ./../../services/the-lounge.nix
       ./../../services/unifi.nix
+      ./../../services/webdav.nix
     ];
 
   sops = {
