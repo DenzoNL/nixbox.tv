@@ -8,9 +8,9 @@
     uri = "tcp://0.0.0.0:10300";
   };
 
-  services.wyoming.piper.servers."home-assistant" = {
-    enable = true;
-    voice = "nl_BE-rdh-medium";
-    uri = "tcp://0.0.0.0:10200";
-  };
+  # services.wyoming.piper.servers."home-assistant" = {
+  #   enable = true;
+  #   voice = "nl_BE-rdh-medium";
+  #   uri = "tcp://0.0.0.0:10200";
+  # };
 }

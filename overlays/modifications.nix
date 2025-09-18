@@ -5,7 +5,7 @@ let
 in
 {
   # libtorrent override - specific version needed for rtorrent
-  libtorrent = prev.libtorrent.overrideAttrs (_: {
+  libtorrent-rakshasa = prev.libtorrent-rakshasa.overrideAttrs (_: {
     inherit version;
     src = prev.fetchFromGitHub {
       owner = "rakshasa";
