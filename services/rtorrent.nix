@@ -110,8 +110,6 @@
         ## (and control via XMLRPC sockets)
         system.daemon.set = true
         network.scgi.open_local = (cat,(cfg.rpcsock))
-        schedule = scgi_group,0,0,"execute.nothrow=chown,\":rtorrent\",(cfg.rpcsock)"
-        schedule = scgi_permission,0,0,"execute.nothrow=chmod,\"g+w,o=\",(cfg.rpcsock)"
         #execute.nothrow = chmod,770,(cat,(session.path),rpc.socket)
 
         ## Logging:
