@@ -1,7 +1,7 @@
 # Modifications overlay - changes to existing packages
 final: prev: 
 let
-  version = "0.15.1";
+  version = "0.16.1";
 in
 {
   # libtorrent override - specific version needed for rtorrent
@@ -11,7 +11,7 @@ in
       owner = "rakshasa";
       repo = "libtorrent";
       rev = "v${version}";
-      hash = "sha256-ejDne7vaV+GYP6M0n3VAEva4UHuxRGwfc2rgxf7U/EM=";
+      hash = "sha256-dVKd9u7etLhaNKrtedtIFsUgJ+KuP/vCFn1skY/wZeY=";
     };
   });
 
@@ -22,7 +22,7 @@ in
       owner = "rakshasa";
       repo = "rtorrent";
       rev = "v${version}";
-      hash = "sha256-5ewAeoHvKcZ+5HTMlXLTu63JE3plKATvZToFEDZ9vOs=";
+      hash = "sha256-8FVgUnWmuBgFC9W35LzK6Y7bkYGYzzuPDPAzPSnD9ys=";
     };
   });
 }
