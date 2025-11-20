@@ -37,6 +37,7 @@
     type = lib.types.attrsOf (lib.types.submodule {
       config.forceSSL = lib.mkDefault true;
       config.useACMEHost = lib.mkDefault "${domain}";
+      config.kTLS = true;
     });
   };
 }
