@@ -44,11 +44,13 @@
     gitkraken
     htop
     k9s
+    kmod
     kubectl
     kubernetes-helm
     openssl
     pkg-config
     rustup
+    usbutils
     wget
   ];
 
