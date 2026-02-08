@@ -26,6 +26,7 @@
       ./../../services/memos.nix
       ./../../services/nginx.nix
       ./../../services/ntfy-sh.nix
+      ./../../services/openclaw.nix
       ./../../services/paperless.nix
       ./../../services/pinchflat.nix
       ./../../services/plex.nix
