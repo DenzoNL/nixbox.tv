@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ./certificate.nix
       ./docker.nix
+      ./incus.nix
       ./monitoring.nix
       ./networking.nix
       ./../../services/audiobookshelf.nix
