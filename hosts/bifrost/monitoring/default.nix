@@ -4,6 +4,6 @@
     ./grafana.nix
     ./loki.nix
     ./prometheus.nix
-    ./promtail.nix
+    ./alloy.nix
   ];
 }

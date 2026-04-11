@@ -1,12 +1,6 @@
-{ config, ... }:
+{ ... }:
 
 {
-  services.prometheus.exporters.node = {
-    enable = true;
-    enabledCollectors = [ "systemd" ];
-    port = 9002;
-  };
-
   services.alloy = {
     enable = true;
     extraFlags = [ "--stability.level=generally-available" ];
@@ -17,7 +11,7 @@
       max_age = "12h"
       labels = {
         job  = "systemd-journal",
-        host = "nixbox",
+        host = "bifrost",
       }
       forward_to = [loki.write.default.receiver]
       relabel_rules = loki.relabel.journal.rules
@@ -33,7 +27,7 @@
 
     loki.write "default" {
       endpoint {
-        url = "http://bifrost:3030/loki/api/v1/push"
+        url = "http://127.0.0.1:3030/loki/api/v1/push"
       }
     }
   '';

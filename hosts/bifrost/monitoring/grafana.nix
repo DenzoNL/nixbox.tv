@@ -14,6 +14,9 @@
     "grafana/smtp_password" = {
       owner = config.users.users.grafana.name;
     };
+    "grafana/secret_key" = {
+      owner = config.users.users.grafana.name;
+    };
   };
 
   # grafana configuration
@@ -38,6 +41,7 @@
         admin_user = "$__file{${config.sops.secrets."grafana/admin_user".path}}";
         admin_password = "$__file{${config.sops.secrets."grafana/admin_password".path}}";
         admin_email = "$__file{${config.sops.secrets."grafana/admin_email".path}}";
+        secret_key = "$__file{${config.sops.secrets."grafana/secret_key".path}}";
       };
 
       smtp = {
