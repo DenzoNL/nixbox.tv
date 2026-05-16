@@ -17,9 +17,6 @@ nixos-rebuild switch --fast --flake .#nixbox --target-host nixbox --build-host n
 
 # Deploy to bifrost host (monitoring/proxy server) 
 nixos-rebuild switch --fast --flake .#bifrost --target-host bifrost --build-host bifrost --use-remote-sudo
-
-# Deploy to boneweevil host (WSL instance)
-nixos-rebuild switch --fast --flake .#boneweevil
 ```
 
 Build configuration without switching:
@@ -65,11 +62,10 @@ nix develop
 
 ### Hosts
 
-The system supports three distinct hosts, each with specific responsibilities:
+The system supports two distinct hosts, each with specific responsibilities:
 
 - **nixbox** (`hosts/nixbox/`): Primary media server hosting all media services (Plex, *arr suite, torrent client)
 - **bifrost** (`hosts/bifrost/`): Kubernetes cluster with monitoring stack (Prometheus, Grafana, Loki) and public-facing services
-- **boneweevil** (`hosts/boneweevil/`): WSL development instance with Docker support
 
 ### Services
 
