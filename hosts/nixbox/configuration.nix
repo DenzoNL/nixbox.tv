@@ -18,6 +18,7 @@
       ./../../services/borgbackup.nix
       ./../../services/filebrowser.nix
       ./../../services/flood.nix
+      ./../../services/forgejo.nix
       ./../../services/home-assistant
       ./../../services/homepage.nix
       ./../../services/immich.nix
