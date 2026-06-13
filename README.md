@@ -32,6 +32,13 @@ nix-shell -p ssh-to-age --run "ssh-to-age -private-key -i ~/.ssh/id_ed25519 > ~/
 Make any changes to the configuration as necessary and deploy it to the host configured in [flake.nix](./flake.nix):
 
 ```shell
-$ nixos-rebuild switch --fast --flake .#nixbox --target-host nixbox --build-host nixbox --use-remote-sudo 
+$ nh os switch . -H nixbox --target-host nixbox --build-host nixbox -e passwordless
+```
+
+Or, from inside the dev shell (`nix develop`), use the `deploy` helper (defaults to the nixbox host):
+
+```shell
+$ deploy          # deploys nixbox
+$ deploy bifrost  # deploys bifrost
 ```
 

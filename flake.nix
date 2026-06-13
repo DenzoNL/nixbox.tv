@@ -27,7 +27,7 @@
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       pkgsStable = nixpkgs-stable.legacyPackages.x86_64-linux;
       domain = "nixbox.tv";
-    in 
+    in
     {      
       nixosConfigurations = {
         nixbox = nixpkgs.lib.nixosSystem {
@@ -68,22 +68,6 @@
 
       packages.x86_64-linux = import ./packages { inherit pkgs; };
 
-      devShells = {
-        x86_64-linux.default = pkgs.mkShell {
-          packages = with pkgs; [
-            age
-            nixos-rebuild
-            sops
-          ];
-        };
-
-        aarch64-darwin.default = nixpkgs.legacyPackages.aarch64-darwin.mkShell {
-          packages = with nixpkgs.legacyPackages.aarch64-darwin; [
-            age
-            nixos-rebuild
-            sops
-          ];
-        };
-      };
+      devShells = import ./devshells.nix { inherit nixpkgs; };
   };
 }

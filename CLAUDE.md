@@ -10,18 +10,24 @@ This is **nixbox.tv**, a NixOS flake-based configuration for personal media serv
 
 ### Building and Deploying
 
-Deploy configuration to a specific host:
+Inside the dev shell (`nix develop`) a `deploy` helper wraps the commands below — `deploy` targets nixbox by default, `deploy bifrost` targets bifrost.
+
+Deploy configuration to a specific host using `nh` (provided in the dev shell). It builds and activates on the remote host and shows a package diff before switching:
 ```shell
 # Deploy to nixbox host (main media server)
-nixos-rebuild switch --fast --flake .#nixbox --target-host nixbox --build-host nixbox --use-remote-sudo
+nh os switch . -H nixbox --target-host nixbox --build-host nixbox -e passwordless
 
-# Deploy to bifrost host (monitoring/proxy server) 
-nixos-rebuild switch --fast --flake .#bifrost --target-host bifrost --build-host bifrost --use-remote-sudo
+# Deploy to bifrost host (monitoring/proxy server)
+nh os switch . -H bifrost --target-host bifrost --build-host bifrost -e passwordless
 ```
+
+Notes:
+- `-H/--hostname` selects the `nixosConfiguration` (replaces the `.#<host>` attribute path).
+- `-e passwordless` uses sudo without a password prompt; the hosts have `security.sudo.wheelNeedsPassword = false`.
 
 Build configuration without switching:
 ```shell
-nixos-rebuild build --flake .#nixbox
+nh os build . -H nixbox
 ```
 
 ### Updating Dependencies
