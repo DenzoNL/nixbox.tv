@@ -41,9 +41,7 @@
       "unifi"
       "upnp"
       "webostv"
-      "whisper"
       "withings"
-      "wyoming"
     ];
     extraPackages = python3Packages: with python3Packages; [
       aiohomekit

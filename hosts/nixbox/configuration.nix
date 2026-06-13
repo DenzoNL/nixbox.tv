@@ -10,30 +10,23 @@
       ./hardware-configuration.nix
       ./certificate.nix
       ./docker.nix
-      ./incus.nix
       ./monitoring.nix
       ./networking.nix
       ./../../services/audiobookshelf.nix
       ./../../services/bazarr.nix
       ./../../services/borgbackup.nix
-      ./../../services/filebrowser.nix
       ./../../services/flood.nix
       ./../../services/forgejo.nix
       ./../../services/home-assistant
-      ./../../services/homepage.nix
       ./../../services/immich.nix
       ./../../services/karakeep.nix
       ./../../services/lidarr.nix
-      ./../../services/memos.nix
       ./../../services/nginx.nix
       ./../../services/ntfy-sh.nix
-      ./../../services/openclaw.nix
       ./../../services/paperless.nix
-      ./../../services/pinchflat.nix
       ./../../services/plex.nix
       ./../../services/prowlarr.nix
       ./../../services/radarr.nix
-      ./../../services/readarr.nix
       ./../../services/rtorrent.nix
       ./../../services/samba.nix
       ./../../services/scrutiny.nix
@@ -43,7 +36,6 @@
       ./../../services/tautulli.nix
       ./../../services/the-lounge.nix
       ./../../services/unifi.nix
-      ./../../services/webdav.nix
     ];
 
   sops = {
@@ -63,12 +55,6 @@
   # Allow unfree packages
   nixpkgs.config = {
     allowUnfree = true;
-    permittedInsecurePackages = [
-      "aspnetcore-runtime-6.0.36"
-      "aspnetcore-runtime-wrapped-6.0.36"
-      "dotnet-sdk-6.0.428"
-      "dotnet-sdk-wrapped-6.0.428"
-    ];
     gc = {
       automatic = true;
       dates = "weekly";
@@ -94,7 +80,6 @@
       "lidarr"
       "plex"
       "radarr"
-      "readarr"
       "rtorrent"
       "sonarr"
     ];
@@ -140,12 +125,6 @@
     screen
     wget
   ];
-
-  # Enable iperf3 daemon.
-  services.iperf3 = {
-    enable = true;
-    openFirewall = true;
-  };
 
   services.zfs.zed.settings = {
     ZED_DEBUG_LOG = "/tmp/zed.debug.log";
