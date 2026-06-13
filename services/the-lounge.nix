@@ -1,4 +1,4 @@
-{ domain, ... }:
+{ domain, mkProxy, ... }:
 
 {
   services.thelounge = {
@@ -9,10 +9,5 @@
     };
   };
 
-  services.nginx.virtualHosts."irc.${domain}" = {
-    locations."/" = {
-      proxyPass = "http://localhost:9000/";
-      proxyWebsockets = true;
-    };
-  };
+  services.nginx.virtualHosts."irc.${domain}" = mkProxy 9000;
 }

@@ -1,4 +1,4 @@
-{ domain, ... }:
+{ domain, mkProxy, ... }:
 
 {
   services.karakeep = {
@@ -15,10 +15,5 @@
     };
   };
 
-  services.nginx.virtualHosts."karakeep.${domain}" = {
-    locations."/" = {
-      proxyPass = "http://localhost:8765/";
-      proxyWebsockets = true;
-    };
-  };
+  services.nginx.virtualHosts."karakeep.${domain}" = mkProxy 8765;
 }

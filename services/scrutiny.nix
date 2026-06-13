@@ -1,4 +1,4 @@
-{ domain, ... }:
+{ domain, mkProxy, ... }:
 
 {
   services.scrutiny = {
@@ -10,9 +10,5 @@
     ];
   };
 
-  services.nginx.virtualHosts."scrutiny.${domain}" = {
-    locations."/" = {
-      proxyPass = "http://localhost:8181/";
-    };
-  };
+  services.nginx.virtualHosts."scrutiny.${domain}" = mkProxy 8181;
 }

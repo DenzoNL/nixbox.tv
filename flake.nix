@@ -7,10 +7,6 @@
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
 
-    nixpkgs-stable = {
-      url = "github:NixOS/nixpkgs/nixos-25.05";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,13 +18,17 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, sops-nix }:
-    let 
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      pkgsStable = nixpkgs-stable.legacyPackages.x86_64-linux;
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      sops-nix,
+    }:
+    let
       domain = "nixbox.tv";
     in
-    {      
+    {
       nixosConfigurations = {
         nixbox = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -42,17 +42,12 @@
               home-manager.useUserPackages = true;
               home-manager.users.denzo = import ./users/denzo/home.nix;
               home-manager.users.root = import ./users/root/home.nix;
-
-              # Optionally, use home-manager.extraSpecialArgs to pass
-              # arguments to home.nix
             }
           ];
-          specialArgs = { inherit pkgsStable domain; };
+          specialArgs = { inherit domain; };
         };
       };
 
-      packages.x86_64-linux = import ./packages { inherit pkgs; };
-
       devShells = import ./devshells.nix { inherit nixpkgs; };
-  };
+    };
 }

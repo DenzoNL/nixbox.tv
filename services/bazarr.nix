@@ -1,14 +1,7 @@
-{ domain, ... }:
+{ domain, mkProxy, ... }:
 
 {
-  services.bazarr = {
-    enable = true;
-  };
+  services.bazarr.enable = true;
 
-  services.nginx.virtualHosts."bazarr.${domain}" = {
-    locations."/" = {
-      proxyPass = "http://localhost:6767/";
-      proxyWebsockets = true;
-    };
-  };
+  services.nginx.virtualHosts."bazarr.${domain}" = mkProxy 6767;
 }

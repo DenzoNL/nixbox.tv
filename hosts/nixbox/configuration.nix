@@ -2,41 +2,23 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, domain, pkgs, ... }:
+{
+  config,
+  domain,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./certificate.nix
-      ./docker.nix
-      ./networking.nix
-      ./../../services/audiobookshelf.nix
-      ./../../services/bazarr.nix
-      ./../../services/borgbackup.nix
-      ./../../services/flood.nix
-      ./../../services/forgejo.nix
-      ./../../services/home-assistant
-      ./../../services/immich.nix
-      ./../../services/karakeep.nix
-      ./../../services/lidarr.nix
-      ./../../services/netdata.nix
-      ./../../services/nginx.nix
-      ./../../services/ntfy-sh.nix
-      ./../../services/paperless.nix
-      ./../../services/plex.nix
-      ./../../services/prowlarr.nix
-      ./../../services/radarr.nix
-      ./../../services/rtorrent.nix
-      ./../../services/samba.nix
-      ./../../services/scrutiny.nix
-      ./../../services/sonarr.nix
-      ./../../services/ssh.nix
-      ./../../services/tailscale.nix
-      ./../../services/tautulli.nix
-      ./../../services/the-lounge.nix
-      ./../../services/unifi.nix
-    ];
+  # The host modules plus the full service set (services/default.nix aggregates
+  # every service module).
+  imports = [
+    ./hardware-configuration.nix
+    ./certificate.nix
+    ./docker.nix
+    ./networking.nix
+    ../../services
+  ];
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
@@ -103,7 +85,7 @@
 
   # Disable bluetooth
   hardware.bluetooth.enable = false;
-  boot.blacklistedKernelModules = ["bluetooth"];
+  boot.blacklistedKernelModules = [ "bluetooth" ];
 
   # ZFS
   services.zfs.autoScrub.enable = true;
@@ -137,7 +119,7 @@
     ZED_NTFY_TOPIC = "nixbox";
     ZED_NTFY_URL = "https://ntfy.${domain}";
   };
-  
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -146,4 +128,3 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
 }
-

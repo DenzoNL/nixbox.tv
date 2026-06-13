@@ -1,6 +1,6 @@
-{ domain, ... }:
+{ domain, mkProxy, ... }:
 
-let 
+let
   ntfyPort = 8085;
 in
 {
@@ -19,12 +19,7 @@ in
     };
   };
 
-  services.nginx.virtualHosts."ntfy.${domain}" = {
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:${toString ntfyPort}/";
-      proxyWebsockets = true;
-    };
-
+  services.nginx.virtualHosts."ntfy.${domain}" = mkProxy ntfyPort // {
     extraConfig = ''
       proxy_connect_timeout 3m;
       proxy_send_timeout 3m;

@@ -1,7 +1,7 @@
-{ lib, domain, ... }:
+{ domain, ... }:
 
 {
-  config.services.nginx = {
+  services.nginx = {
     enable = true;
 
     # Use recommended settings
@@ -32,12 +32,17 @@
     '';
   };
 
-  # Set default settings for all vhosts
-  options.services.nginx.virtualHosts = lib.mkOption {
-    type = lib.types.attrsOf (lib.types.submodule {
-      config.forceSSL = lib.mkDefault true;
-      config.useACMEHost = lib.mkDefault "${domain}";
-      config.kTLS = true;
-    });
+  # Helper for the common vhost: terminate TLS with the wildcard cert and proxy
+  # to a localhost port. Services use it as:
+  #   services.nginx.virtualHosts."x.${domain}" = mkProxy 1234;
+  # and merge extra vhost settings with `// { ... }` when needed.
+  _module.args.mkProxy = port: {
+    forceSSL = true;
+    useACMEHost = domain;
+    kTLS = true;
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${toString port}/";
+      proxyWebsockets = true;
+    };
   };
 }

@@ -1,4 +1,10 @@
-{ config, domain, pkgs, ... }:
+{
+  config,
+  domain,
+  mkProxy,
+  pkgs,
+  ...
+}:
 
 {
   sops.secrets."zigbee2mqtt/secret.yaml" = {
@@ -31,14 +37,11 @@
       frontend = {
         enabled = true;
         port = 8083;
+        # Bind to IPv4 loopback to match the nginx proxy target (mkProxy).
+        host = "127.0.0.1";
       };
     };
   };
 
-  services.nginx.virtualHosts."z2m.${domain}" = {
-    locations."/" = {
-      proxyPass = "http://localhost:8083";
-      proxyWebsockets = true;
-    };
-  };
+  services.nginx.virtualHosts."z2m.${domain}" = mkProxy 8083;
 }

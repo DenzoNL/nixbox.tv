@@ -10,10 +10,17 @@
   };
 
   services.nginx.virtualHosts."unifi.${domain}" = {
+    forceSSL = true;
+    useACMEHost = domain;
+    kTLS = true;
+
     locations."/" = {
       proxyPass = "https://localhost:8443/";
     };
 
+    # The UniFi backend serves self-signed HTTPS on 8443, so we proxy over TLS
+    # without verifying its certificate. Client-facing TLS (protocols/ciphers)
+    # comes from the global recommendedTlsSettings in services/nginx.nix.
     extraConfig = ''
       proxy_set_header X-SSL 'on';
       proxy_ssl_verify off;
@@ -21,10 +28,6 @@
 
       ssl_stapling on;
       ssl_stapling_verify on;
-
-      ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-      ssl_prefer_server_ciphers on;
-      ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:ECDHE-RSA-DES-CBC3-SHA:ECDHE-ECDSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA';
 
       proxy_buffering off;
       proxy_set_header Upgrade $http_upgrade;

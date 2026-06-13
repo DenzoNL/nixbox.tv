@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  mkProxy,
+  pkgs,
+  ...
+}:
 
 let
   fqdn = "switchbyte.dev";
@@ -90,14 +96,10 @@ in
     };
   };
 
-  # Tailnet-only reverse proxy. useACMEHost overrides the nixbox.tv default
-  # from services/nginx.nix so the switchbyte.dev certificate is served.
-  services.nginx.virtualHosts."${fqdn}" = {
+  # Tailnet-only reverse proxy. useACMEHost overrides mkProxy's nixbox.tv
+  # default so the switchbyte.dev certificate is served instead.
+  services.nginx.virtualHosts."${fqdn}" = mkProxy httpPort // {
     useACMEHost = fqdn;
-    locations."/" = {
-      proxyPass = "http://localhost:${toString httpPort}/";
-      proxyWebsockets = true;
-    };
     # Allow large git pushes / LFS uploads over HTTP.
     extraConfig = ''
       client_max_body_size 512M;

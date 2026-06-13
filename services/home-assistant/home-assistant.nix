@@ -1,4 +1,10 @@
-{  config, domain, pkgs, ... }:
+{
+  config,
+  domain,
+  mkProxy,
+  pkgs,
+  ...
+}:
 
 {
   sops.secrets.homeassistant = {
@@ -6,10 +12,12 @@
     path = "${config.services.home-assistant.configDir}/secrets.yaml";
   };
 
-  /** Required open ports for HomeKit bridge */
+  /**
+    Required open ports for HomeKit bridge
+  */
   networking.firewall = {
-    allowedUDPPorts = [ 5353 ];   # mDNS
-    allowedTCPPorts = [ 21064 ];  # bridge
+    allowedUDPPorts = [ 5353 ]; # mDNS
+    allowedTCPPorts = [ 21064 ]; # bridge
   };
 
   services.home-assistant = {
@@ -37,31 +45,32 @@
       "spotify"
       "steam_online"
       "tailscale"
-      "tautulli"
       "unifi"
       "upnp"
       "webostv"
       "withings"
     ];
-    extraPackages = python3Packages: with python3Packages; [
-      aiohomekit
-      isal
-      psycopg2 # provide package for postgresql support
-      zlib-ng
-    ];
+    extraPackages =
+      python3Packages: with python3Packages; [
+        aiohomekit
+        isal
+        psycopg2 # provide package for postgresql support
+        zlib-ng
+      ];
     config = {
       # Includes dependencies for a basic setup
       # https://www.home-assistant.io/integrations/default_config/
-      default_config = {};
+      default_config = { };
       homeassistant = {
         media_dirs = {
           media = "/mnt/storage";
         };
       };
-      # Allow access by reverse proxy
+      # Allow access by reverse proxy. Bind to IPv4 loopback to match the nginx
+      # proxy target (mkProxy uses 127.0.0.1).
       http = {
-        server_host = "::1";
-        trusted_proxies = [ "::1" ];
+        server_host = "127.0.0.1";
+        trusted_proxies = [ "127.0.0.1" ];
         use_x_forwarded_for = true;
       };
       # Connect to PostgreSQL
@@ -72,13 +81,9 @@
     };
   };
 
-  services.nginx.virtualHosts."home.${domain}" = {
+  services.nginx.virtualHosts."home.${domain}" = mkProxy 8123 // {
     extraConfig = ''
       proxy_buffering off;
     '';
-    locations."/" = {
-      proxyPass = "http://localhost:8123";
-      proxyWebsockets = true;
-    };
   };
 }

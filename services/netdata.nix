@@ -1,4 +1,10 @@
-{ config, domain, pkgs, ... }:
+{
+  config,
+  domain,
+  mkProxy,
+  pkgs,
+  ...
+}:
 
 {
   services.netdata = {
@@ -28,10 +34,5 @@
     '';
   };
 
-  services.nginx.virtualHosts."netdata.${domain}" = {
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:19999/";
-      proxyWebsockets = true;
-    };
-  };
+  services.nginx.virtualHosts."netdata.${domain}" = mkProxy 19999;
 }

@@ -1,0 +1,28 @@
+{
+  imports = [
+    ./audiobookshelf.nix
+    ./bazarr.nix
+    ./borgbackup.nix
+    ./flood.nix
+    ./forgejo.nix
+    ./home-assistant
+    ./immich.nix
+    ./karakeep.nix
+    ./lidarr.nix
+    ./netdata.nix
+    ./nginx.nix
+    ./ntfy-sh.nix
+    ./paperless.nix
+    ./plex.nix
+    ./prowlarr.nix
+    ./radarr.nix
+    ./rtorrent.nix
+    ./samba.nix
+    ./scrutiny.nix
+    ./sonarr.nix
+    ./ssh.nix
+    ./tailscale.nix
+    ./the-lounge.nix
+    ./unifi.nix
+  ];
+}

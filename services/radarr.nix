@@ -1,14 +1,7 @@
-{ domain, ... }:
+{ domain, mkProxy, ... }:
 
 {
-  services.radarr = {
-    enable = true;
-  };
+  services.radarr.enable = true;
 
-  services.nginx.virtualHosts."radarr.${domain}" = {
-    locations."/" = {
-      proxyPass = "http://localhost:7878/";
-      proxyWebsockets = true;
-    };
-  };
+  services.nginx.virtualHosts."radarr.${domain}" = mkProxy 7878;
 }

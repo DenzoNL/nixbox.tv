@@ -1,14 +1,7 @@
-{ domain, ... }:
+{ domain, mkProxy, ... }:
 
 {
-  services.prowlarr = {
-    enable = true;
-  };
+  services.prowlarr.enable = true;
 
-  services.nginx.virtualHosts."prowlarr.${domain}" = {
-    locations."/" = {
-      proxyPass = "http://localhost:9696/";
-      proxyWebsockets = true;
-    };
-  };
+  services.nginx.virtualHosts."prowlarr.${domain}" = mkProxy 9696;
 }
