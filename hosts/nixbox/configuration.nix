@@ -21,6 +21,7 @@
       ./../../services/immich.nix
       ./../../services/karakeep.nix
       ./../../services/lidarr.nix
+      ./../../services/netdata.nix
       ./../../services/nginx.nix
       ./../../services/ntfy-sh.nix
       ./../../services/paperless.nix
