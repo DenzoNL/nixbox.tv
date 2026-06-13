@@ -4,26 +4,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is **nixbox.tv**, a NixOS flake-based configuration for personal media server infrastructure. The project uses declarative configuration to manage multiple hosts with various media services like Plex, Sonarr, Radarr, and supporting infrastructure.
+This is **nixbox.tv**, a NixOS flake-based configuration for personal media server infrastructure. The project uses declarative configuration to manage the nixbox host running various media services like Plex, Sonarr, Radarr, and supporting infrastructure.
 
 ## Common Development Commands
 
 ### Building and Deploying
 
-Inside the dev shell (`nix develop`) a `deploy` helper wraps the commands below — `deploy` targets nixbox by default, `deploy bifrost` targets bifrost.
+Inside the dev shell (`nix develop`) a `deploy` helper wraps the command below — it targets nixbox.
 
-Deploy configuration to a specific host using `nh` (provided in the dev shell). It builds and activates on the remote host and shows a package diff before switching:
+Deploy configuration using `nh` (provided in the dev shell). It builds and activates on the remote host and shows a package diff before switching:
 ```shell
-# Deploy to nixbox host (main media server)
+# Deploy to nixbox host (media server)
 nh os switch . -H nixbox --target-host nixbox --build-host nixbox -e passwordless
-
-# Deploy to bifrost host (monitoring/proxy server)
-nh os switch . -H bifrost --target-host bifrost --build-host bifrost -e passwordless
 ```
 
 Notes:
 - `-H/--hostname` selects the `nixosConfiguration` (replaces the `.#<host>` attribute path).
-- `-e passwordless` uses sudo without a password prompt; the hosts have `security.sudo.wheelNeedsPassword = false`.
+- `-e passwordless` uses sudo without a password prompt; the host has `security.sudo.wheelNeedsPassword = false`.
 
 Build configuration without switching:
 ```shell
@@ -46,10 +43,9 @@ nix flake lock --update-input nixpkgs
 
 This project uses SOPS for secret management. Secrets are stored in `hosts/*/secrets.yaml` files.
 
-Edit secrets for a host:
+Edit secrets for the host:
 ```shell
 sops hosts/nixbox/secrets.yaml
-sops hosts/bifrost/secrets.yaml
 ```
 
 Generate age key from SSH key (required for initial setup):
@@ -68,10 +64,7 @@ nix develop
 
 ### Hosts
 
-The system supports two distinct hosts, each with specific responsibilities:
-
-- **nixbox** (`hosts/nixbox/`): Primary media server hosting all media services (Plex, *arr suite, torrent client)
-- **bifrost** (`hosts/bifrost/`): Kubernetes cluster with monitoring stack (Prometheus, Grafana, Loki) and public-facing services
+- **nixbox** (`hosts/nixbox/`): The media server hosting all media services (Plex, *arr suite, torrent client) and supporting infrastructure.
 
 ### Services
 
@@ -95,7 +88,7 @@ The flake uses NixOS modules with special arguments:
 
 ### Networking
 
-- **Security Model**: All services except `public.immich.nixbox.tv` are only accessible via Tailscale VPN (not publicly exposed)
+- **Security Model**: All services are only accessible via Tailscale VPN (not publicly exposed)
 - Internal services communicate via Tailscale mesh network
 - Public access through nginx reverse proxy with automatic SSL (only for explicitly public services)
 - Firewall rules managed per-service
@@ -103,12 +96,9 @@ The flake uses NixOS modules with special arguments:
 
 ### Monitoring
 
-Bifrost host runs complete monitoring stack:
-- Prometheus for metrics collection
-- Grafana for visualization
-- Loki for log aggregation
-- AlertManager for alerting
-- Custom Prometheus rules in `hosts/bifrost/monitoring/prometheus-rules/`
+Monitoring runs on nixbox via Netdata (`services/netdata.nix`):
+- Local Netdata agent with the bundled cloud UI, proxied at `https://netdata.${domain}`
+- Health alerts routed to the self-hosted ntfy instance
 
 ## Key Conventions
 

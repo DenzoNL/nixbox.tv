@@ -35,10 +35,9 @@ Make any changes to the configuration as necessary and deploy it to the host con
 $ nh os switch . -H nixbox --target-host nixbox --build-host nixbox -e passwordless
 ```
 
-Or, from inside the dev shell (`nix develop`), use the `deploy` helper (defaults to the nixbox host):
+Or, from inside the dev shell (`nix develop`), use the `deploy` helper:
 
 ```shell
 $ deploy          # deploys nixbox
-$ deploy bifrost  # deploys bifrost
 ```
 

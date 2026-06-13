@@ -49,21 +49,6 @@
           ];
           specialArgs = { inherit pkgsStable domain; };
         };
-        bifrost = nixpkgs.lib.nixosSystem {
-         system = "x86_64-linux";
-         modules = [
-           ./hosts/bifrost/configuration.nix
-            sops-nix.nixosModules.sops
-            home-manager.nixosModules.home-manager
-           {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.denzo = import ./users/denzo/home.nix;
-              home-manager.users.root = import ./users/root/home.nix;
-            }
-         ];
-         specialArgs = { inherit domain; };
-       };
       };
 
       packages.x86_64-linux = import ./packages { inherit pkgs; };

@@ -10,7 +10,6 @@
       ./hardware-configuration.nix
       ./certificate.nix
       ./docker.nix
-      ./monitoring.nix
       ./networking.nix
       ./../../services/audiobookshelf.nix
       ./../../services/bazarr.nix
