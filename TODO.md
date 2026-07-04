@@ -20,10 +20,11 @@ Check items off as they land; delete this file when empty.
 
 - [x] **Rotate the ntfy web-push keypair and move it to sops** — new keypair generated, private key now loaded via sops `EnvironmentFile`; browsers need push notifications re-enabled once in the ntfy web app.
 - [x] **Disable permanent Zigbee joining** — `permit_join = false`; pair via the frontend when needed.
-- [ ] **Add ntfy auth** — `auth-default-access = "deny-all"` + tokens; anyone on the tailnet can currently read/publish all topics. Needs tokens wired into every publisher (ZED, borg postHook, scrutiny, netdata) — do as its own change.
+- [ ] ~~Add ntfy auth~~ **Deferred** (2026-07): only reachable over the household tailnet, low-sensitivity content, and tokens add five silent-failure points to alerting. Revisit if ntfy is ever exposed beyond the tailnet or more people join it. Cheap alternative if wanted: randomize topic names (`nixbox-<random>`).
 - [x] **Drop the legacy nginx `sslCiphers` override** — `recommendedTlsSettings` now applies unweakened (verified TLS 1.3 + X25519MLKEM768).
 - [x] **Remove dead `ssl_stapling` config** — gone from unifi.nix.
-- [ ] Consider dropping console autologin (`services.getty.autologinUser`) — with passwordless sudo, physical access = instant root. (`hosts/nixbox/configuration.nix:75`)
+- [ ] ~~Drop console autologin~~ **Deferred** (2026-07): accepted risk — server is physically at home and disks are unencrypted anyway, so physical access already means data access.
+- [ ] **Considering: drop passwordless sudo** — fully supported by nh: without `-e passwordless` it prompts locally (`[sudo] password for <host>:`) and pipes the password to `sudo --stdin` over SSH. Just remove `-e passwordless` from the `deploy` helper and set `wheelNeedsPassword = true`. Verify the password is remembered first (`su - denzo`), reset via `sudo passwd denzo` if not.
 
 ## Improvements
 

@@ -80,8 +80,6 @@
   # Enable automatic login for the user.
   services.getty.autologinUser = "denzo";
 
-  security.sudo.wheelNeedsPassword = false;
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 5;

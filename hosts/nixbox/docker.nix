@@ -1,8 +1,8 @@
-{ ... }: 
+{ ... }:
 
 {
   virtualisation = {
-    docker = { 
+    docker = {
       enable = true;
     };
     oci-containers = {
@@ -10,5 +10,7 @@
     };
   };
 
-  users.extraUsers.denzo.extraGroups = [ "docker" ];
+  # Intentionally nobody in the docker group besides the Forgejo runner (the
+  # module adds itself): docker group membership is root-equivalent and would
+  # bypass the sudo password. Use `sudo docker` for manual poking.
 }

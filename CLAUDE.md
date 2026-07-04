@@ -15,12 +15,12 @@ Inside the dev shell (`nix develop`) a `deploy` helper wraps the command below â
 Deploy configuration using `nh` (provided in the dev shell). It builds and activates on the remote host and shows a package diff before switching:
 ```shell
 # Deploy to nixbox host (media server)
-nh os switch . -H nixbox --target-host nixbox --build-host nixbox -e passwordless
+nh os switch . -H nixbox --target-host nixbox --build-host nixbox
 ```
 
 Notes:
 - `-H/--hostname` selects the `nixosConfiguration` (replaces the `.#<host>` attribute path).
-- `-e passwordless` uses sudo without a password prompt; the host has `security.sudo.wheelNeedsPassword = false`.
+- Deploys prompt for the remote sudo password (nh pipes it to `sudo --stdin` over SSH), so they are interactive â€” the user runs them, not Claude.
 
 Build configuration without switching:
 ```shell

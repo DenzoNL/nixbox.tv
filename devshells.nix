@@ -8,9 +8,10 @@ let
       # host (defaults to nixbox) via nh. Shipped as a real executable so it
       # works in any shell, including under direnv (where shellHook functions
       # are not exported to the interactive shell).
+      # nh prompts locally for the remote sudo password and feeds it over SSH.
       deploy = pkgs.writeShellScriptBin "deploy" ''
         host="''${1:-nixbox}"
-        exec ${pkgs.nh}/bin/nh os switch . -H "$host" --target-host "$host" --build-host "$host" -e passwordless
+        exec ${pkgs.nh}/bin/nh os switch . -H "$host" --target-host "$host" --build-host "$host"
       '';
     in
     pkgs.mkShell {
