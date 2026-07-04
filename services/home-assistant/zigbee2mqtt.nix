@@ -25,7 +25,9 @@
         legacy = false;
       };
       homeassistant.enabled = config.services.home-assistant.enable;
-      permit_join = true;
+      # Keep the network closed; enable joining temporarily from the frontend
+      # when pairing a new device.
+      permit_join = false;
       mqtt = {
         user = "hass";
         password = "!${config.sops.secrets."zigbee2mqtt/secret.yaml".path} password";

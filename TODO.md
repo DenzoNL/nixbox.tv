@@ -18,11 +18,11 @@ Check items off as they land; delete this file when empty.
 
 ## Security
 
-- [ ] **Rotate the ntfy web-push keypair and move it to sops** — the VAPID private key is committed in plaintext (since 2024); regenerate with `ntfy webpush keys`, load via `EnvironmentFile` (`NTFY_WEB_PUSH_PRIVATE_KEY=...`). (`services/ntfy-sh.nix:16`)
-- [ ] **Disable permanent Zigbee joining** — `permit_join = true` accepts any device 24/7; set `false`, pair via the frontend. (`services/home-assistant/zigbee2mqtt.nix`)
-- [ ] **Add ntfy auth** — `auth-default-access = "deny-all"` + tokens; anyone on the tailnet can currently read/publish all topics.
-- [ ] **Drop the legacy nginx `sslCiphers` override** — it weakens `recommendedTlsSettings` (drops ChaCha20, no effect on TLS 1.3). (`services/nginx.nix:14`)
-- [ ] **Remove dead `ssl_stapling` config** — Let's Encrypt shut down OCSP in 2025. (`services/unifi.nix:29-30`)
+- [x] **Rotate the ntfy web-push keypair and move it to sops** — new keypair generated, private key now loaded via sops `EnvironmentFile`; browsers need push notifications re-enabled once in the ntfy web app.
+- [x] **Disable permanent Zigbee joining** — `permit_join = false`; pair via the frontend when needed.
+- [ ] **Add ntfy auth** — `auth-default-access = "deny-all"` + tokens; anyone on the tailnet can currently read/publish all topics. Needs tokens wired into every publisher (ZED, borg postHook, scrutiny, netdata) — do as its own change.
+- [x] **Drop the legacy nginx `sslCiphers` override** — `recommendedTlsSettings` now applies unweakened (verified TLS 1.3 + X25519MLKEM768).
+- [x] **Remove dead `ssl_stapling` config** — gone from unifi.nix.
 - [ ] Consider dropping console autologin (`services.getty.autologinUser`) — with passwordless sudo, physical access = instant root. (`hosts/nixbox/configuration.nix:75`)
 
 ## Improvements

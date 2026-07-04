@@ -26,9 +26,6 @@
       proxy_ssl_verify off;
       proxy_ssl_session_reuse on;
 
-      ssl_stapling on;
-      ssl_stapling_verify on;
-
       proxy_buffering off;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection "upgrade";

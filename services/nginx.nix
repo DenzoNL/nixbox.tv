@@ -4,14 +4,12 @@
   services.nginx = {
     enable = true;
 
-    # Use recommended settings
+    # Use recommended settings (including the cipher suites; an AES256-only
+    # override used to live here but only weakened them)
     recommendedGzipSettings = true;
     recommendedOptimisation = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
-
-    # Only allow PFS-enabled ciphers with AES256
-    sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
 
     appendHttpConfig = ''
       # Add HSTS header with preloading to HTTPS requests.
