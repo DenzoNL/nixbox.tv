@@ -91,6 +91,17 @@
   hardware.bluetooth.enable = false;
   boot.blacklistedKernelModules = [ "bluetooth" ];
 
+  # Intel Quick Sync on the UHD 730 iGPU: userspace drivers for hardware
+  # video transcoding (Plex, Immich) instead of burning CPU.
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # iHD VA-API driver (Gen11+)
+      intel-compute-runtime # OpenCL, used by Plex for HDR tone mapping
+      vpl-gpu-rt # oneVPL runtime for QSV-native consumers
+    ];
+  };
+
   # ZFS
   services.zfs.autoScrub.enable = true;
 

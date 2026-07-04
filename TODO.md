@@ -24,7 +24,7 @@ Check items off as they land; delete this file when empty.
 - [x] **Drop the legacy nginx `sslCiphers` override** — `recommendedTlsSettings` now applies unweakened (verified TLS 1.3 + X25519MLKEM768).
 - [x] **Remove dead `ssl_stapling` config** — gone from unifi.nix.
 - [ ] ~~Drop console autologin~~ **Deferred** (2026-07): accepted risk — server is physically at home and disks are unencrypted anyway, so physical access already means data access.
-- [ ] **Considering: drop passwordless sudo** — fully supported by nh: without `-e passwordless` it prompts locally (`[sudo] password for <host>:`) and pipes the password to `sudo --stdin` over SSH. Just remove `-e passwordless` from the `deploy` helper and set `wheelNeedsPassword = true`. Verify the password is remembered first (`su - denzo`), reset via `sudo passwd denzo` if not.
+- [x] **Drop passwordless sudo + docker group** — `wheelNeedsPassword` back to default (true) and denzo removed from the root-equivalent docker group; deploys now prompt for the sudo password (nh pipes it to `sudo --stdin` over SSH). Note for Claude: deploys are interactive now — the user runs `deploy`, not Claude.
 
 ## Improvements
 
