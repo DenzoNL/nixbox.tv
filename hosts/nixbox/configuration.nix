@@ -27,10 +27,11 @@
   # Enable Nix Flakes
   nix = {
     package = pkgs.nixVersions.stable;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
     settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       trusted-users = [ "@wheel" ];
       # Deduplicate identical store files via hardlinks
       auto-optimise-store = true;
@@ -136,17 +137,26 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    bat
     beets
+    bottom
+    dust
     eza
+    fd
     git
     htop
     iftop
     ncdu
     pciutils
     rclone
+    ripgrep
     screen
+    smartmontools
     wget
   ];
+
+  # Firmware updates (fwupdmgr refresh / update)
+  services.fwupd.enable = true;
 
   services.zfs.zed.settings = {
     ZED_DEBUG_LOG = "/tmp/zed.debug.log";
