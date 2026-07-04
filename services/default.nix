@@ -18,6 +18,7 @@
     ./radarr.nix
     ./rtorrent.nix
     ./samba.nix
+    ./sanoid.nix
     ./scrutiny.nix
     ./sonarr.nix
     ./ssh.nix
