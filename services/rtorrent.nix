@@ -14,6 +14,11 @@
     '';
   };
 
+  # rtorrent flushes session state for every torrent on shutdown, which can take
+  # well over the default 90s stop timeout; systemd would then SIGKILL it and
+  # risk corrupting the session.
+  systemd.services.rtorrent.serviceConfig.TimeoutStopSec = "5min";
+
   # setgid + group mediausers so new torrents inherit the shared group (rtorrent's
   # own group is `rtorrent`). This lets the *arr apps hardlink downloads into the
   # library instead of copying, and keeps that group on the hardlinked files.

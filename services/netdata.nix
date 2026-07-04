@@ -19,6 +19,10 @@
     # web binding, so without this Netdata listens on all interfaces.
     config.web."bind to" = "127.0.0.1";
 
+    # No traffic-control QoS on this host; the tc plugin only logs
+    # "FireQOS is not installed" noise.
+    config.plugins.tc = "no";
+
     # Route all health alerts to the self-hosted ntfy on a dedicated topic.
     # health_alarm_notify.conf fully replaces the stock file, so start from the
     # package's copy and append our overrides (it's sourced bash, last wins).

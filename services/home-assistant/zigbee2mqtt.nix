@@ -43,5 +43,13 @@
     };
   };
 
+  # z2m exits immediately when the broker is unreachable, so make sure
+  # mosquitto is up first (it raced mosquitto at boot and crash-looped once
+  # or twice before recovering).
+  systemd.services.zigbee2mqtt = {
+    after = [ "mosquitto.service" ];
+    wants = [ "mosquitto.service" ];
+  };
+
   services.nginx.virtualHosts."z2m.${domain}" = mkProxy 8083;
 }

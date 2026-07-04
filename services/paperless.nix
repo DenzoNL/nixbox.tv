@@ -21,8 +21,8 @@ in
         "https"
       ];
       PAPERLESS_URL = "https://${hostName}";
-      USE_X_FORWARD_HOST = true;
-      USE_X_FORWARD_PORT = true;
+      PAPERLESS_USE_X_FORWARD_HOST = true;
+      PAPERLESS_USE_X_FORWARD_PORT = true;
     };
   };
 
