@@ -35,7 +35,8 @@ Check items off as they land; delete this file when empty.
 - [ ] **Plan for pool capacity** — `zwembad` at 85% (2.3T free); ZFS write performance degrades past ~90%.
 - [x] **Add lint/format checks** — whole tree formatted with nixfmt (RFC style); `nixfmt`/`statix`/`deadnix` in the dev shell, `nix fmt` wired via the `formatter` output, and `nix flake check` now gates formatting + lints + config eval. Style lints `empty_pattern`/`repeated_keys` deliberately disabled in `statix.toml`.
 - [x] **Update stale docs** — CLAUDE.md rewritten against the actual tree (mkProxy pattern, security model incl. deliberate exceptions, storage/backup layers, interactive deploys, check tooling); README service list and dev workflow brought current.
-- [ ] **Plan PostgreSQL major upgrade** — the cluster is still on PostgreSQL 14 (pinned by `stateVersion`), which reaches end-of-life November 2026. Needs a `pg_upgrade`/dump-restore migration plus bumping `services.postgresql.package`.
+- [x] **PostgreSQL upgraded 14 → 17.10** (2026-07-04, dump/restore per UPGRADE-PG17.md; all consumers verified). Remaining cleanup after a few days of confidence: `sudo rm -rf /var/lib/postgresql/14`, delete UPGRADE-PG17.md.
+- [ ] **HA integrations silently broken (pre-existing)** — `tautulli` and `wyoming` fail to import (`No module named ...`); add to `extraComponents` in home-assistant.nix or remove from the HA config.
 - [ ] Small QoL: `smartmontools` in systemPackages (only inside scrutiny's store path today), `services.fwupd.enable`, `nix.settings.experimental-features` instead of `extraOptions`, `bat`/`dust`/`bottom`/`ripgrep`/`fd`.
 
 ## Watch (no action yet)
