@@ -31,16 +31,22 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    settings.trusted-users = [ "@wheel" ];
+    settings = {
+      trusted-users = [ "@wheel" ];
+      # Deduplicate identical store files via hardlinks
+      auto-optimise-store = true;
+    };
   };
 
   # Allow unfree packages
-  nixpkgs.config = {
-    allowUnfree = true;
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
+  nixpkgs.config.allowUnfree = true;
+
+  # Automatic cleanup of old generations and unreferenced store paths
+  programs.nh = {
+    enable = true;
+    clean = {
+      enable = true;
+      extraArgs = "--keep 5 --keep-since 14d";
     };
   };
 
