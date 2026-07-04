@@ -4,107 +4,93 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is **nixbox.tv**, a NixOS flake-based configuration for personal media server infrastructure. The project uses declarative configuration to manage the nixbox host running various media services like Plex, Sonarr, Radarr, and supporting infrastructure.
+This is **nixbox.tv**, a NixOS flake-based configuration for a personal home server (host: **nixbox**). It runs a media stack (Plex, the *arr suite, rTorrent), photo/document/home-automation services (Immich, Paperless, Home Assistant), and supporting infrastructure — all declared in this repo. `TODO.md` tracks known issues and planned improvements.
 
 ## Common Development Commands
 
 ### Building and Deploying
 
-Inside the dev shell (`nix develop`) a `deploy` helper wraps the command below — it targets nixbox.
+**Deploys are interactive**: nh prompts for the remote sudo password (`wheelNeedsPassword` is on) and pipes it to `sudo --stdin` over SSH. The user runs deploys, not Claude — prepare the change, then ask the user to run `deploy`.
 
-Deploy configuration using `nh` (provided in the dev shell). It builds and activates on the remote host and shows a package diff before switching:
+Inside the dev shell (`nix develop`, or automatically via direnv) a `deploy [host]` helper wraps:
+
 ```shell
-# Deploy to nixbox host (media server)
 nh os switch . -H nixbox --target-host nixbox --build-host nixbox
 ```
 
-Notes:
-- `-H/--hostname` selects the `nixosConfiguration` (replaces the `.#<host>` attribute path).
-- Deploys prompt for the remote sudo password (nh pipes it to `sudo --stdin` over SSH), so they are interactive — the user runs them, not Claude.
-
-Build configuration without switching:
+Build without switching (non-interactive, fine for Claude):
 ```shell
 nh os build . -H nixbox
 ```
 
-### Updating Dependencies
+### Checks and Formatting
 
-Update flake inputs:
+Run before committing:
 ```shell
-nix flake update
+nix flake check   # formatting + statix + deadnix + config evaluation
+nix fmt           # format the tree (nixfmt, RFC style)
 ```
 
-Update specific input:
+`statix.toml` disables the `empty_pattern` and `repeated_keys` lints on purpose (house style uses `{ ... }:` module signatures and dotted keys).
+
+### Updating Dependencies
+
 ```shell
-nix flake lock --update-input nixpkgs
+nix flake update                        # all inputs
+nix flake lock --update-input nixpkgs   # one input
 ```
 
 ### Secret Management
 
-This project uses SOPS for secret management. Secrets are stored in `hosts/*/secrets.yaml` files.
+Secrets live sops-encrypted in `hosts/nixbox/secrets.yaml` (age keys in `.sops.yaml`; the host decrypts with its SSH host key):
 
-Edit secrets for the host:
 ```shell
-sops hosts/nixbox/secrets.yaml
-```
-
-Generate age key from SSH key (required for initial setup):
-```shell
-nix-shell -p ssh-to-age --run "ssh-to-age -private-key -i ~/.ssh/id_ed25519 > ~/.config/sops/age/keys.txt"
-```
-
-### Development Shell
-
-Enter development shell with necessary tools:
-```shell
-nix develop
+sops hosts/nixbox/secrets.yaml                          # interactive edit
+sops set hosts/nixbox/secrets.yaml '["a"]["b"]' '"v"'   # non-interactive
 ```
 
 ## Architecture and Code Structure
 
-### Hosts
+### Flake layout
 
-- **nixbox** (`hosts/nixbox/`): The media server hosting all media services (Plex, *arr suite, torrent client) and supporting infrastructure.
+- `flake.nix` — inputs (nixos-unstable, home-manager, sops-nix), the `nixbox` nixosConfiguration, dev shells, checks, formatter. `specialArgs` passes `domain` ("nixbox.tv") to all modules.
+- `hosts/nixbox/` — hardware config, base system (`configuration.nix`), ACME certificates, docker, networking, secrets.
+- `services/` — one self-contained module per service, aggregated by `services/default.nix`.
+- `users/` — home-manager configs for denzo and root.
+- `overlays/` — package modifications (currently: rtorrent/libtorrent-rakshasa pinned to matching versions).
 
-### Services
+### The mkProxy helper
 
-Services are modularized in `services/` directory. Each service is a self-contained NixOS module that:
-- Configures the service daemon
-- Sets up nginx reverse proxy with SSL (using Let's Encrypt)
-- Manages firewall rules
-- Handles data directories and permissions
+`services/nginx.nix` defines `mkProxy` via `_module.args`: TLS-terminating vhost with the wildcard cert, proxying to a localhost port. Services use it as:
 
-Key service patterns:
-- All services use the `mediausers` group for shared media access
-- Services expose themselves at `https://<service>.${domain}` where domain is "nixbox.tv"
-- Services requiring persistent data use ZFS datasets mounted at `/mnt/<service>`
+```nix
+services.nginx.virtualHosts."x.${domain}" = mkProxy 1234;
+# merge extra settings with `// { ... }`, or lib.recursiveUpdate for nested keys
+```
 
-### Module System
+Services bind to `127.0.0.1` explicitly where the default "localhost" could resolve to `::1` and 502.
 
-The flake uses NixOS modules with special arguments:
-- `domain`: Base domain name (nixbox.tv) used across all services
-- `pkgsStable`: Stable nixpkgs for services requiring specific versions
-- `customPkgs`: Custom packages defined in `packages/`
+### Networking / security model
 
-### Networking
+- nginx (80/443) is **not** opened in the firewall: web UIs are reachable only via the Tailscale interface (`trustedInterfaces = [ "tailscale0" ]`), i.e. tailnet-only.
+- Deliberate exceptions: **Plex :32400 is publicly reachable** (family remote streaming — do not "fix"), Samba serves LAN + tailnet (`hosts allow`), mosquitto 1883 and the HomeKit/mDNS ports are LAN-open, UniFi opens its device-adoption ports.
+- SSH: key-only, no root login. Forgejo shares the host sshd (forced commands on the `forgejo` user).
 
-- **Security Model**: All services are only accessible via Tailscale VPN (not publicly exposed)
-- Internal services communicate via Tailscale mesh network
-- Public access through nginx reverse proxy with automatic SSL (only for explicitly public services)
-- Firewall rules managed per-service
-- LAN network: 192.168.0.0/24
+### Storage and backups
 
-### Monitoring
+- ZFS pool **zwembad** (2×18T mirror, single flat dataset) mounted at `/mnt/storage` — media only. Watch capacity; it runs high (~85%).
+- Service state lives in `/var/lib` on the NVMe root (ext4) — not ZFS.
+- Three-layer data protection: sanoid snapshots of zwembad (hourly/daily, restore from `/mnt/storage/.zfs/snapshot/`), nightly borg to a Hetzner storage box (with `postgresqlBackup` dumps at 23:15; live DB files are excluded), monthly borg verification. Backup status lands on ntfy.
 
-Monitoring runs on nixbox via Netdata (`services/netdata.nix`):
-- Local Netdata agent with the bundled cloud UI, proxied at `https://netdata.${domain}`
-- Health alerts routed to the self-hosted ntfy instance
+### Monitoring and alerting
+
+Netdata agent (cloud UI bundled) at `https://netdata.${domain}`; health alerts, ZED (ZFS events), scrutiny (SMART), and borg all notify the self-hosted ntfy (`https://ntfy.${domain}`, iOS via upstream ntfy.sh).
 
 ## Key Conventions
 
-1. **Service Configuration**: Always import services as NixOS modules in host configuration files
-2. **SSL Certificates**: Use shared wildcard certificate via `useACMEHost = "${domain}"`
-3. **Data Storage**: Use ZFS datasets for service data, mounted at `/mnt/<service>`
-4. **User Management**: Add service users to `mediausers` group for shared media access
-5. **Secrets**: Store in host-specific `secrets.yaml`, reference via `config.sops.secrets.<name>`
-6. **Reverse Proxy**: All services should be proxied through nginx with forced SSL
+1. One module per service in `services/`, imported via `services/default.nix`
+2. Reverse proxy with `mkProxy` + shared wildcard cert (`useACMEHost = domain`)
+3. Media-touching services join the `mediausers` group; downloads dir is setgid `mediausers` with umask 0007 so the *arrs hardlink instead of copy
+4. Secrets via sops; never commit plaintext secrets (service env vars go through `EnvironmentFile` from a sops secret)
+5. `system.stateVersion` is 23.05 — never bump it casually; PostgreSQL major version is pinned by it
+6. Keep `TODO.md` current when fixing or deferring known issues

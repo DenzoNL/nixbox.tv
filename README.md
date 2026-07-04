@@ -1,24 +1,23 @@
-# nixbox.tv 
+# nixbox.tv
 
-A Nix Flake for my personal media server, inspired by [Saltbox](https://github.com/saltyorg/Saltbox).
+A NixOS flake for my personal home server, inspired by [Saltbox](https://github.com/saltyorg/Saltbox).
 
 ## Services
 
-Nixbox.tv is configured with the following services:
+**Media**: Plex, Sonarr, Radarr, Lidarr, Bazarr, Prowlarr, rTorrent + Flood, Audiobookshelf
 
-- Plex
-- Sonarr
-- Radarr
-- Lidarr
-- rTorrent
-- Flood (UI for rTorrent)
+**Apps**: Immich (photos), Paperless (documents), Karakeep (bookmarks), Forgejo + Actions runner (git), The Lounge (IRC)
+
+**Home automation**: Home Assistant, Mosquitto, Zigbee2MQTT
+
+**Infrastructure**: nginx (tailnet-only reverse proxy, wildcard TLS), Tailscale, Samba, UniFi, ntfy (notifications), Netdata (monitoring), Scrutiny (SMART), BorgBackup + sanoid ZFS snapshots
 
 ## Setup
 
 Fork & clone this git repository to your home directory:
 
 ```shell
-$ git clone git@github.com:<USERNAME>/nixbox.tv.git 
+$ git clone git@github.com:<USERNAME>/nixbox.tv.git
 ```
 
 > :warning: **Don't use my hardware-configuration.nix, generate your own!**: Be very careful here!
@@ -38,6 +37,14 @@ $ nh os switch . -H nixbox --target-host nixbox --build-host nixbox
 Or, from inside the dev shell (`nix develop`), use the `deploy` helper:
 
 ```shell
-$ deploy          # deploys nixbox
+$ deploy          # deploys nixbox (prompts for the sudo password)
 ```
 
+## Development
+
+The dev shell ships `nixfmt`, `statix` and `deadnix`. Before committing:
+
+```shell
+$ nix fmt          # format
+$ nix flake check  # formatting + lints + config evaluation
+```
