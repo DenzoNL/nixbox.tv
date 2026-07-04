@@ -24,7 +24,7 @@
         browseable = "yes";
         "read only" = "no";
         "guest ok" = "no";
-        "create mask" = "0644";
+        "create mask" = "0664";
         "directory mask" = "0755";
         "force user" = "denzo";
         "force group" = "mediausers";
