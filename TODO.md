@@ -31,7 +31,7 @@ Check items off as they land; delete this file when empty.
 - [x] **Enable Intel Quick Sync for Plex + Immich** — iHD driver 26.1.6 verified via vainfo (HEVC Main10 decode+encode, VP9, AV1 decode); immich sandbox opened for renderD128. UI toggles: Plex Transcoder hw accel + HDR tone mapping, Immich VAAPI.
 - [ ] **Re-check CPU temps in a week or two** — cores hit 82°C under software transcoding; if they still run hot now that QSV offloads it, check cooling/dust. Optionally OpenVINO for Immich ML later.
 - [ ] **Add local ZFS snapshots** — `services.sanoid` on `zwembad`; borg covers offsite but a stray `rm` on `/mnt/storage` is currently unrecoverable.
-- [ ] **Tame swap** — `zramSwap.enable = true` + `vm.swappiness = 10`; 6.6G/8.8G swap used by cold pages keeps tripping netdata's 90% alert.
+- [x] **Tame swap** — zram (zstd, 50% RAM, priority over the disk partition) + `vm.page-cluster = 0`. Swappiness deliberately left at 60: two weeks of netdata history showed ~0 swap I/O (cold pages, no thrashing), so lowering it would only waste RAM on idle pages.
 - [ ] **Plan for pool capacity** — `zwembad` at 85% (2.3T free); ZFS write performance degrades past ~90%.
 - [ ] **Add lint/format checks** — `nixfmt-rfc-style`, `statix`, `deadnix` in the dev shell + a `checks` flake output so `nix flake check` catches drift.
 - [ ] **Update stale docs** — CLAUDE.md references `pkgsStable`/`customPkgs`/`packages/` which no longer exist; README lists 6 of ~20 services.

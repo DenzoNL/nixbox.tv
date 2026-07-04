@@ -105,6 +105,18 @@
   # ZFS
   services.zfs.autoScrub.enable = true;
 
+  # Compressed in-RAM swap, higher priority than the disk partition (which
+  # stays as overflow). Idle service pages park here compressed instead of
+  # accumulating on the NVMe. Metrics show no thrashing (swap I/O ~0), so
+  # swappiness stays at the default.
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 50;
+  };
+  # No swap readahead: it only benefits rotational swap, zram reads are instant
+  boot.kernel.sysctl."vm.page-cluster" = 0;
+
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
