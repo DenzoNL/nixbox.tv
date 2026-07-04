@@ -117,6 +117,16 @@
   # No swap readahead: it only benefits rotational swap, zram reads are instant
   boot.kernel.sysctl."vm.page-cluster" = 0;
 
+  # With zram the kernel OOM killer can trigger too late (compressing into a
+  # RAM-backed device under pressure), risking a lockup; systemd-oomd kills
+  # the worst cgroup early. The daemon runs by default but monitors nothing
+  # until slices opt in.
+  systemd.oomd = {
+    enableRootSlice = true;
+    enableSystemSlice = true;
+    enableUserSlices = true;
+  };
+
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
