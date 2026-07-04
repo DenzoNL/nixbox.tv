@@ -29,7 +29,11 @@
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/153ed9e2-20ed-44b2-8376-7d5ae4bc93ae"; }
+    [ { device = "/dev/disk/by-uuid/153ed9e2-20ed-44b2-8376-7d5ae4bc93ae";
+        # TRIM the whole swap area at swapon; it sits behind zram and is
+        # mostly empty, so tell the SSD's garbage collector as much.
+        discardPolicy = "once";
+      }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

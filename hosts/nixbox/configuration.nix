@@ -105,6 +105,10 @@
   # ZFS
   services.zfs.autoScrub.enable = true;
 
+  # Weekly TRIM of the ext4 root; nothing else discards freed blocks there
+  # (the ZFS pool trims itself via the zfs.trim default).
+  services.fstrim.enable = true;
+
   # Compressed in-RAM swap, higher priority than the disk partition (which
   # stays as overflow). Idle service pages park here compressed instead of
   # accumulating on the NVMe. Metrics show no thrashing (swap I/O ~0), so
