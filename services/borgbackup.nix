@@ -6,9 +6,19 @@
     "borg/passphrase" = {};
   };
 
+  # Nightly pg_dumpall shortly before the borg run: borg then backs up the
+  # dumps instead of live datafiles (which change mid-backup and would be
+  # inconsistent on restore).
+  services.postgresqlBackup = {
+    enable = true;
+    backupAll = true;
+    startAt = "*-*-* 23:15:00";
+  };
+
   services.borgbackup.jobs."nixbox" = {
     paths = [
       "/var/lib"
+      "/var/backup/postgresql"
       "/home"
       "/mnt/storage/docs"
       "/mnt/storage/music"
@@ -16,11 +26,32 @@
     exclude = [
       # very large paths
       "/var/lib/containers"
+      "/var/lib/docker"
       "/var/lib/systemd"
       "/var/lib/libvirt"
       "/var/lib/plex/Plex Media Server/Cache"
       "/var/lib/lidarr/.config/Lidarr/MediaCover"
+
+      # live databases (they change mid-backup and restore inconsistent):
+      # postgres is covered by the pg_dumpall above, plex by its own scheduled
+      # DB backups (dated com.plexapp.plugins.library.db-YYYY-MM-DD files in
+      # the same directory, which are still included), unifi by its autobackups
+      # in /var/lib/unifi/data/backup.
+      "/var/lib/postgresql"
+      "/var/lib/unifi/data/db"
+      "/var/lib/plex/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db"
+      "/var/lib/plex/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.blobs.db"
+      "sh:/var/lib/plex/Plex Media Server/Plug-in Support/Databases/*.db-wal"
+      "sh:/var/lib/plex/Plex Media Server/Plug-in Support/Databases/*.db-shm"
     ];
+    # Thin out old archives (the module runs `borg compact` afterwards, so
+    # pruned space is actually freed on the storage box)
+    prune.keep = {
+      within = "2d";
+      daily = 7;
+      weekly = 4;
+      monthly = 6;
+    };
     repo = "ssh://u406496@u406496.your-storagebox.de:23/./backups/nixbox";
     encryption = {
       mode = "repokey-blake2";
@@ -29,11 +60,14 @@
     environment.BORG_RSH = "ssh -i ${config.sops.secrets."borg/ssh_private_key".path}";
     compression = "auto,lzma";
     startAt = "daily";
+    # Borg exit codes: 0 = success, 1 = completed with warnings, >=2 = error.
     postHook = ''
-      if [ $exitStatus -eq 2 ]; then
-        ${pkgs.ntfy-sh}/bin/ntfy send https://ntfy.${domain}/nixbox "BorgBackup: nixbox backup failed with errors"
+      if [ $exitStatus -eq 0 ]; then
+        ${pkgs.ntfy-sh}/bin/ntfy send https://ntfy.${domain}/nixbox "BorgBackup: nixbox backup completed successfully"
+      elif [ $exitStatus -eq 1 ]; then
+        ${pkgs.ntfy-sh}/bin/ntfy send https://ntfy.${domain}/nixbox "BorgBackup: nixbox backup completed with warnings, check the journal"
       else
-        ${pkgs.ntfy-sh}/bin/ntfy send https://ntfy.${domain}/nixbox "BorgBackup: nixbox backup completed succesfully with exit status $exitStatus"
+        ${pkgs.ntfy-sh}/bin/ntfy send https://ntfy.${domain}/nixbox "BorgBackup: nixbox backup FAILED with exit status $exitStatus"
       fi
     '';
   };
@@ -56,11 +90,13 @@
       Type = "oneshot";
       ExecStart = pkgs.writeShellScript "borg-check" ''
         export BORG_PASSPHRASE=$(cat ${config.sops.secrets."borg/passphrase".path})
-        
+
         echo "Starting BorgBackup repository verification..."
-        
-        # Repository-only check (fast, checks repository integrity)
-        if ${pkgs.borgbackup}/bin/borg check --repository-only; then
+
+        # Repository integrity (fast), then archive metadata of the three most
+        # recent archives (slower, catches corrupt archives a repo check misses)
+        if ${pkgs.borgbackup}/bin/borg check --repository-only \
+            && ${pkgs.borgbackup}/bin/borg check --archives-only --last 3; then
           ${pkgs.ntfy-sh}/bin/ntfy send https://ntfy.${domain}/nixbox \
             "BorgBackup: Monthly repository check passed ✓"
         else
@@ -68,16 +104,6 @@
             "BorgBackup: Monthly repository check FAILED! Manual intervention required"
           exit 1
         fi
-        
-        # Optional: Archive check (slower, checks archive metadata)
-        # Uncomment the following if you want more thorough monthly checks:
-        # if ${pkgs.borgbackup}/bin/borg check --archives-only --last 3; then
-        #   echo "Archive check passed"
-        # else
-        #   ${pkgs.ntfy-sh}/bin/ntfy send https://ntfy.${domain}/nixbox \
-        #     "BorgBackup: Archive check FAILED!"
-        #   exit 1
-        # fi
       '';
       User = "root";
     };
