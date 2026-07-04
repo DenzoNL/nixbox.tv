@@ -1,7 +1,7 @@
 { config, ... }:
 
 {
-  sops.secrets."tailscale/authKey" = {};
+  sops.secrets."tailscale/authKey" = { };
 
   services.tailscale = {
     enable = true;

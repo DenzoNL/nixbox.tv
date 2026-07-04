@@ -12,7 +12,7 @@
       kc = "kubectx";
       kn = "kubens";
       tf = "terraform";
-      
+
       # Modern replacements for ls
       ls = "exa --icons";
       ll = "exa -l --icons --git";

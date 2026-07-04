@@ -1,7 +1,7 @@
 { config, domain, ... }:
 
 {
-  sops.secrets."acme/porkbun" = {};
+  sops.secrets."acme/porkbun" = { };
 
   # Configure Let's Encrypt DNS-01 challenge
   security.acme = {
@@ -14,7 +14,7 @@
     };
     # Create and auto-renew wildcard certificate
     certs."${domain}" = {
-      domain = domain;
+      inherit domain;
       extraDomainNames = [
         "*.${domain}"
       ];

@@ -1,6 +1,7 @@
 { nixpkgs }:
 let
-  mkDevShell = system:
+  mkDevShell =
+    system:
     let
       pkgs = nixpkgs.legacyPackages.${system};
 
@@ -17,10 +18,13 @@ let
     pkgs.mkShell {
       packages = with pkgs; [
         age
+        deadnix
         deploy
         nh
+        nixfmt
         nixos-rebuild
         sops
+        statix
       ];
       shellHook = ''
         echo "Dev shell ready. Run 'deploy [host]' to deploy (default: nixbox)."

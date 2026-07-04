@@ -1,5 +1,5 @@
 # Modifications overlay - changes to existing packages
-final: prev:
+_final: prev:
 let
   version = "0.16.11";
 in
@@ -16,7 +16,7 @@ in
   });
 
   # rtorrent override - matching version with libtorrent
-  rtorrent = prev.rtorrent.overrideAttrs (old: {
+  rtorrent = prev.rtorrent.overrideAttrs (_: {
     inherit version;
     src = prev.fetchFromGitHub {
       owner = "rakshasa";

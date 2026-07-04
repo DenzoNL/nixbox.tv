@@ -1,0 +1,5 @@
+# Style lints we deliberately opt out of:
+# - empty_pattern: modules use `{ ... }:` for a uniform signature
+# - repeated_keys: dotted keys (`home.username = ...`) are house style,
+#   and generated hardware-configuration.nix uses them too
+disabled = ["empty_pattern", "repeated_keys"]

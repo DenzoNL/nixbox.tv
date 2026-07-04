@@ -1,9 +1,14 @@
- { config, domain, pkgs, ... }:
+{
+  config,
+  domain,
+  pkgs,
+  ...
+}:
 
- {
+{
   sops.secrets = {
-    "borg/ssh_private_key" = {};
-    "borg/passphrase" = {};
+    "borg/ssh_private_key" = { };
+    "borg/passphrase" = { };
   };
 
   # Nightly pg_dumpall shortly before the borg run: borg then backs up the
@@ -114,8 +119,8 @@
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnCalendar = "monthly";
-      RandomizedDelaySec = "4h";  # Randomize to avoid load spikes
-      Persistent = true;  # Run if system was offline when scheduled
+      RandomizedDelaySec = "4h"; # Randomize to avoid load spikes
+      Persistent = true; # Run if system was offline when scheduled
     };
   };
 }

@@ -14,7 +14,6 @@ let
     }
   ];
 
-
   generateMqttBinarySensors = user: [
     {
       name = "FFXIV | ${user.name} | Online";
@@ -79,7 +78,7 @@ let
     {
       name = "FFXIV | ${user.name} | Job";
       state_topic = "ffxiv/${user.topic}/Player/Info";
-      value_template = ''{{ value_json.Class }}'';
+      value_template = "{{ value_json.Class }}";
       icon = "mdi:sword";
     }
     {
@@ -120,7 +119,8 @@ let
       '';
     }
   ];
-in {
+in
+{
   services.home-assistant.config = {
     mqtt = {
       binary_sensor = lib.concatMap generateMqttBinarySensors users;
