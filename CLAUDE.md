@@ -72,7 +72,7 @@ Services bind to `127.0.0.1` explicitly where the default "localhost" could reso
 
 ### Networking / security model
 
-- nginx (80/443) is **not** opened in the firewall: web UIs are reachable only via the Tailscale interface (`trustedInterfaces = [ "tailscale0" ]`), i.e. tailnet-only.
+- nginx (80/443) is open in the firewall for LAN + tailnet: split-horizon DNS (Unbound on OPNsense) resolves `*.nixbox.tv` to the local IP, so web UIs work on the LAN without Tailscale; WAN stays NAT'd behind OPNsense. Tailscale remains via `trustedInterfaces = [ "tailscale0" ]`.
 - Deliberate exceptions: **Plex :32400 is publicly reachable** (family remote streaming — do not "fix"), Samba serves LAN + tailnet (`hosts allow`), mosquitto 1883 and the HomeKit/mDNS ports are LAN-open, UniFi opens its device-adoption ports.
 - SSH: key-only, no root login. Forgejo shares the host sshd (forced commands on the `forgejo` user).
 

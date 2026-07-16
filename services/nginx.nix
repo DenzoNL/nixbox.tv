@@ -1,6 +1,14 @@
 { domain, ... }:
 
 {
+  # LAN clients reach the web UIs directly: OPNsense/Unbound split-horizon DNS
+  # resolves *.nixbox.tv to the local IP, so 80/443 must be open beyond the
+  # tailscale0 trusted interface. WAN is still NAT'd behind OPNsense.
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
+
   services.nginx = {
     enable = true;
 
