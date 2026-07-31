@@ -36,10 +36,27 @@
         "type": "github"
       }
     },
+    "nixpkgs-romm": {
+      "locked": {
+        "lastModified": 1785459663,
+        "narHash": "sha256-LxaFX3VZhnC6D+i5YBi5s9m9XOwRkKOjqmqckm2DhNQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "84321e9c09bf63a46eac271b56c4546e44975ff7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/547607/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-romm": "nixpkgs-romm",
         "sops-nix": "sops-nix"
       }
     },

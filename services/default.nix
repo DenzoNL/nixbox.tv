@@ -16,6 +16,7 @@
     ./plex.nix
     ./prowlarr.nix
     ./radarr.nix
+    ./romm.nix
     ./rtorrent.nix
     ./samba.nix
     ./sanoid.nix
