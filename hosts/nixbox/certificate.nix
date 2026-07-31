@@ -11,6 +11,11 @@
       dnsProvider = "porkbun";
       environmentFile = config.sops.secrets."acme/porkbun".path;
       dnsPropagationCheck = true;
+      # Split-horizon DNS: the LAN resolver overrides nixbox.tv and returns
+      # nothing for its SOA/NS, so lego's zone detection walks up to the "tv"
+      # TLD and porkbun rejects the challenge record ("Invalid domain").
+      # Use a public resolver for zone detection and propagation checks.
+      dnsResolver = "9.9.9.9:53";
     };
     # Create and auto-renew wildcard certificate
     certs."${domain}" = {
