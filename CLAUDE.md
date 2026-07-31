@@ -12,11 +12,13 @@ This is **nixbox.tv**, a NixOS flake-based configuration for a personal home ser
 
 **Deploys are interactive**: nh prompts for the remote sudo password (`wheelNeedsPassword` is on) and pipes it to `sudo --stdin` over SSH. The user runs deploys, not Claude — prepare the change, then ask the user to run `deploy`.
 
-Inside the dev shell (`nix develop`, or automatically via direnv) a `deploy [host]` helper wraps:
+Inside the dev shell (`nix develop`, or automatically via direnv) a `deploy` helper wraps:
 
 ```shell
-nh os switch . -H nixbox --target-host nixbox --build-host nixbox
+nh os switch . -H nixbox --target-host nixbox.tv --build-host nixbox.tv
 ```
+
+(The flake attribute stays `nixbox`; the machine is reached as `nixbox.tv`, which split-horizon DNS resolves to the LAN IP.)
 
 Build without switching (non-interactive, fine for Claude):
 ```shell
