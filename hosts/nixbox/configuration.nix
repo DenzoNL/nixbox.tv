@@ -41,6 +41,12 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # karakeep still builds with EOL pnpm 9 (build-time only: it installs the
+  # hash-pinned pnpmDeps offline in the sandbox, so the pnpm CVEs' malicious
+  # lockfile/registry scenarios don't apply). Remove once nixpkgs migrates
+  # karakeep off pnpm_9: https://github.com/NixOS/nixpkgs/issues/529285
+  nixpkgs.config.permittedInsecurePackages = [ "pnpm-9.15.9" ];
+
   # Automatic cleanup of old generations and unreferenced store paths
   programs.nh = {
     enable = true;
