@@ -15,6 +15,14 @@
   # IGDB_CLIENT_SECRET, SCREENSCRAPER_USER, ...).
   sops.secrets."romm/environment" = { };
 
+  # The module hardcodes pkgs.rahasher (RetroAchievements hashing), which is
+  # also new in the PR and missing from the main nixpkgs pin.
+  nixpkgs.overlays = [
+    (_final: prev: {
+      inherit (nixpkgs-romm.legacyPackages.${prev.stdenv.hostPlatform.system}) rahasher;
+    })
+  ];
+
   services.romm = {
     enable = true;
     package = nixpkgs-romm.legacyPackages.${pkgs.stdenv.hostPlatform.system}.romm;
