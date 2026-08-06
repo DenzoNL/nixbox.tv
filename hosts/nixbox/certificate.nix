@@ -25,13 +25,20 @@
       ];
     };
 
-    # Forgejo lives on the apex of switchbyte.dev. Kept as a separate cert
-    # from the nixbox.tv wildcard. Reuses the Porkbun credentials above
-    # (account-level API keys), so no extra secret is required.
+    # Forgejo lives on the apex of switchbyte.dev; Matrix federation
+    # (services/tuwunel.nix) is served on matrix.switchbyte.dev:8448. Kept as a
+    # separate cert from the nixbox.tv wildcard. Reuses the Porkbun credentials
+    # above (account-level API keys), so no extra secret is required.
+    # The wildcard SAN covers matrix.switchbyte.dev, and the apex SAN is what
+    # SRV-delegated federation validates against (remote servers check the
+    # cert on 8448 against the server_name, not the SRV target).
     # NOTE: Porkbun requires "API Access" to be enabled on the switchbyte.dev
     # domain itself for the DNS-01 challenge to succeed.
     certs."switchbyte.dev" = {
       domain = "switchbyte.dev";
+      extraDomainNames = [
+        "*.switchbyte.dev"
+      ];
     };
   };
 

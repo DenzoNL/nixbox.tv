@@ -3,6 +3,7 @@
     ./audiobookshelf.nix
     ./bazarr.nix
     ./borgbackup.nix
+    ./ddns-updater.nix
     ./flood.nix
     ./forgejo.nix
     ./home-assistant
@@ -25,6 +26,7 @@
     ./ssh.nix
     ./tailscale.nix
     ./the-lounge.nix
+    ./tuwunel.nix
     ./unifi.nix
   ];
 }
