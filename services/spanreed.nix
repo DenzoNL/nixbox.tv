@@ -27,6 +27,15 @@ in
   # reads EnvironmentFile as root, before dropping to the service user.
   sops.secrets."spanreed/environment" = { };
 
+  # The homeserver (tuwunel) runs on this box, but its public name resolves —
+  # via this host's Tailscale MagicDNS — to the WAN IP, which hairpins to the
+  # OPNsense router and answers 443 with the router's own cert (a name
+  # mismatch that fails spanreed's TLS). Pin the name to the local nginx,
+  # which terminates TLS for it with the valid cert. (Verified: a request to
+  # 127.0.0.1:443 with SNI matrix.switchbyte.dev returns the real cert + the
+  # client-versions endpoint.)
+  networking.extraHosts = "127.0.0.1 matrix.switchbyte.dev";
+
   systemd.services.spanreed = {
     description = "spanreed — self-hosted Matrix web client";
     wantedBy = [ "multi-user.target" ];
