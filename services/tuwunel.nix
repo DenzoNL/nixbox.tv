@@ -29,6 +29,65 @@ in
       # else can sneak in while the window is open.
       allow_registration = false;
       registration_token_file = config.sops.secrets."tuwunel/registrationToken".path;
+
+      # URL previews are fetched *by the server*, so any link posted in an
+      # unencrypted room can make tuwunel issue an HTTP GET from inside the
+      # LAN. Tuwunel has no private-IP blocklist, so the allowlist is the only
+      # guard: with every list empty (the default) nothing is previewed, and
+      # only an exact host match — or its root domain, see below — is fetched.
+      # An IP literal or internal hostname can never match these entries.
+      # Deliberately NOT using url_preview_domain_contains_allowlist: besides
+      # being a substring match, its check is inverted upstream (it tests
+      # whether the *config entry* contains the host), so it misbehaves.
+      # Setting any list to "*" allows everything; don't.
+      url_preview_domain_explicit_allowlist = [
+        # Video / audio
+        "youtube.com"
+        "youtu.be"
+        "vimeo.com"
+        "twitch.tv"
+        "spotify.com"
+        "soundcloud.com"
+        "bandcamp.com"
+        # Code / docs
+        "github.com"
+        "gitlab.com"
+        "codeberg.org"
+        "stackoverflow.com"
+        "crates.io"
+        "docs.rs"
+        "nixos.org"
+        "nixos.wiki"
+        "matrix.org"
+        "element.io"
+        # Reference
+        "wikipedia.org"
+        "archive.org"
+        "imdb.com"
+        # News / discussion
+        "news.ycombinator.com"
+        "reddit.com"
+        "lwn.net"
+        "phoronix.com"
+        "arstechnica.com"
+        "theverge.com"
+        "nytimes.com"
+        "bbc.co.uk"
+        "nos.nl"
+        "tweakers.net"
+        # Social
+        "x.com"
+        "twitter.com"
+        "bsky.app"
+        "mastodon.social"
+        # Images
+        "imgur.com"
+      ];
+      # Strip one leading label before matching, so "www.youtube.com" and
+      # "en.wikipedia.org" hit the bare entries above. Only one label is
+      # stripped (upstream splits on the first dot), which is why entries are
+      # kept at their registrable domain.
+      url_preview_check_root_domain = true;
     };
   };
 
