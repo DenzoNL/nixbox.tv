@@ -17,6 +17,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Self-hosted Matrix web client, built from its own flake. Public repo on
+    # the (LAN/tailnet-only) forgejo — the URL isn't a secret; outsiders just
+    # can't reach it. Follows our nixpkgs (both nixos-unstable).
+    spanreed = {
+      url = "git+https://switchbyte.dev/denzo/spanreed.git?ref=master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Temporary: nixpkgs PR #547607 (romm: init; nixos/romm: init), used only
     # for the romm module + package until it lands in nixos-unstable.
     nixpkgs-romm = {
@@ -31,6 +39,7 @@
       nixpkgs-romm,
       home-manager,
       sops-nix,
+      spanreed,
     }:
     let
       domain = "nixbox.tv";
@@ -51,7 +60,7 @@
               home-manager.users.root = import ./users/root/home.nix;
             }
           ];
-          specialArgs = { inherit domain nixpkgs-romm; };
+          specialArgs = { inherit domain nixpkgs-romm spanreed; };
         };
       };
 

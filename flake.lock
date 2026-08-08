@@ -57,7 +57,8 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-romm": "nixpkgs-romm",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "spanreed": "spanreed"
       }
     },
     "sops-nix": {
@@ -78,6 +79,27 @@
         "owner": "Mic92",
         "repo": "sops-nix",
         "type": "github"
+      }
+    },
+    "spanreed": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786219002,
+        "narHash": "sha256-4Q+2vrj8MyA47Tl36LjoFSGqldUC+hCPdQk/wl3zfas=",
+        "ref": "master",
+        "rev": "a4bf1ab1b6ea2ef3a3547c12f84edf03ba20b2b8",
+        "revCount": 110,
+        "type": "git",
+        "url": "https://switchbyte.dev/denzo/spanreed.git"
+      },
+      "original": {
+        "ref": "master",
+        "type": "git",
+        "url": "https://switchbyte.dev/denzo/spanreed.git"
       }
     }
   },

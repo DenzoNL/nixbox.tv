@@ -23,6 +23,7 @@
     ./sanoid.nix
     ./scrutiny.nix
     ./sonarr.nix
+    ./spanreed.nix
     ./ssh.nix
     ./tailscale.nix
     ./the-lounge.nix
