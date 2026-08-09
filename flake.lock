@@ -104,11 +104,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786302052,
-        "narHash": "sha256-X1Q+uzSAds7VR/DDBNeJZpFXRKHh74RaJ1gjO4llmaA=",
+        "lastModified": 1786303631,
+        "narHash": "sha256-mFcP1/ruhePqZ7S9S83Tey2X1RA7wLB0FfTB7kOXpHc=",
         "ref": "master",
-        "rev": "84b31decd85ccc18d58d8ce35866bc2dc9dd8548",
-        "revCount": 130,
+        "rev": "cbfd4254dccfbcb3bbcc242c7535e6f475a26455",
+        "revCount": 131,
         "type": "git",
         "url": "https://switchbyte.dev/denzo/spanreed.git"
       },
