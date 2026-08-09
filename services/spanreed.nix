@@ -19,6 +19,8 @@ in
   #   MATRIX_HOMESERVER_URL=https://matrix.switchbyte.dev
   #   MATRIX_USERNAME=@you:switchbyte.dev
   #   MATRIX_PASSWORD=...
+  #   MATRIX_RECOVERY_KEY=...   # E2EE unlock (ROADMAP M10); the Matrix
+  #                             # recovery key, keeps encrypted rooms readable
   #   SPANREED_WEB_USERNAME=...
   #   SPANREED_WEB_PASSWORD_HASH=$argon2id$...   # `spanreed hash-password`
   #
