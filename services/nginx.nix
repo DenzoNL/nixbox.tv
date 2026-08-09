@@ -9,6 +9,16 @@
     443
   ];
 
+  # This box federates with large rooms (Matrix HQ etc.), which periodically
+  # storm it with concurrent /_matrix/federation state-resolution requests. The
+  # stock 512 worker_connections gets exhausted ("512 worker_connections are
+  # not enough while connecting to upstream"), and once the pool is full nginx
+  # can't service anything else — including our own browser clients, whose
+  # sync/account_data/media requests then abort with NetworkError (breaking,
+  # e.g., Element's secure-backup setup). Give nginx a much larger connection
+  # pool, and the file descriptors to back it (each proxied connection = two).
+  systemd.services.nginx.serviceConfig.LimitNOFILE = 65536;
+
   services.nginx = {
     enable = true;
 
@@ -18,6 +28,9 @@
     recommendedOptimisation = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
+
+    eventsConfig = "worker_connections 8192;";
+    appendConfig = "worker_rlimit_nofile 32768;";
 
     appendHttpConfig = ''
       # Add HSTS header with preloading to HTTPS requests.
