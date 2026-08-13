@@ -24,19 +24,12 @@
       url = "git+https://switchbyte.dev/denzo/spanreed.git?ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Temporary: nixpkgs PR #547607 (romm: init; nixos/romm: init), used only
-    # for the romm module + package until it lands in nixos-unstable.
-    nixpkgs-romm = {
-      url = "github:NixOS/nixpkgs?ref=pull/547607/head";
-    };
   };
 
   outputs =
     {
       self,
       nixpkgs,
-      nixpkgs-romm,
       home-manager,
       sops-nix,
       spanreed,
@@ -60,7 +53,7 @@
               home-manager.users.root = import ./users/root/home.nix;
             }
           ];
-          specialArgs = { inherit domain nixpkgs-romm spanreed; };
+          specialArgs = { inherit domain spanreed; };
         };
       };
 

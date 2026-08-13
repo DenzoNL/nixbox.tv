@@ -1,31 +1,16 @@
 {
   config,
-  pkgs,
   domain,
-  nixpkgs-romm,
   ...
 }:
 
 {
-  # Module comes from nixpkgs PR #547607 (via the nixpkgs-romm input) until it
-  # lands in nixos-unstable; services.romm doesn't exist on the main pin yet.
-  imports = [ "${nixpkgs-romm}/nixos/modules/services/web-apps/romm.nix" ];
-
   # Metadata provider credentials in dotenv format (IGDB_CLIENT_ID,
   # IGDB_CLIENT_SECRET, SCREENSCRAPER_USER, ...).
   sops.secrets."romm/environment" = { };
 
-  # The module hardcodes pkgs.rahasher (RetroAchievements hashing), which is
-  # also new in the PR and missing from the main nixpkgs pin.
-  nixpkgs.overlays = [
-    (_final: prev: {
-      inherit (nixpkgs-romm.legacyPackages.${prev.stdenv.hostPlatform.system}) rahasher;
-    })
-  ];
-
   services.romm = {
     enable = true;
-    package = nixpkgs-romm.legacyPackages.${pkgs.stdenv.hostPlatform.system}.romm;
     # The default API port (8080) is UniFi's device-inform port.
     port = 8998;
     nginx.virtualHost = "romm.${domain}";
