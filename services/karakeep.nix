@@ -1,19 +1,15 @@
 {
   domain,
   mkProxy,
-  pkgs,
   ...
 }:
 
 {
   services.karakeep = {
     enable = true;
-    # Node 24.19.0 added cleanup hooks to node::ObjectWrap
-    # (https://github.com/nodejs/node/pull/63642), which makes NAN-style
-    # addons like better-sqlite3 abort with "Assertion failed: (env) !=
-    # nullptr" during GC. Build/run on Node 22 LTS until a fixed Node 24.x
-    # reaches nixos-unstable, then drop this override (see TODO.md).
-    package = pkgs.karakeep.override { nodejs = pkgs.nodejs_22; };
+    # No nodejs override here: upstream nixpkgs now pins karakeep to Node 22
+    # itself (the 24.19.0 ObjectWrap regression that crashed better-sqlite3),
+    # and the package no longer takes a `nodejs` argument.
     browser = {
       enable = true;
     };
