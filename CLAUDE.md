@@ -59,7 +59,7 @@ sops set hosts/nixbox/secrets.yaml '["a"]["b"]' '"v"'   # non-interactive
 - `hosts/nixbox/` — hardware config, base system (`configuration.nix`), ACME certificates, docker, networking, secrets.
 - `services/` — one self-contained module per service, aggregated by `services/default.nix`.
 - `users/` — home-manager configs for denzo and root.
-- `overlays/` — package modifications (currently: a patch fixing fastapi-pagination's fastapi-version detection, scoped to romm's python env).
+- `overlays/` — package modifications (currently: a netdata build fix pointing its SNMP-profile codegen at the local Go module proxy).
 
 ### The mkProxy helper
 
