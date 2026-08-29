@@ -19,10 +19,13 @@
 
     # Self-hosted Matrix web client, built from its own flake. Public repo on
     # the (LAN/tailnet-only) forgejo — the URL isn't a secret; outsiders just
-    # can't reach it. Follows our nixpkgs (both nixos-unstable).
+    # can't reach it. Deliberately does NOT follow our nixpkgs: spanreed's
+    # crane dep cache (~490 crates, 7-9 min) is keyed on its own pinned
+    # rustc/stdenv, so following would invalidate it on every nixpkgs bump
+    # here even when nothing about spanreed changed. Both track
+    # nixos-unstable, so the pins converge on spanreed's own flake updates.
     spanreed = {
       url = "git+https://switchbyte.dev/denzo/spanreed.git?ref=master";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

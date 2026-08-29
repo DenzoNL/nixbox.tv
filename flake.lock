@@ -2,11 +2,11 @@
   "nodes": {
     "crane": {
       "locked": {
-        "lastModified": 1785782307,
-        "narHash": "sha256-MPaRdVkf6zZP5fCPxYCi8Dr4pZzgmXzg8T9nVEbp3Mw=",
+        "lastModified": 1787326676,
+        "narHash": "sha256-lWhBbBvC05/xwivKBBiM2YNizpmgqCgyOIzomvRuwxs=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "2c71e194474d13de031d729b729c968ddbe3507f",
+        "rev": "692f7e9ef2ece8125b466f66f2af532b3edaed0d",
         "type": "github"
       },
       "original": {
@@ -36,6 +36,22 @@
       }
     },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1787736819,
+        "narHash": "sha256-cV5xEJJK3BvhU8rEd4mC9UsmDi5qscv/kzGPhBRC5WA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9fbb54b33e91ee4ca368e35a78e0613c720600b3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1787736819,
         "narHash": "sha256-cV5xEJJK3BvhU8rEd4mC9UsmDi5qscv/kzGPhBRC5WA=",
@@ -82,16 +98,14 @@
     "spanreed": {
       "inputs": {
         "crane": "crane",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1786310385,
-        "narHash": "sha256-kJ2nnZtkDo6Gb/Uen7muZmjhfj1WxCSpco99U6dKk7g=",
+        "lastModified": 1788032934,
+        "narHash": "sha256-VlGC+D+invbWBTKGBsnnF5oMsggFW3TQBmuuC/BVtbA=",
         "ref": "master",
-        "rev": "9040b39b50d0a0b8ee7e5a80257fb014b6cb808c",
-        "revCount": 133,
+        "rev": "e93c9a77f08f35fe6ff4fdc5774c33b54e60d63a",
+        "revCount": 140,
         "type": "git",
         "url": "https://switchbyte.dev/denzo/spanreed.git"
       },

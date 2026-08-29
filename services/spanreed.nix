@@ -13,6 +13,14 @@ let
   package = spanreed.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
+  # GC-root spanreed's cached dependency build (crane cargoArtifacts). It is
+  # build-time-only — in no runtime closure — so without this the weekly
+  # nh-clean collects it and the next deploy recompiles ~490 crates (7-9 min)
+  # even with an unchanged Cargo.lock.
+  system.extraDependencies = [
+    spanreed.packages.${pkgs.stdenv.hostPlatform.system}.deps
+  ];
+
   # Matrix account + web-login credentials, as a dotenv blob under
   # "spanreed/environment" in hosts/nixbox/secrets.yaml:
   #
@@ -62,6 +70,15 @@ in
       # sqlite is single-process; systemd keeps exactly one instance.
       DynamicUser = true;
       StateDirectory = "spanreed";
+
+      # Memory backstop. Baseline is tens of MB, but the first deployed
+      # fortnight showed the RSS floor ratcheting (39 -> 110 MB, stepping on
+      # remote-media 404 bursts) with nothing capping it on a box already
+      # into swap. MemoryHigh throttles/reclaims first; MemoryMax + the
+      # kernel OOM kill is the hard stop, and Restart=on-failure brings the
+      # service back with its sqlite state intact.
+      MemoryHigh = "256M";
+      MemoryMax = "512M";
 
       # Hardening — a conservative set known-safe for a network service.
       # (MemoryDenyWriteExecute / SystemCallFilter left off for the first
