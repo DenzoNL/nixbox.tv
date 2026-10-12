@@ -65,6 +65,7 @@
       "audiobookshelf"
       "bazarr"
       "denzo"
+      "jellyfin"
       "lidarr"
       "plex"
       "radarr"
@@ -92,7 +93,7 @@
   boot.blacklistedKernelModules = [ "bluetooth" ];
 
   # Intel Quick Sync on the UHD 730 iGPU: userspace drivers for hardware
-  # video transcoding (Plex, Immich) instead of burning CPU.
+  # video transcoding (Plex, Jellyfin, Immich) instead of burning CPU.
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [

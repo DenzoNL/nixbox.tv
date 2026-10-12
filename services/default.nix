@@ -8,6 +8,7 @@
     ./forgejo.nix
     ./home-assistant
     ./immich.nix
+    ./jellyfin.nix
     ./karakeep.nix
     ./lidarr.nix
     ./netdata.nix
