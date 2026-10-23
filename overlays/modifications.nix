@@ -46,4 +46,13 @@ in
       '';
     }
   );
+
+  # unifi 10.6.106 added lib/native/Linux/x86_64/libubnt_webrtc_jni.so, which
+  # links libstdc++ and libgcc_s. nixpkgs builds the package with stdenvNoCC and
+  # only gives autoPatchelf `systemd`, so the build dies with "auto-patchelf
+  # could not satisfy dependency libstdc++.so.6". Hand it the gcc runtime libs.
+  # Drop once nixpkgs adds them to the package itself.
+  unifi = prev.unifi.overrideAttrs (prevAttrs: {
+    buildInputs = (prevAttrs.buildInputs or [ ]) ++ [ prev.stdenv.cc.cc.lib ];
+  });
 }
