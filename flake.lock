@@ -1,20 +1,5 @@
 {
   "nodes": {
-    "crane": {
-      "locked": {
-        "lastModified": 1787326676,
-        "narHash": "sha256-lWhBbBvC05/xwivKBBiM2YNizpmgqCgyOIzomvRuwxs=",
-        "owner": "ipetkov",
-        "repo": "crane",
-        "rev": "692f7e9ef2ece8125b466f66f2af532b3edaed0d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ipetkov",
-        "repo": "crane",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -51,28 +36,11 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1787736819,
-        "narHash": "sha256-cV5xEJJK3BvhU8rEd4mC9UsmDi5qscv/kzGPhBRC5WA=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "9fbb54b33e91ee4ca368e35a78e0613c720600b3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "sops-nix": "sops-nix",
-        "spanreed": "spanreed"
+        "sops-nix": "sops-nix"
       }
     },
     "sops-nix": {
@@ -93,26 +61,6 @@
         "owner": "Mic92",
         "repo": "sops-nix",
         "type": "github"
-      }
-    },
-    "spanreed": {
-      "inputs": {
-        "crane": "crane",
-        "nixpkgs": "nixpkgs_2"
-      },
-      "locked": {
-        "lastModified": 1788302021,
-        "narHash": "sha256-G5s98/z2+IoVc8QdvS/5wJzDm2u7cz/X1ZT3Hyej5Sg=",
-        "ref": "master",
-        "rev": "a35e673aed02ddf1048ebe8f19f38ccd3dd6019b",
-        "revCount": 141,
-        "type": "git",
-        "url": "https://switchbyte.dev/denzo/spanreed.git"
-      },
-      "original": {
-        "ref": "master",
-        "type": "git",
-        "url": "https://switchbyte.dev/denzo/spanreed.git"
       }
     }
   },
