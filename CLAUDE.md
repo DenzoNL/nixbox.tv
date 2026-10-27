@@ -76,6 +76,7 @@ Services bind to `127.0.0.1` explicitly where the default "localhost" could reso
 
 - nginx (80/443) is open in the firewall for LAN + tailnet: split-horizon DNS (Unbound on OPNsense) resolves `*.nixbox.tv` to the local IP, so web UIs work on the LAN without Tailscale; WAN stays NAT'd behind OPNsense. Tailscale remains via `trustedInterfaces = [ "tailscale0" ]`.
 - Deliberate exceptions: **Plex :32400 is publicly reachable** (family remote streaming — do not "fix"), Samba serves LAN + tailnet (`hosts allow`), mosquitto 1883 and the HomeKit/mDNS ports are LAN-open, UniFi opens its device-adoption ports.
+- rTorrent runs in the `proton` network namespace (`services/protonvpn.nix`): its only uplink is the ProtonVPN WireGuard tunnel (kill switch by construction), the listen port comes from Proton's NAT-PMP lease, and no WAN port is forwarded for it. Flood reaches it over the unix RPC socket, which crosses namespaces.
 - SSH: key-only, no root login. Forgejo shares the host sshd (forced commands on the `forgejo` user).
 
 ### Storage and backups

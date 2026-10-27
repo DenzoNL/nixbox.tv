@@ -16,6 +16,7 @@
     ./ntfy-sh.nix
     ./paperless.nix
     ./plex.nix
+    ./protonvpn.nix
     ./prowlarr.nix
     ./radarr.nix
     ./romm.nix
