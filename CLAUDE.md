@@ -74,8 +74,11 @@ Services bind to `127.0.0.1` explicitly where the default "localhost" could reso
 
 ### Networking / security model
 
-- nginx (80/443) is open in the firewall for LAN + tailnet: split-horizon DNS (Unbound on OPNsense) resolves `*.nixbox.tv` to the local IP, so web UIs work on the LAN without Tailscale; WAN stays NAT'd behind OPNsense. Tailscale remains via `trustedInterfaces = [ "tailscale0" ]`.
-- Deliberate exceptions: **Plex :32400 is publicly reachable** (family remote streaming — do not "fix"), Samba serves LAN + tailnet (`hosts allow`), mosquitto 1883 and the HomeKit/mDNS ports are LAN-open, UniFi opens its device-adoption ports.
+- The home network is split into VLANs on OPNsense; nixbox lives alone in **SERVERS** (VLAN 30, `10.0.30.42`, DHCP reservation). Other zones: **TRUSTED** (VLAN 20, `10.0.20.0/24`: own PCs/phones), **IOT** (VLAN 40, `10.0.40.0/24`: Google/Apple TV/consoles/guests), MGMT (untagged: router, switch, AP). OPNsense enforces: TRUSTED → anything; IOT → nixbox only on 80/443/32400 (+ Apple TV → 21064); SERVERS → IOT + internet, never TRUSTED/MGMT. Never hard-code nixbox's IP; use `nixbox.tv`.
+- nginx (80/443) is open in the firewall: split-horizon DNS (Unbound on OPNsense) resolves `*.nixbox.tv` to nixbox, so web UIs work without Tailscale; WAN stays NAT'd behind OPNsense. Tailscale remains via `trustedInterfaces = [ "tailscale0" ]`.
+- **Every vhost denies the IOT VLAN by default** (`services/nginx.nix` extends the vhost submodule). To expose a new service to IOT devices, add it to `iotAllowedVhosts` there; don't add allow/deny per vhost.
+- mDNS between SERVERS and IOT (Home Assistant ↔ Apple TV / HomeKit Bridge) goes through an Avahi reflector on OPNsense; TRUSTED is deliberately not reflected.
+- Deliberate exceptions: **Plex :32400 is publicly reachable** (family remote streaming — do not "fix"), Samba serves TRUSTED + tailnet (`hosts allow`), mosquitto 1883 and the HomeKit/mDNS ports are open on the host (OPNsense keeps IOT off 1883), UniFi opens its device-adoption ports (devices inform via `unifi.nixbox.tv`).
 - rTorrent runs in the `proton` network namespace (`services/protonvpn.nix`): its only uplink is the ProtonVPN WireGuard tunnel (kill switch by construction), the listen port comes from Proton's NAT-PMP lease, and no WAN port is forwarded for it. Flood reaches it over the unix RPC socket, which crosses namespaces.
 - SSH: key-only, no root login. Forgejo shares the host sshd (forced commands on the `forgejo` user).
 

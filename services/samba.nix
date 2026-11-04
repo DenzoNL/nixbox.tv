@@ -14,8 +14,8 @@
         "server string" = "nixbox";
         "netbios name" = "nixbox";
         "security" = "user";
-        # LAN + Tailscale (CGNAT range) + loopback
-        "hosts allow" = "192.168.0.0/24 100.64.0.0/10 127.0.0.1 localhost";
+        # TRUSTED VLAN + Tailscale (CGNAT range) + loopback
+        "hosts allow" = "10.0.20.0/24 100.64.0.0/10 127.0.0.1 localhost";
         "hosts deny" = "0.0.0.0/0";
         "guest account" = "nobody";
         "map to guest" = "bad user";

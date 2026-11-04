@@ -1,5 +1,7 @@
 # TODO
 
+- [ ] VLAN migration follow-ups (2026-11): once MGMT is renumbered off `192.168.0.0/24`, check nothing else on nixbox still references `192.168.0.x` (`grep -rn 192.168 .`). Clients that hard-coded `192.168.0.42` (e.g. ffxiv2mqtt on the desktops) should use `nixbox.tv` instead.
+
 - [ ] Drop the `netdata` entry in `overlays/modifications.nix` once nixpkgs substitutes `GOPROXY` repo-wide instead of only in `packaging/cmake/Modules/NetdataGoTools.cmake`. netdata 2.11.0 added a "Compressing SNMP trap profile pack" rule in `CMakeLists.txt` that runs `go run ./cmd/snmptrapprofilegen` with `GOPROXY=https://proxy.golang.org,direct` hardcoded, so it tries to hit the network and fails in the sandbox. Hydra's free build only passes because ninja happens to populate `$GOPATH/pkg/mod` first; our `withCloudUi = true` build is unfree, never cached, and always builds locally — so it always loses that race. (`NetdataIBMPlugin.cmake` has the same unsubstituted line, harmless while that plugin is off.)
 
 - [ ] Jellyfin is running alongside Plex as a trial (`services/jellyfin.nix`, `https://jellyfin.nixbox.tv`) because of recurring Plex trouble. Decide which one stays: if Jellyfin wins, retire Plex (its public :32400 firewall exception, the `plex` Home Assistant component, the Plex-specific borg excludes) and give Jellyfin the same treatment (consider the `jellyfin` HA component, and opening UDP 7359 for LAN client discovery); if Plex wins, drop the module and `/var/lib/jellyfin`.
