@@ -10,6 +10,7 @@
     ./jellyfin.nix
     ./karakeep.nix
     ./lidarr.nix
+    ./mam-seedbox.nix
     ./netdata.nix
     ./nginx.nix
     ./ntfy-sh.nix
