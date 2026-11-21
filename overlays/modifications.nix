@@ -4,6 +4,9 @@ let
   # rtorrent/libtorrent are pinned to the release the private trackers accept;
   # keep both on the same version (rtorrent's build picks up libtorrent-rakshasa
   # from the final package set, so overriding it here is enough).
+  # The NixOS module's default rtorrent.rc tracks upstream master and can drift
+  # past this version; services/rtorrent.nix patches it (log outputs). When
+  # bumping the pin, check whether that patch is still needed.
   rtorrentVersion = "0.16.23";
 in
 {

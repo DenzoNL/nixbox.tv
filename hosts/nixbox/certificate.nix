@@ -10,7 +10,6 @@
       email = "dutybounddead@protonmail.com";
       dnsProvider = "porkbun";
       environmentFile = config.sops.secrets."acme/porkbun".path;
-      dnsPropagationCheck = true;
       # Split-horizon DNS: the LAN resolver overrides nixbox.tv and returns
       # nothing for its SOA/NS, so lego's zone detection walks up to the "tv"
       # TLD and porkbun rejects the challenge record ("Invalid domain").

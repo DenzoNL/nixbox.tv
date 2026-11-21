@@ -1,5 +1,32 @@
-{ lib, protonvpn, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  protonvpn,
+  ...
+}:
 
+let
+  cfg = config.services.rtorrent;
+
+  # rtorrent is pinned to 0.16.23 (overlays/modifications.nix), but the NixOS
+  # module's default rtorrent.rc follows upstream's master template, which logs
+  # to the "errors"/"events" outputs. 0.16.23 doesn't know those names and
+  # refuses to start ("invalid option name 'errors'"), so swap in the level it
+  # does know. Revisit together with the pin.
+  rtorrentRc = pkgs.writeText "rtorrent.rc" (
+    builtins.replaceStrings
+      [
+        ''log.add_output = "errors", "log"''
+        ''log.add_output = "events", "log"''
+      ]
+      [
+        ''log.add_output = "info", "log"''
+        ""
+      ]
+      cfg.configText
+  );
+in
 {
   services.rtorrent = {
     enable = true;
@@ -23,6 +50,8 @@
     bindsTo = [ protonvpn.unit ];
     after = [ protonvpn.unit ];
     serviceConfig = {
+      # Same command as the module, with the patched rtorrent.rc (see above).
+      ExecStart = lib.mkForce "${cfg.package}/bin/rtorrent -n -o system.daemon.set=true -o import=${rtorrentRc}";
       NetworkNamespacePath = protonvpn.netnsPath;
       # Tracker lookups via Proton's DNS: hide nscd (it resolves in the host
       # namespace, i.e. outside the tunnel) and swap in a namespace resolv.conf.
